@@ -1,0 +1,39 @@
+class Level{
+    static Map level1;
+
+    function Map level1(){
+        let level1 = Map.new(8,8);
+        do level1.setWall(0,0);
+        do level1.setWall(1,0);
+        do level1.setWall(2,0);
+        do level1.setWall(3,0);
+        do level1.setWall(4,0);
+        do level1.setWall(5,0);
+        do level1.setWall(6,0);
+        do level1.setWall(7,0);
+        do level1.setWall(7,1);
+        do level1.setWall(7,2);
+        do level1.setWall(7,3);
+        do level1.setWall(7,4);
+        do level1.setWall(7,5);
+        do level1.setWall(7,6);
+        do level1.setWall(7,7);
+        do level1.setWall(6,7);
+        do level1.setWall(5,7);
+        do level1.setWall(4,7);
+        do level1.setWall(3,7);
+        do level1.setWall(2,7);
+        do level1.setWall(1,7);
+        do level1.setWall(0,7);
+        do level1.setWall(0,6);
+        do level1.setWall(0,5);
+        do level1.setWall(0,4);
+        do level1.setWall(0,3);
+        do level1.setWall(0,2);
+        do level1.setWall(0,1);
+
+        do level1.setWall(4,4);
+        return level1;
+    }
+
+}

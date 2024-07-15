@@ -1,0 +1,47 @@
+class TileSet {
+    field Array Tiles;
+    static int TileLength;
+
+    constructor TileSet new(){
+        var int counter;
+        let TileLength=23;
+        let Tiles=Array.new(TileLength);
+        while(counter<TileLength){
+            let Tiles[counter]=Tile.new(counter);
+            let counter=counter+1;
+        }
+        return this;
+    }
+    
+    method Tile getTile(int i){
+        var Tile t;
+        if((i<0)|(i>(TileLength-1))){
+            return Tiles[0];
+        }
+        return Tiles[i];
+    }
+    function int getTileLength(){
+        return TileLength;
+    }
+    
+    method void dispose(){
+        var int counter;
+        var Tile t;
+        let counter=0;
+        //50 durch Anzahl Tiles ersetzen
+        while(counter<50){
+            let t=Tiles[counter];
+            do t.dispose();
+            let counter=counter+1;
+        }
+        return;
+    }
+    method void print(){
+        var Tile t;
+        let t=Tiles[0];
+        do t.print();
+        let t=Tiles[1];
+        do t.print();
+        return;
+    }
+}

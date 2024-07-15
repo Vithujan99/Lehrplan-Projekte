@@ -1,0 +1,944 @@
+class CreateGraphic {
+    
+    function void drawGraphic(int x, int y, boolean Transparent, int Graphic){
+        var int PlayerDirection;
+        
+        if((Graphic <7)&(Graphic>-1)){
+            let PlayerDirection=Main.getPlayerDirection();
+            //Empty Field
+            if(Graphic=0){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+            }
+            //Filled with Black
+            if(Graphic=1){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+            }
+            //TopLeft Trainer
+            if(Graphic=2){
+                if(PlayerDirection=0){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+8, y+2, 4, 7);
+                    do CreateGraphic.Rect(x+4, y+8, 2, 1);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+10, y, 3, 1);
+                    do CreateGraphic.Rect(x+8, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+6, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+4, y+6, 1, 1);
+                    do CreateGraphic.Rect(x+2, y+8, 1, 1);
+                    do CreateGraphic.Rect(x+4, y+10, 2, 1);
+                    do CreateGraphic.Rect(x+6, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+10, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+14, y+10, 1, 1);
+                }
+                if(PlayerDirection=1){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+4, y+8, 6, 4);
+                    do CreateGraphic.Rect(x+8, y+2, 4, 3);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+10, y, 3, 1);
+                    do CreateGraphic.Rect(x+8, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+2, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+8, y+12, 4, 2);
+                    do CreateGraphic.Rect(x+4, y+8, 1, 2);
+                    do CreateGraphic.Rect(x+6, y+4, 1, 5);
+                    do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                }
+                if(PlayerDirection=2){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+8, y+2, 4, 7);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+10, y, 3, 1);
+                    do CreateGraphic.Rect(x+8, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+6, y+4, 1, 6);
+                    do CreateGraphic.Rect(x+4, y+8, 1, 3);
+                    do CreateGraphic.Rect(x+8, y+8, 1, 4);
+                    do CreateGraphic.Rect(x+10, y+10, 3, 2);
+                    do CreateGraphic.Rect(x+14, y+14, 1, 1);
+                }
+                if(PlayerDirection=3){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+2, y+12, 1, 8);
+                    do CreateGraphic.Rect(x+4, y+8, 6, 4);
+                    do CreateGraphic.Rect(x+6, y+4, 5, 2);
+                    do CreateGraphic.Rect(x+8, y+2, 4, 1);
+                    do CreateGraphic.Rect(x+10, y, 3, 1);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+10, y+2, 3, 4);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+4, y+14, 4, 1);
+                    do CreateGraphic.Rect(x+8, y+12, 4, 1);
+                    do CreateGraphic.Rect(x+4, y+12, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                    do CreateGraphic.Rect(x+14, y+14, 1, 1);
+                }
+            }
+            //TopRight Trainer
+            if(Graphic=3){
+                if(PlayerDirection=0){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y+2, 4, 7);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y, 3, 1);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 1);
+                    do CreateGraphic.Rect(x, y+10, 1, 3);
+                    do CreateGraphic.Rect(x+2, y+10, 5, 2);
+                    do CreateGraphic.Rect(x+6, y+8, 1, 4);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 6);
+                    do CreateGraphic.Rect(x+10, y+8, 1, 1);
+                }
+                if(PlayerDirection=1){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y+2, 4, 5);
+                    do CreateGraphic.Rect(x+8, y+12, 2, 2);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+12, y+12, 1, 2);
+                    do CreateGraphic.Rect(x, y+12, 4, 2);
+                    do CreateGraphic.Rect(x, y, 3, 1);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 5);
+                    do CreateGraphic.Rect(x+6, y+10, 3, 1);
+                    do CreateGraphic.Rect(x+10, y+8, 1, 1);
+                }
+                if(PlayerDirection=2){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y+2, 4, 7);
+                    do CreateGraphic.Rect(x+8, y+8, 2, 1);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y, 3, 1);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 1);
+                    do CreateGraphic.Rect(x, y+10, 1, 1);
+                    do CreateGraphic.Rect(x+4, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+8, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+8, y+10, 2, 1);
+                    do CreateGraphic.Rect(x+12, y+8, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+10, y+6, 1, 1);
+                }
+                if(PlayerDirection=3){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y, 3, 8);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 7);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 6);
+                    do CreateGraphic.Rect(x+10, y+8, 1, 4);
+                    do CreateGraphic.Rect(x+12, y+12, 1, 2);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y+2, 3, 4);
+                    do CreateGraphic.Rect(x+6, y+4, 1, 2);
+                    do CreateGraphic.Rect(x, y+12, 4, 1);
+                    do CreateGraphic.Rect(x, y+14, 1, 1);
+                    do CreateGraphic.Rect(x+6, y+10, 1, 1);
+                    do CreateGraphic.Rect(x+10, y+12, 1, 2);
+                    do CreateGraphic.Rect(x+4, y+14, 4, 1);
+                }
+            }
+            //BottomLeft Trainer
+            if(Graphic=4){
+                if(PlayerDirection=0){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+12, y, 2, 8);
+                    do CreateGraphic.Rect(x+10, y+10, 1, 2);
+                    do CreateGraphic.Rect(x+6, y, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+10, y+4, 1, 1);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+8, y, 4, 1);
+                    do CreateGraphic.Rect(x+10, y+2, 3, 1);
+                    do CreateGraphic.Rect(x+12, y+10, 2, 2);
+                }
+                if(PlayerDirection=1){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+4, y, 6, 5);
+                    do CreateGraphic.Rect(x+2, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+6, y+10, 5, 2);
+                    do CreateGraphic.Rect(x+8, y+14, 3, 1);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+4, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+8, y, 2, 1);
+                    do CreateGraphic.Rect(x+12, y+2, 2, 1);
+                    do CreateGraphic.Rect(x+10, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+12, y+6, 2, 2);
+                    do CreateGraphic.Rect(x+8, y+10, 1, 2);
+                    do CreateGraphic.Rect(x+10, y+12, 2, 1);
+                }
+                if(PlayerDirection=2){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+8, y, 4, 6);
+                    do CreateGraphic.Rect(x+12, y+12, 2, 1);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 4);
+                    do CreateGraphic.Rect(x+8, y, 1, 1);
+                    do CreateGraphic.Rect(x+10, y+2, 2, 1);
+                    do CreateGraphic.Rect(x+12, y+4, 2, 1);
+                    do CreateGraphic.Rect(x+10, y+6, 1, 4);
+                    do CreateGraphic.Rect(x+8, y+10, 4, 1);
+                    do CreateGraphic.Rect(x+12, y+14, 2, 1);
+                }
+                if(PlayerDirection=3){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+4, y, 6, 5);
+                    do CreateGraphic.Rect(x+2, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+6, y+10, 5, 2);
+                    do CreateGraphic.Rect(x+8, y+14, 3, 1);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x+4, y+4, 2, 2);
+                    do CreateGraphic.Rect(x+8, y, 2, 1);
+                    do CreateGraphic.Rect(x+10, y+2, 3, 1);
+                    do CreateGraphic.Rect(x+14, y, 1, 1);
+                    do CreateGraphic.Rect(x+10, y+8, 2, 1);
+                    do CreateGraphic.Rect(x+10, y+12, 2, 1);
+                    do CreateGraphic.Rect(x+14, y+10, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                }
+            }
+            //BottomRight Trainer
+            if(Graphic=5){
+                if(PlayerDirection=0){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y, 4, 6);
+                    do CreateGraphic.Rect(x, y+12, 2, 1);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y+14, 2, 1);
+                    do CreateGraphic.Rect(x, y+10, 4, 1);
+                    do CreateGraphic.Rect(x+4, y+6, 1, 4);
+                    do CreateGraphic.Rect(x, y+4, 2, 1);
+                    do CreateGraphic.Rect(x+2, y+2, 2, 1);
+                    do CreateGraphic.Rect(x+6, y, 1, 1);
+                    do CreateGraphic.Rect(x+8, y+2, 1, 4);
+                }
+                if(PlayerDirection=1){
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y, 6, 5);
+                    do CreateGraphic.Rect(x, y+10, 4, 3);
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x+2, y+14, 3, 1);
+                    do CreateGraphic.Rect(x, y, 2, 1);
+                    do CreateGraphic.Rect(x, y+4, 2, 1);
+                    do CreateGraphic.Rect(x, y+10, 1, 2);
+                    do CreateGraphic.Rect(x+2, y+10, 2, 1);
+                    do CreateGraphic.Rect(x+4, y+2, 4, 1);
+                    do CreateGraphic.Rect(x+8, y, 2, 2);
+                    do CreateGraphic.Rect(x+12, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+4, y+8, 4, 1);
+                    do CreateGraphic.Rect(x+6, y+4, 1, 2);
+                    do CreateGraphic.Rect(x+8, y+4, 1, 5);
+                }
+                if(PlayerDirection=2){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y+4, 2, 6);
+                    do CreateGraphic.Rect(x+4, y+10, 1, 2);
+                    do CreateGraphic.Rect(x+4, y+4, 1, 1);
+                    do CreateGraphic.Rect(x+6, y+2, 1, 1);
+                    do CreateGraphic.Rect(x+8, y, 1, 1);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y, 4, 1);
+                    do CreateGraphic.Rect(x, y+2, 3, 1);
+                    do CreateGraphic.Rect(x, y+10, 2, 2);
+                }
+                if(PlayerDirection=3){
+                    do Screen.setColor(true);
+                    do CreateGraphic.Rect(x, y, 5, 7);
+                    do CreateGraphic.Rect(x+2, y+14, 3, 1);
+                    do CreateGraphic.Rect(x+10, y, 1, 5);
+                    do CreateGraphic.Rect(x+12, y+4, 1, 2);
+                    do Screen.setColor(false);
+                    do CreateGraphic.Rect(x, y, 1, 1);
+                    do CreateGraphic.Rect(x, y+2, 3, 1);
+                    do CreateGraphic.Rect(x+4, y, 2, 1);
+                    do CreateGraphic.Rect(x+8, y+4, 2, 2);
+                    do CreateGraphic.Rect(x, y+10, 1, 1);
+                    do CreateGraphic.Rect(x+2, y+8, 2, 1);
+                    do CreateGraphic.Rect(x+2, y+12, 2, 1);
+                    do CreateGraphic.Rect(x+6, y+10, 1, 2);
+                }
+            }
+            //Graphic TrainerFloor
+            if(Graphic=6){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x,y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.drawPoint(x,y);
+                do CreateGraphic.drawPoint(x+2,y+2);
+                do CreateGraphic.drawPoint(x+4,y+4);
+                do CreateGraphic.drawPoint(x+6,y+6);
+                do CreateGraphic.drawPoint(x+8,y+8);
+                do CreateGraphic.drawPoint(x+10,y+10);
+                do CreateGraphic.drawPoint(x+12,y+12);
+                do CreateGraphic.drawPoint(x+14,y+14);
+                do CreateGraphic.drawPoint(x,y+12);
+                do CreateGraphic.drawPoint(x+2,y+10);
+                do CreateGraphic.drawPoint(x+4,y+8);
+
+            }
+        }
+        if((Graphic>6)&(Graphic<20)){
+            //Zimmerpflanze Top TopLeft
+            if(Graphic=7){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+8, y+12, 4, 2);
+                do CreateGraphic.Rect(x+14,y+8, 1, 2);
+                do CreateGraphic.Rect(x+2, y+14, 3, 1);
+                do CreateGraphic.Rect(x+2, y+10, 5, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 2);
+                do CreateGraphic.Rect(x+6, y+4, 2, 1);
+                do CreateGraphic.Rect(x+10, y+6, 2, 1);
+                
+                do CreateGraphic.drawPoint(x+10, y+8);
+                do CreateGraphic.drawPoint(x+4, y+6);
+                do CreateGraphic.drawPoint(x, y+12);
+                do CreateGraphic.drawPoint(x+4, y+12);
+                do CreateGraphic.drawPoint(x, y+8);
+                do CreateGraphic.drawPoint(x+6, y+8);
+                do CreateGraphic.drawPoint(x+4, y+2);
+
+            }
+            //Zimmerpflanze Top TopRight
+            if(Graphic=8){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+8, 1, 4);
+                do CreateGraphic.Rect(x+2, y+6, 2, 1);
+                do CreateGraphic.Rect(x+2, y+12, 1, 2);
+                do CreateGraphic.Rect(x+4, y+8, 1, 3);
+                do CreateGraphic.Rect(x+8, y+14, 3, 1);
+                do CreateGraphic.Rect(x+6, y+10, 1, 2);
+                do CreateGraphic.Rect(x+8, y+8, 4, 2);
+                do CreateGraphic.Rect(x+6, y+4, 2, 1);
+                do CreateGraphic.Rect(x+10, y+2, 1, 1);
+                do CreateGraphic.Rect(x+12, y+3, 1, 1);
+                do CreateGraphic.Rect(x+10, y+6, 3, 1);
+                do CreateGraphic.Rect(x+14, y+12, 1, 1);
+
+            }
+            //Zimmerpflanze Top BottomLeft
+            if(Graphic=9){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 5, 1);
+                do CreateGraphic.Rect(x+2, y+2, 2, 1);
+                do CreateGraphic.Rect(x+14, y, 1, 1);
+                do CreateGraphic.Rect(x, y+4, 1, 1);
+                do CreateGraphic.Rect(x+4, y+4, 5, 1);
+                do CreateGraphic.Rect(x+2, y+6, 1, 1);
+                do CreateGraphic.Rect(x, y+8, 1, 3);
+                do CreateGraphic.Rect(x+2, y+10, 1, 1);
+                do CreateGraphic.Rect(x+2, y+14, 1, 1);
+                do CreateGraphic.Rect(x+10, y+2, 2, 1);
+                do CreateGraphic.Rect(x+6, y+8, 1, 4);
+                do CreateGraphic.Rect(x+8, y+6, 1, 4);
+                do CreateGraphic.Rect(x+10, y+10, 1, 1);
+                do CreateGraphic.Rect(x+10, y+14, 1, 1);
+                do CreateGraphic.Rect(x+12, y+6, 1, 4);
+                do CreateGraphic.Rect(x+14, y+8, 1, 4);
+
+
+            }
+            //Zimmerpflanze Top BottomRight
+            if(Graphic=10){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 1, 1);
+                do CreateGraphic.Rect(x+10, y, 3, 1);
+                do CreateGraphic.Rect(x+14, y+2, 1, 1);
+                do CreateGraphic.Rect(x+6, y+2, 2, 1);
+                do CreateGraphic.Rect(x+10, y+4, 2, 1);
+                do CreateGraphic.Rect(x+4, y+6, 1, 2);
+                do CreateGraphic.Rect(x+4, y+12, 1, 1);
+                do CreateGraphic.Rect(x+6, y+14, 1, 1);
+                do CreateGraphic.Rect(x+8, y+8, 1, 2);
+                do CreateGraphic.Rect(x+10, y+12, 1, 2);
+                do CreateGraphic.Rect(x+12, y+12, 1, 1);
+                do CreateGraphic.Rect(x+14, y+14, 1, 1);
+                do CreateGraphic.Rect(x+12, y+8, 1, 1);
+            }
+            //Zimmerpflanze Bottom TopLeft
+            if(Graphic=11){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+4, y, 1, 1);
+                do CreateGraphic.Rect(x+14, y+2, 1, 2);
+                do CreateGraphic.Rect(x+4, y+14, 1, 1);
+                do CreateGraphic.Rect(x+6, y+10, 1, 1);
+                do CreateGraphic.Rect(x+12, y+6, 2, 1);
+                do CreateGraphic.Rect(x+8, y+8, 4, 4);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+14, y+8, 1, 2);
+                do CreateGraphic.Rect(x+12, y+12, 1, 1);
+                do CreateGraphic.Rect(x+14, y+14, 1, 1);
+
+                
+            }//Zimmerpflanze Bottom TopRight
+            if(Graphic=12){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+2, y, 2, 1);
+                do CreateGraphic.Rect(x+10, y, 2, 1);
+                do CreateGraphic.Rect(x, y+2, 2, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 4);
+                do CreateGraphic.Rect(x, y+6, 1, 1);
+                do CreateGraphic.Rect(x, y+12, 1, 1);
+                do CreateGraphic.Rect(x+4, y+8, 2, 4);
+                do CreateGraphic.Rect(x+2, y+14, 1, 1);
+                do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                do CreateGraphic.Rect(x+10, y+14, 1, 1);
+
+                
+            }//Zimmerpflanze Bottom BottomLeft
+            if(Graphic=13){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+4, y, 1, 3);
+                do CreateGraphic.Rect(x+6, y+2, 1, 5);
+                do CreateGraphic.Rect(x+8, y+4, 1, 5);
+                do CreateGraphic.Rect(x+10, y+6, 1, 5);
+                do CreateGraphic.Rect(x+12, y+14, 2, 1);
+                do CreateGraphic.Rect(x+12, y+8, 2, 1);
+                do CreateGraphic.Rect(x+8, y, 4, 1);
+                do CreateGraphic.Rect(x+10, y+2, 3, 1);
+
+            }//Zimmerpflanze Bottom BottomRight
+            if(Graphic=14){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 4, 1);
+                do CreateGraphic.Rect(x, y+2, 3, 1);
+                do CreateGraphic.Rect(x, y+6, 3, 5);
+                do CreateGraphic.Rect(x+6, y+4, 1, 5);
+                do CreateGraphic.Rect(x+8, y+2, 1, 5);
+                do CreateGraphic.Rect(x+10, y, 1, 3);
+            }
+            //Wand Trainerraum
+            if(Graphic=15){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 1);
+                do CreateGraphic.Rect(x, y+8, 8, 1);
+            }
+            //stairs UpLeft
+            if(Graphic=16){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+6, y+14, 3, 1);
+                do CreateGraphic.Rect(x+10, y+12, 3, 1);
+                do CreateGraphic.Rect(x+14, y+10, 1, 1);
+
+            }
+            //stairs UpRight
+            if(Graphic=17){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+10, 2, 1);
+                do CreateGraphic.Rect(x+2, y+12, 1, 1);
+                do CreateGraphic.Rect(x+2, y+8, 3, 1);
+                do CreateGraphic.Rect(x+6, y+10, 1, 1);
+                do CreateGraphic.Rect(x+6, y+6, 3, 1);
+                do CreateGraphic.Rect(x+10, y+8, 1, 1);
+                do CreateGraphic.Rect(x+10, y+4, 2, 1);
+
+            }
+            //stairs DownLeft
+            if(Graphic=18){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+8, y+6, 2, 4);
+                do CreateGraphic.Rect(x+10, y, 1, 1);
+                do CreateGraphic.Rect(x+2, y, 3, 1);
+                do CreateGraphic.Rect(x, y+2, 2, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 1);
+
+            }
+            //stairs DownRight
+            if(Graphic=19){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 2, 5);
+                do CreateGraphic.Rect(x, y+12, 1, 1);
+                do CreateGraphic.Rect(x+8, y+12, 1, 2);
+
+            }
+        }
+        if(Graphic>19|Graphic<34){
+            if(Graphic=20){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+2, y+2, 7, 2);
+                do CreateGraphic.Rect(x+4, y+14, 6, 1);
+                do CreateGraphic.Rect(x+8, y+12, 4, 1);
+            }
+            if(Graphic=21){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 7, 2);
+                do CreateGraphic.Rect(x, y+14, 6, 1);
+                do CreateGraphic.Rect(x, y+12, 4, 1);
+            }
+            if(Graphic=22){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 1, 8);
+            }
+            if(Graphic=23){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+14, y, 1, 8);
+            }
+            if(Graphic=24){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+2, y+2, 7, 2);
+            }
+            if(Graphic=25){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 7, 2);
+            }
+            if(Graphic=26){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 1, 3);
+                do CreateGraphic.Rect(x+2, y, 1, 1);
+                do CreateGraphic.Rect(x+2, y+6, 7, 2);
+                do CreateGraphic.Rect(x+2, y+10, 1, 3);
+                do CreateGraphic.Rect(x+6, y+12, 4, 2);
+
+            }
+            if(Graphic=27){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+6, 7, 2);
+                do CreateGraphic.Rect(x+12, y+10, 1, 3);
+                do CreateGraphic.Rect(x+12, y, 2, 1);
+                do CreateGraphic.Rect(x+14, y+2, 1, 3);
+
+            }
+            if(Graphic=28){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+2, y, 1, 7);
+                do CreateGraphic.Rect(x, y+14, 1, 1);
+                do CreateGraphic.Rect(x+4, y+12, 2, 1);
+                do CreateGraphic.Rect(x+10, y+12, 3, 1);
+                do CreateGraphic.Rect(x+6, y, 4, 1);
+
+            }
+            if(Graphic=29){
+                
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+14, y+14, 1, 1);
+                do CreateGraphic.Rect(x, y+12, 3, 1);
+                do CreateGraphic.Rect(x+8, y+12, 3, 1);
+                do CreateGraphic.Rect(x+12, y, 1, 6);
+            }
+            if(Graphic=30){
+                do CreateGraphic.drawGraphic(x, y, Transparent, 6);
+
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+2, y+2, 7, 7);
+                do CreateGraphic.Rect(x+4, y, 6, 1);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+4, y+2, 6, 2);
+                do CreateGraphic.Rect(x+4, y+6, 1, 1);
+                do CreateGraphic.Rect(x+4, y+8, 6, 4);
+            }
+            if(Graphic=31){
+                do CreateGraphic.drawGraphic(x, y, Transparent, 6);
+
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 1, 1);
+                do CreateGraphic.Rect(x+2, y+2, 1, 7);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 1, 7);
+            }
+            if(Graphic=32){
+                do CreateGraphic.drawGraphic(x, y, Transparent, 6);
+
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+4, y+2, 6, 1);
+                do CreateGraphic.Rect(x+2, y, 1, 1);
+                do CreateGraphic.Rect(x+6, y+4, 1, 2);
+                do CreateGraphic.Rect(x+8, y+8, 3, 1);
+                do CreateGraphic.Rect(x+14, y+6, 1, 1);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+4, y, 6, 1);
+            }
+            if(Graphic=33){
+                do CreateGraphic.drawGraphic(x, y, Transparent, 6);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+2, y, 1, 1);
+                do CreateGraphic.Rect(x, y+2, 1, 1);
+                do CreateGraphic.Rect(x, y+6, 1, 3);
+                do CreateGraphic.Rect(x+2, y+6, 1, 1);
+
+                do CreateGraphic.Rect(x+2, y+12, 1, 1);
+                do CreateGraphic.Rect(x+4, y+14, 2, 1);
+                do CreateGraphic.Rect(x+4, y+4, 1, 1);
+                do CreateGraphic.Rect(x+6, y+2, 1, 1);
+                do CreateGraphic.Rect(x+8, y, 2, 1);
+                do CreateGraphic.Rect(x+12, y+2, 1, 1);
+                do CreateGraphic.Rect(x+14, y+4, 1, 2);
+                do CreateGraphic.Rect(x+10, y+8, 2, 1);
+                do CreateGraphic.Rect(x+8, y+10, 1, 2);
+
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 1, 1);
+                do CreateGraphic.Rect(x+4, y+12, 2, 1);
+                do CreateGraphic.Rect(x+2, y+8, 3, 2);
+                do CreateGraphic.Rect(x+4, y+6, 3, 2);
+                do CreateGraphic.Rect(x+6, y+4, 4, 2);
+                do CreateGraphic.Rect(x+8, y+2, 2, 1);
+
+            }
+        }
+        if((Graphic>33)&(Graphic<47)){
+            //PCDesk
+            if(Graphic=34){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 1, 1);
+                do CreateGraphic.Rect(x+2, y+2, 7, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 6);
+                do CreateGraphic.Rect(x+4, y+14, 6, 1);
+                do CreateGraphic.Rect(x+6, y+6, 5, 3);
+
+            }
+            if(Graphic=35){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+14, y, 1, 1);
+                do CreateGraphic.Rect(x, y+2, 7, 1);
+                do CreateGraphic.Rect(x+12, y+4, 1, 6);
+                do CreateGraphic.Rect(x, y+14, 6, 1);
+                do CreateGraphic.Rect(x, y+6, 5, 3);
+            }
+            if(Graphic=36){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+2, y+2, 7, 1);
+                do CreateGraphic.Rect(x+2, y+6, 1, 4);
+            }
+            if(Graphic=37){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 7, 1);
+            }
+            //PCTop
+            if(Graphic=38){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+12, 8, 2);
+                do CreateGraphic.Rect(x+4, y+2, 6, 7);
+                do CreateGraphic.Rect(x+6, y, 5, 1);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+2, y+14, 1, 1);
+                do CreateGraphic.Rect(x+10, y+12, 1, 1);
+                do CreateGraphic.Rect(x+8, y+2, 4, 4);
+                do CreateGraphic.Rect(x+6, y+2, 1, 7);
+
+            }
+            if(Graphic=39){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 5, 8);
+                do CreateGraphic.Rect(x+10, y+2, 1, 7);
+                do CreateGraphic.Rect(x+12, y+12, 2, 2);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 5, 4);
+                do CreateGraphic.Rect(x+8, y+10, 1, 3);
+                do CreateGraphic.Rect(x+12, y+14, 1, 1);
+            }
+            //PCBottom
+            if(Graphic=40){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 1, 8);
+                do CreateGraphic.Rect(x+4, y, 1, 6);
+                do CreateGraphic.Rect(x+6, y+10, 5, 2);
+                do CreateGraphic.Rect(x+6, y+6, 5, 1);
+                do CreateGraphic.Rect(x+8, y, 4, 2);
+            }
+            if(Graphic=41){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 4, 2);
+                do CreateGraphic.Rect(x, y+6, 5, 1);
+                do CreateGraphic.Rect(x, y+10, 5, 2);
+                do CreateGraphic.Rect(x+10, y, 1, 6);
+                do CreateGraphic.Rect(x+12, y, 1, 5);
+                do CreateGraphic.Rect(x+14, y, 1, 8);
+            }
+            if(Graphic=42){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+14, 1, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 3);
+                do CreateGraphic.Rect(x+6, y+2, 1, 4);
+                do CreateGraphic.Rect(x+8, y+8, 4, 1);
+                do CreateGraphic.Rect(x+10, y+2, 1, 1);
+                do CreateGraphic.Rect(x+14, y+2, 1, 1);
+                do CreateGraphic.Rect(x+10, y+6, 1, 1);
+                do CreateGraphic.Rect(x+14, y+6, 1, 1);
+            }
+            if(Graphic=43){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+2, 5, 4);
+                do CreateGraphic.Rect(x+14, y+14, 1, 1);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+2, 1, 2);
+                do CreateGraphic.Rect(x+4, y+2, 1, 2);
+                do CreateGraphic.Rect(x+2, y+4, 1, 1);
+                do CreateGraphic.Rect(x+6, y+4, 1, 2);
+            }
+            if(Graphic=44){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+2, 1, 7);
+                do CreateGraphic.Rect(x+2, y, 7, 1);
+            }
+            if(Graphic=45){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 1);
+            }
+            if(Graphic=46){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 7, 1);
+                do CreateGraphic.Rect(x+12, y+4, 2, 6);
+                do CreateGraphic.Rect(x+14, y+2, 1, 1);
+            }
+        }
+        if((Graphic>46)&(Graphic<100)){
+            if(Graphic=47){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 1, 8);
+            }
+            if(Graphic=48){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+4, 1, 6);
+                do CreateGraphic.Rect(x, y+14, 8, 1);
+                do CreateGraphic.Rect(x+12, y+10, 2, 2);
+                do CreateGraphic.Rect(x+4, y+8, 3, 2);
+            }
+            if(Graphic=49){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 5);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+10, 8, 3);
+
+            }
+            if(Graphic=50){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+12, y, 2, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 6, 8);
+            }
+            if(Graphic=51){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+10, 2, 3);
+                do CreateGraphic.Rect(x+4, y+14, 6, 1);
+                do CreateGraphic.Rect(x+14, y+4, 1, 6);
+                do CreateGraphic.Rect(x+6, y+8, 3, 2);
+            }
+            if(Graphic=52){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+2, 8, 1);
+                do CreateGraphic.Rect(x, y+6, 8, 1);
+                do CreateGraphic.Rect(x, y+10, 8, 1);
+                do CreateGraphic.Rect(x, y+14, 8, 1);
+                do CreateGraphic.Rect(x+4, y+4, 1, 5);
+                do CreateGraphic.Rect(x, y+4, 1, 5);
+
+            }
+            if(Graphic=53){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+2, 8, 1);
+                do CreateGraphic.Rect(x, y+6, 8, 1);
+                do CreateGraphic.Rect(x, y+10, 8, 1);
+                do CreateGraphic.Rect(x, y+14, 8, 1);
+                do CreateGraphic.Rect(x+14, y+4, 1, 5);
+                do CreateGraphic.Rect(x+10, y+4, 1, 5);
+            }
+            if(Graphic=54){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+8, 8, 1);
+                do CreateGraphic.Rect(x+2, y, 1, 1);
+                do CreateGraphic.Rect(x+2, y+4, 1, 1);
+                do CreateGraphic.Rect(x+6, y, 5, 1);
+                do CreateGraphic.Rect(x+6, y+4, 5, 1);
+            }
+            if(Graphic=55){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 5, 1);
+                do CreateGraphic.Rect(x+12, y, 1, 1);
+                do CreateGraphic.Rect(x+12, y+4, 1, 1);
+                do CreateGraphic.Rect(x, y+4, 5, 1);
+                do CreateGraphic.Rect(x, y+8, 8, 1);
+            }
+            if(Graphic=56){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y+2, 1, 7);
+                do CreateGraphic.Rect(x+2, y, 7, 1);
+            }
+            if(Graphic=57){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 7, 1);
+                do CreateGraphic.Rect(x+12, y+4, 2, 6);
+                do CreateGraphic.Rect(x+12, y+2, 1, 1);
+            }
+            if(Graphic=58){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+4, y, 6, 1);
+                do CreateGraphic.Rect(x+4, y+14, 6, 1);
+                do CreateGraphic.Rect(x+6, y+4, 2, 3);
+                do CreateGraphic.Rect(x+12, y+4, 1, 4);
+            }
+            if(Graphic=59){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 6, 1);
+                do CreateGraphic.Rect(x, y+14, 6, 1);
+                do CreateGraphic.Rect(x, y+4, 2, 3);
+                do CreateGraphic.Rect(x+6, y+4, 2, 3);
+            }
+            if(Graphic=60){
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x+6, y+14, 5, 1);
+                do CreateGraphic.Rect(x+6, y+10, 1, 2);
+                do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                do CreateGraphic.Rect(x+10, y+8, 1, 4);
+                do CreateGraphic.Rect(x+12, y+8, 1, 1);
+                do CreateGraphic.Rect(x+14, y+6, 1, 5);
+            }
+            if(Graphic=61){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y+12, 3, 2);
+                do CreateGraphic.Rect(x, y+8, 1, 1);
+                do CreateGraphic.Rect(x, y+4, 1, 1);
+                do CreateGraphic.Rect(x, y, 3, 2);
+                do CreateGraphic.Rect(x+6, y, 2, 1);
+                do CreateGraphic.Rect(x+4, y+6, 1, 2);
+                do CreateGraphic.Rect(x+8, y+4, 1, 1);
+                do CreateGraphic.Rect(x+12, y+2, 1, 2);
+                do CreateGraphic.Rect(x+8, y+8, 3, 3);
+                do CreateGraphic.Rect(x+8, y+14, 1, 1);
+            }
+            if(Graphic=62){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x+8, y, 3, 3);
+                do CreateGraphic.Rect(x+8, y+6, 1, 1);
+                do CreateGraphic.Rect(x+8, y+10, 1, 1);
+                do CreateGraphic.Rect(x+12, y+8, 1, 2);
+            }
+            if(Graphic=63){
+                do Screen.setColor(true);
+                do CreateGraphic.Rect(x, y, 8, 8);
+                do Screen.setColor(false);
+                do CreateGraphic.Rect(x, y, 3, 1);
+                do CreateGraphic.Rect(x, y+2, 1, 1);
+                do CreateGraphic.Rect(x, y+6, 1, 1);
+                do CreateGraphic.Rect(x+4, y+4, 1, 2);
+                do CreateGraphic.Rect(x+8, y+2, 1, 1);
+                do CreateGraphic.Rect(x+12, y, 1, 2);
+            }
+        }
+        
+        return;
+    }
+    function void Rect(int x, int y, int Pixelx, int Pixely){
+        let Pixelx=(Pixelx*2)-1;
+        let Pixely=(Pixely*2)-1;
+        if(Pixelx<1){
+            let Pixelx=1;
+        }
+        if(Pixely<1){
+            let Pixely=1;
+        }
+        do Tile.Rect(x, y, x+Pixelx, y+Pixely);
+        return;
+    }
+    
+    function void drawPoint(int x, int y){
+        do Tile.Rect(x, y, x+1, y+1);
+        return;
+    }
+    
+    function void drawAllGraphics(){
+        var int counterx;
+        var int countery;
+        let counterx=0;
+        let countery=0;
+        while(countery<255){
+            while(counterx<511){
+                do CreateGraphic.drawGraphic(counterx, countery, false, ((countery/16)*32)+(counterx/16));
+                let counterx=counterx+16;
+            }
+            let counterx=0;
+            let countery=countery+16;
+        }
+        
+        return;
+    }
+}

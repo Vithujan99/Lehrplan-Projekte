@@ -1,0 +1,69 @@
+class Player {
+
+	// Location on the screen
+	field int x, y;
+	field Array screen;
+	static int LENGTH;
+
+	/** Constructs a new player with a given location. */
+	constructor Player new(int Ax, int Ay, Array Ascreen) {
+		let LENGTH = 3;
+		
+		let x = Ax;
+		let y = Ay;
+		let screen = Ascreen;
+		
+		do draw();
+
+		return this;
+	}
+
+	/** Deallocates the object's memory. */
+	method void dispose() {
+		return;
+	}
+	
+	method int getX() {
+		return x;
+	}
+	
+	method int getY() {
+		return y;
+	}
+	
+	function int getLength() {
+		return LENGTH;
+	}
+	
+	/**
+	 * Puts the player on the opposite site.
+	 */
+	method void turn(int fieldWidth) {
+		let x = fieldWidth - x - 1;
+		return;
+	}
+
+	/**
+	 * Draws the player in the map array. Does NOT draw on real screen.
+	 */
+	method void draw() { // TODO ok, they should be squares, why isn't it like that?
+		var int dx, dy;
+		let dx = 0;
+		let dy = 0;
+		while (dx < LENGTH) {
+			while (dy < LENGTH) {
+				let screen[ (x+dx) + ((y+dy)*127) ] = true;
+				let dy = dy + 1;
+			}
+			let dx = dx + 1;
+		}
+		return;
+	}
+
+	/** 
+	 * @returns true if the given position is within this player
+	 */
+	method bool collides(int inX, int inY) {
+		return ( (inX > (x-1)) & (inX < (x+LENGTH+1)) & (inY > (y-1)) & (inY < (y+LENGTH+1)) ); // Rly!?, no <= !?
+	}
+}

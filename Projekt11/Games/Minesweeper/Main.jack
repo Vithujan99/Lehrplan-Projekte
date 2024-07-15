@@ -1,0 +1,70 @@
+class Main {
+    static Board  b;
+    static Cursor c;
+
+    function void main() {
+        var int seed;
+        var boolean BRUH;
+        let BRUH = true;
+        do Display.drawBackground();
+        do Display.drawInitialTilemap();
+        do Display.drawSideMenu();
+        do Display.drawControls();
+
+        let seed = Display.showStartingScreen();
+        while (BRUH) {
+            let b = Board.new(seed);
+            let c = Cursor.new(b);
+            let seed = Main.run();
+            do b.dispose();
+            do c.dispose();
+            do Display.drawInitialTilemap();
+        }
+        
+        return;
+    }
+
+    function int run() {
+        var int seed, code;
+        var char key;
+        var boolean exit;
+        let exit = false;
+        
+        while (~exit) {
+            while (key = 0) { let key = Keyboard.keyPressed(); }
+            if (key = 70 ) { 
+                do b.flagTile(c.v()-1, c.h()-1); 
+                do Display.drawCorrespondingCursorAt(c.v(), c.h(), b.tileAt(c.v()-1, c.h()-1));
+            }
+            if (key = 128) { let code = b.revealTile(c.v()-1, c.h()-1); }
+            if (key = 32 ) { let code = b.revealTile(c.v()-1, c.h()-1); }
+            if (key = 131) { do c.move(1);  }
+            if (key = 87 ) { do c.move(1);  }
+            if (key = 133) { do c.move(2);  }
+            if (key = 83 ) { do c.move(2);  }
+            if (key = 130) { do c.move(3);  }
+            if (key = 65 ) { do c.move(3);  }
+            if (key = 132) { do c.move(0);  }
+            if (key = 68 ) { do c.move(0);  }
+            if (key = 82 ) { let code = -1; }
+            if (key = 81 ) { do Sys.halt(); }
+            if (code =  1) { let exit = true; }
+            if (code = -1) { let exit = true; }
+            while (~(key = 0)) { let key = Keyboard.keyPressed(); }
+        }
+        if (code = 1) { let seed = Display.showWinningScreen(); } 
+        else { let seed = Display.showLoosingScreen(); }
+        return seed;
+    }
+
+    function int modulo(int a, int b) {
+        var int quotient;
+        var int product;
+        if (b=0) {
+            return 0;
+        }
+        let quotient = a / b;
+        let product = quotient * b;
+        return a - product;
+    }
+}

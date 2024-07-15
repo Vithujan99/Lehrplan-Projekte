@@ -1,0 +1,319 @@
+function Main.main 2
+push constant 1
+neg
+pop local 1
+call Display.drawBackground 0
+pop temp 0
+call Display.drawInitialTilemap 0
+pop temp 0
+call Display.drawSideMenu 0
+pop temp 0
+call Display.drawControls 0
+pop temp 0
+call Display.showStartingScreen 0
+pop local 0
+label whileL2
+push local 1
+not
+if-goto whileL3
+push local 0
+call Board.new 1
+pop static 0
+push static 0
+call Cursor.new 1
+pop static 1
+call Main.run 0
+pop local 0
+push static 0
+call Board.dispose 1
+pop temp 0
+push static 1
+call Cursor.dispose 1
+pop temp 0
+call Display.drawInitialTilemap 0
+pop temp 0
+goto whileL2
+label whileL3
+push constant 0
+return
+function Main.run 4
+push constant 0
+pop local 3
+label whileL4
+push local 3
+not
+not
+if-goto whileL5
+label whileL6
+push local 2
+push constant 0
+eq
+not
+if-goto whileL7
+call Keyboard.keyPressed 0
+pop local 2
+goto whileL6
+label whileL7
+push local 2
+push constant 70
+eq
+not
+if-goto ifL8
+push static 0
+push static 1
+call Cursor.v 1
+push constant 1
+sub
+push static 1
+call Cursor.h 1
+push constant 1
+sub
+call Board.flagTile 3
+pop temp 0
+push static 1
+call Cursor.v 1
+push static 1
+call Cursor.h 1
+push static 0
+push static 1
+call Cursor.v 1
+push constant 1
+sub
+push static 1
+call Cursor.h 1
+push constant 1
+sub
+call Board.tileAt 3
+call Display.drawCorrespondingCursorAt 3
+pop temp 0
+goto ifL9
+label ifL8
+label ifL9
+push local 2
+push constant 128
+eq
+not
+if-goto ifL10
+push static 0
+push static 1
+call Cursor.v 1
+push constant 1
+sub
+push static 1
+call Cursor.h 1
+push constant 1
+sub
+call Board.revealTile 3
+pop local 1
+goto ifL11
+label ifL10
+label ifL11
+push local 2
+push constant 32
+eq
+not
+if-goto ifL12
+push static 0
+push static 1
+call Cursor.v 1
+push constant 1
+sub
+push static 1
+call Cursor.h 1
+push constant 1
+sub
+call Board.revealTile 3
+pop local 1
+goto ifL13
+label ifL12
+label ifL13
+push local 2
+push constant 131
+eq
+not
+if-goto ifL14
+push static 1
+push constant 1
+call Cursor.move 2
+pop temp 0
+goto ifL15
+label ifL14
+label ifL15
+push local 2
+push constant 87
+eq
+not
+if-goto ifL16
+push static 1
+push constant 1
+call Cursor.move 2
+pop temp 0
+goto ifL17
+label ifL16
+label ifL17
+push local 2
+push constant 133
+eq
+not
+if-goto ifL18
+push static 1
+push constant 2
+call Cursor.move 2
+pop temp 0
+goto ifL19
+label ifL18
+label ifL19
+push local 2
+push constant 83
+eq
+not
+if-goto ifL20
+push static 1
+push constant 2
+call Cursor.move 2
+pop temp 0
+goto ifL21
+label ifL20
+label ifL21
+push local 2
+push constant 130
+eq
+not
+if-goto ifL22
+push static 1
+push constant 3
+call Cursor.move 2
+pop temp 0
+goto ifL23
+label ifL22
+label ifL23
+push local 2
+push constant 65
+eq
+not
+if-goto ifL24
+push static 1
+push constant 3
+call Cursor.move 2
+pop temp 0
+goto ifL25
+label ifL24
+label ifL25
+push local 2
+push constant 132
+eq
+not
+if-goto ifL26
+push static 1
+push constant 0
+call Cursor.move 2
+pop temp 0
+goto ifL27
+label ifL26
+label ifL27
+push local 2
+push constant 68
+eq
+not
+if-goto ifL28
+push static 1
+push constant 0
+call Cursor.move 2
+pop temp 0
+goto ifL29
+label ifL28
+label ifL29
+push local 2
+push constant 82
+eq
+not
+if-goto ifL30
+push constant 1
+neg
+pop local 1
+goto ifL31
+label ifL30
+label ifL31
+push local 2
+push constant 81
+eq
+not
+if-goto ifL32
+call Sys.halt 0
+pop temp 0
+goto ifL33
+label ifL32
+label ifL33
+push local 1
+push constant 1
+eq
+not
+if-goto ifL34
+push constant 1
+neg
+pop local 3
+goto ifL35
+label ifL34
+label ifL35
+push local 1
+push constant 1
+neg
+eq
+not
+if-goto ifL36
+push constant 1
+neg
+pop local 3
+goto ifL37
+label ifL36
+label ifL37
+label whileL38
+push local 2
+push constant 0
+eq
+not
+not
+if-goto whileL39
+call Keyboard.keyPressed 0
+pop local 2
+goto whileL38
+label whileL39
+goto whileL4
+label whileL5
+push local 1
+push constant 1
+eq
+not
+if-goto ifL40
+call Display.showWinningScreen 0
+pop local 0
+goto ifL41
+label ifL40
+call Display.showLoosingScreen 0
+pop local 0
+label ifL41
+push local 0
+return
+function Main.modulo 2
+push argument 1
+push constant 0
+eq
+not
+if-goto ifL42
+push constant 0
+return
+goto ifL43
+label ifL42
+label ifL43
+push argument 0
+push argument 1
+call Math.divide 2
+pop local 0
+push local 0
+push argument 1
+call Math.multiply 2
+pop local 1
+push argument 0
+push local 1
+sub
+return

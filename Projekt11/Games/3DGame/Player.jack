@@ -1,0 +1,17 @@
+
+class Player {
+    field int xPos;
+    field int yPos;
+    //field rotation; // 0 to 359 degree
+
+    constructor Player new(int x, int y){
+    let xPos = x;
+    let yPos = y;
+    return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,12 @@
+class Main {
+   function void main() {
+      var int x;
+      var boolean b;
+      let x = 1;
+      let b = true;
+      do Output.printInt(-x);
+      do Output.printInt(~b);
+      return;
+   }
+
+}

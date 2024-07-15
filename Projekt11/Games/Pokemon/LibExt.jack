@@ -1,0 +1,15 @@
+class LibExt {
+    
+    function int Pow(int x, int pow){
+        var int temp;
+        let temp=1;
+        while(pow>0){
+            let temp=temp*x;
+            let pow=pow-1;
+        }
+        return temp;
+    }
+    function int mod(int x, int mod){
+        return (x-((x/mod)*mod));
+    }
+}

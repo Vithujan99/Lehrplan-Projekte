@@ -1,0 +1,119 @@
+/**
+ * This class contains some functions which do stuff with numbers.
+ */
+class MathTools {
+	
+	/**
+	 * Gets the length of a string which would contain the given integer.
+	 * lengthOf(0) = 1
+	 * lengthOf(1) = 1
+	 * lengthOf(-1) = 2
+	 * @param s the integer
+	 * @returns length of s
+	 */
+	function int lengthOf(int s) {
+		var int length;
+		
+		let length = 0;
+		
+		if(s = 0) {
+			return 1;
+		}
+		
+		if(s < 0) {
+			let length = 1;
+			let s = -s;
+		}
+		
+		while(~(s = 0)) {
+			let s = s / 10;
+			let length = length + 1;
+		}
+		
+		return length;
+	}
+	
+	/**
+	 * Converts the integer prefix of a string to an integer, starting from the given position.
+	 * strToInt("1-2a", 0) = 1
+	 * strToInt("1-2a", 1) = -2
+	 * @param str the string with integer part
+	 * @param from starting postion
+	 * @returns integer representation of the substring
+	 */
+	function int strToInt(String str, int from) {
+		var int i, intValue;
+		var char currentChar;
+		var bool sign;
+		
+		if(~(from < str.length())) {
+			return 0;
+		}
+		
+		let i = from;
+		let intValue = 0;
+		
+		let sign = false;
+		if(str.charAt(from) = 45) {
+			let sign = true;
+			let i = i + 1;
+		}
+		
+		while(i < str.length()) {
+			let currentChar = str.charAt(i);
+			if( (currentChar>47) & (currentChar<58) ) {
+				let intValue = intValue * 10 + (currentChar-48);
+			} else {
+				let i = str.length();
+			}
+			let i = i + 1;
+		}
+		
+		if(sign) {
+			let intValue = -intValue;
+		}
+		
+		return intValue;
+	}
+	
+	/** 
+	 * Calculates 10*sin(x/10/denominator).
+	 * It is calculated using the 5-th order Taylor polynomial and using symmetry.
+	 * @param x
+	 * @param denominator
+	 * @returns 10*sin(x/10/denominator)
+	 */
+	function int sin10(int x, int denominator) {
+		// some tricks to prevent overflows and get good precision
+		if(x < (158*denominator/10 + 1)) { // 10*pi/2 // +1 gives extra safety against endless recursion b/c of rounding errors
+			return (x - (((x*x*x) - (x*x*x*x*x/2000/denominator/denominator))/6/10/10/denominator/denominator))/denominator;
+		}
+		if(x < (315*denominator/10 + 1)) { // 10*pi
+			return MathTools.sin10((315*denominator/10)-x, denominator);
+		}
+		if(x < (629*denominator/10 + 1)) { // 10*2*pi
+			return -MathTools.sin10(x-(315*denominator/10), denominator);
+		}
+		return MathTools.sin10(x-(629*denominator/10), denominator);
+	}
+	
+	/**
+	 * Do something crazy
+	 */
+	function void breakMath() {
+		var int i;
+		
+		let i = 0;
+		while(i < 10) {
+			do Screen.setColor( (i/2*2) = i );
+			do Screen.drawRectangle(1,1,511,255);
+			do Output.moveCursor(3,3);
+			if((i/2*2) = i) {
+				do Output.printString("   Komm Bauer, wir retten die Mathematik und vernichten Europa!");
+			}
+			do Sys.wait(100);
+			let i = i + 1;
+		}
+		return;
+	}
+}

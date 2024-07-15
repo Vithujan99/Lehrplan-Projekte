@@ -1,0 +1,111 @@
+/** Interactive Brainf*ck Interpreter for Hack-Platform */
+class Brainhack {
+
+    field String code;
+    field String input;
+    field Array tape;
+    field int tapeLen;
+
+    constructor Brainhack new(String c, String i) {
+        let code = c;
+        let input = i;
+        let tape = Array.new(16);
+        let tapeLen = 16;
+        do writeTape();
+        return this;
+    }
+
+    method void dispose() {
+        do code.dispose();
+        do input.dispose();
+        do tape.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void run() {
+        var Array loopStack;
+        var int codePtr, inputPtr, outputPtr, tapePtr, loopStackPtr;
+        var char current;
+        
+        let loopStack = Array.new(10);
+        let codePtr = 0;
+        let inputPtr = 0;
+        let outputPtr = 0;
+        let tapePtr = 0;
+        let loopStackPtr = 0;
+        
+        while(codePtr < code.length()) {
+            let current = code.charAt(codePtr);
+            // increment '+'
+            if(current = 43) {
+                let tape[tapePtr] = tape[tapePtr] + 1;
+            }
+            // decrement '-'
+            if(current = 45) {
+                let tape[tapePtr] = tape[tapePtr] - 1;
+            }
+            // shift right '>'
+            if(current = 62) {
+                let tapePtr = tapePtr + 1;
+
+            }
+            // shift left '<'
+            if(current = 60) {
+                let tapePtr = tapePtr - 1;
+            }
+            // let tape pointer wrap around tape ("cyclic" tape)
+            if(tapePtr > (tapeLen - 1)) {
+                let tapePtr = tapePtr - tapeLen;
+            }
+            if(tapePtr < 0) {
+                let tapePtr = tapePtr + tapeLen;
+            }
+            // input ','
+            if(current = 44) {
+                let tape[tapePtr] = input.charAt(inputPtr);
+                let inputPtr = inputPtr + 1;
+            }
+            // output '.'
+            if(current = 46) {
+                do Output.moveCursor(15, 8 + outputPtr);
+                do Output.printChar(tape[tapePtr]);
+                let outputPtr = outputPtr + 1;
+            }
+            // start loop '['
+            if(current = 91) {
+                let loopStack[loopStackPtr] = codePtr;
+                let loopStackPtr = loopStackPtr + 1;
+            }
+            // end loop ']'
+            if(current = 93) {
+                let loopStackPtr = loopStackPtr - 1;
+                if(~(tape[tapePtr] = 0)) {
+                    // jump back if cell not 0
+                    let codePtr = loopStack[loopStackPtr];
+                }else {
+                    // move on if cell is 0
+                    let codePtr = codePtr + 1;
+                }
+            }else {
+                // always move on if not ']'
+                let codePtr = codePtr + 1;
+            }
+            do writeTape();
+        }
+        return;
+    }
+
+    method void writeTape() {
+        var int i;
+        let i = 0;
+        while(i < tapeLen) {
+            do Output.moveCursor(10, 8 + (3 * i));
+            do Output.printInt(tape[i]);
+            let i = i + 1;
+        }
+        do Sys.wait(100);
+        return;
+    }
+
+}

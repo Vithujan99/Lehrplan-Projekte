@@ -1,0 +1,29 @@
+class TextBox {
+    function void drawEmptyTextBox(int x, int y, int x2, int y2){
+        do Screen.setColor(true);
+        do Tile.Rect(x, y, x2, y2);
+        do Screen.setColor(false);
+        do Tile.Rect(x+5, y+5, x2-5, y2-5);
+        return;
+    }
+    function void showTextBox(Array a, int ArrayLength){
+        var int c;
+        var String s;
+        do TextBox.drawEmptyTextBox(0, 170, 511, 255);
+        while(c<ArrayLength){
+            let s=a[c];
+            do TextBox.writeInRowTextBox(c, s);
+            let c=c+1;
+        }
+        do Sys.wait(200);
+        return;
+    }
+    function void writeInRowTextBox(int c, String s){
+        do Output.moveCursor(c+17, 3);
+        do Output.printString(s);
+        return;
+    }
+    function void showMenu(){
+        return;
+    }
+}

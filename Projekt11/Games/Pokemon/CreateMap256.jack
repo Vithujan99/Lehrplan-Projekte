@@ -1,0 +1,116 @@
+class CreateMap256 {
+
+    function MapBlock256 createMap(int i){
+        var MapBlock256 m;
+        var int x;
+        var int y;
+        if(i=0){
+            do Main.setInside(false);
+            let m=MapBlock256.new();
+        }
+        if(i=1){
+            do Main.setInside(true);
+            let m=MapBlock256.new();
+        }
+        if(i=2){
+            do Main.setInside(true);
+            let m=MapBlock256.new();
+            do m.addMapObject(4, 2, 3);
+            do m.addMapObject(5, 2, 3);
+            do m.addMapObject(6, 2, 3);
+            do m.addMapObject(7, 2, 3);
+            
+            let x=1;
+            while(x<9){
+                do m.addMapObject(x, 3, 3);
+                let x=x+1;
+            }
+            let x=1;
+            while(x<9){
+                do m.addMapObject(x, 4, 3);
+                let x=x+1;
+            }
+            let x=1;
+            while(x<9){
+                do m.addMapObject(x, 5, 3);
+                let x=x+1;
+            }
+            let x=1;
+            while(x<9){
+                do m.addMapObject(x, 6, 3);
+                let x=x+1;
+            }
+            let x=2;
+            while(x<7){
+                do m.addMapObject(x, 7, 3);
+                let x=x+1;
+            }
+            let x=2;
+            while(x<7){
+                do m.addMapObject(x, 8, 3);
+                let x=x+1;
+            }
+            do m.addMapObject(8, 8, 3);
+            do m.addMapObject(8, 7, 3);
+            
+            let x=1;
+            //Wand
+            while(x<9){
+                do m.addMapObject(x, 1, 5);
+                let x=x+1;
+            }
+            //Fenster
+            do m.addMapObject(8, 1, 13);
+            do m.addMapObject(6, 1, 13);
+            //Treppe
+            do m.addMapObject(8, 2, 6);
+            //Bett
+            do m.addMapObject(1, 7, 7);
+            //Zimmerpflanze
+            do m.addMapObject(7, 7, 4);
+            //Fernseher
+            do m.addMapObject(4, 5, 8);
+            //Spielkonsole
+            do m.addMapObject(4, 6, 9);
+            //PCTisch
+            do m.addMapObject(1, 2, 10);
+            
+            //PC
+            do m.addMapObject(1, 1, 11);
+            //Tisch
+            do m.addMapObject(2, 1, 12);
+        
+            
+        }
+        if(i=3){
+            do Main.setInside(true);
+            let m=MapBlock256.new();
+            let x=3;
+            //Wand
+            while(x<9){
+                do m.addMapObject(x, 1, 5);
+                let x=x+1;
+            }
+            let x=1;
+            let y=2;
+            while(y<9){
+                while(x<9){
+                    do m.addMapObject(x, y, 3);
+                    let x=x+1;
+                }
+                let x=1;
+                let y=y+1;
+            }
+            do m.addMapObject(4, 2, 8);
+            do m.addMapObject(8, 1, 13);
+            do m.addMapObject(6, 1, 13);
+            do m.addMapObject(4, 1, 13);
+            do m.addMapObject(1, 1, 14);
+            do m.addMapObject(2, 1, 14);
+            do m.addMapObject(8, 2, 15);
+            
+        }
+        return m;
+    }
+
+}

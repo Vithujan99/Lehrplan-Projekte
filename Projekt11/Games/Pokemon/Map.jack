@@ -1,0 +1,20 @@
+class Map {
+
+    constructor Map new(){
+        return this;
+    }
+    
+    method void dispose(){
+        do Middle.dispose();
+        do UpLeft.dispose();
+        do Up.dispose();
+        do UpRight.dispose();
+        do Left.dispose();
+        do Right.dispose();
+        do DownLeft.dispose();
+        do Down.dispose();
+        do DownRight.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,9 @@
+class PseudoRNG {
+    function int nextRandom(int oldSeed) {
+        // bad but good enough LCG implementation :V
+        var int seed;
+        let seed = Main.modulo((16645*oldSeed + 10139), 7140);
+        if (seed < 0) { let seed = seed + 32767; }
+        return seed;
+    }
+}

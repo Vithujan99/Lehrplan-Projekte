@@ -1,0 +1,61 @@
+function Random.setSeed 0
+push argument 0
+pop static 0
+push constant 0
+return
+function Random.rand 0
+push static 0
+push constant 20251
+add
+pop static 0
+push static 0
+push constant 0
+lt
+not
+if-goto ifL2
+push static 0
+push constant 32767
+sub
+push constant 1
+sub
+pop static 0
+goto ifL3
+label ifL2
+label ifL3
+push static 0
+return
+function Random.randRange 2
+push constant 1
+pop local 0
+label whileL4
+push local 0
+push argument 0
+lt
+not
+if-goto whileL5
+push local 0
+push constant 2
+call Math.multiply 2
+push constant 1
+add
+pop local 0
+goto whileL4
+label whileL5
+call Random.rand 0
+push local 0
+and
+pop local 1
+label whileL6
+push local 1
+push argument 0
+gt
+not
+if-goto whileL7
+call Random.rand 0
+push local 0
+and
+pop local 1
+goto whileL6
+label whileL7
+push local 1
+return

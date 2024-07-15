@@ -1,0 +1,32 @@
+function Map.new 0
+push constant 0
+call Memory.alloc 1
+pop pointer 0
+push pointer 0
+return
+function Map.dispose 0
+push argument 0
+pop pointer 0
+call Middle.dispose 0
+pop temp 0
+call UpLeft.dispose 0
+pop temp 0
+call Up.dispose 0
+pop temp 0
+call UpRight.dispose 0
+pop temp 0
+call Left.dispose 0
+pop temp 0
+call Right.dispose 0
+pop temp 0
+call DownLeft.dispose 0
+pop temp 0
+call Down.dispose 0
+pop temp 0
+call DownRight.dispose 0
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,13 @@
+class Main {
+
+   function void main() {
+      if(~(4 < 5)){
+         do Output.printInt(11);
+      }else{
+         do Output.printInt(12);
+      }
+      
+      return;
+   }
+
+}

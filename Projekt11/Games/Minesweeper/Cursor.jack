@@ -1,0 +1,59 @@
+class Cursor {
+    
+    field int   h;
+	field int   v;
+	field Board b;
+
+    constructor Cursor new(Board board) {
+        let h = 7;
+		let v = 7;
+		let b = board;
+		do Display.drawArrowDownTile(0, h);
+		do Display.drawArrowRightTile(v, 0);
+		do Display.drawCursorBasicTile(v, h);
+		do Display.drawBasicTile(2, 15);
+        return this;
+    }
+
+	method void dispose() { 
+		do Display.drawTopEdgeTile(0, h);
+		do Display.drawLeftEdgeTile(v, 0);
+		return; 
+	}
+
+	method int position() { return (v*16) + h; }
+	method int v() { return v; }
+	method int h() { return h; }
+
+	method void move(int direction) {
+		do Display.drawTopEdgeTile(0, h);
+		do Display.drawLeftEdgeTile(v, 0);
+		do Display.drawCorrespondingTileAt(v, h, b.tileAt(v-1, h-1));
+		
+		if (direction=0) {
+			if (h<13) {
+				let h = h+1;
+			}
+		} else { if (direction=1) {
+			if (v>1) {
+				let v = v-1;
+			}
+		} else { if (direction=2) {
+			if (v<13) {
+				let v = v+1;
+			}
+		} else {
+			if (h>1) {
+				let h = h-1;
+			}
+		}}}
+		
+		do Display.drawArrowDownTile(0, h);
+		do Display.drawArrowRightTile(v, 0);
+		do Display.drawCorrespondingCursorAt(v, h, b.tileAt(v-1, h-1));
+		do Display.drawCorrespondingTileAt(2, 15, b.tileAt(v-1, h-1));
+	
+		return;
+	}
+
+}

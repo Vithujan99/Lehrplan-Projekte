@@ -1,0 +1,1139 @@
+function Board.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+pop this 2
+push constant 169
+call Array.new 1
+pop this 3
+push pointer 0
+push argument 0
+call Board.placeMines 2
+pop temp 0
+push pointer 0
+call Board.calculateProximityNumbers 1
+pop temp 0
+push this 0
+call Display.drawGameScreen 1
+pop temp 0
+push pointer 0
+return
+function Board.dispose 0
+push argument 0
+pop pointer 0
+push this 3
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+function Board.tileAt 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 0
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+return
+function Board.placeMines 6
+push argument 0
+pop pointer 0
+push argument 1
+pop local 3
+push constant 0
+pop local 4
+label whileL2
+push local 4
+push constant 20
+lt
+not
+if-goto whileL3
+push local 3
+call PseudoRNG.nextRandom 1
+pop local 3
+push local 3
+push constant 13
+call Main.modulo 2
+pop local 0
+push local 3
+call PseudoRNG.nextRandom 1
+pop local 3
+push local 3
+push constant 13
+call Main.modulo 2
+pop local 1
+push local 0
+push constant 13
+call Math.multiply 2
+push local 1
+add
+pop local 2
+push this 3
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL4
+goto ifL5
+label ifL4
+push this 0
+push constant 1
+add
+pop this 0
+label ifL5
+push this 3
+push local 2
+add
+push constant 9
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 4
+push constant 1
+add
+pop local 4
+goto whileL2
+label whileL3
+push constant 0
+return
+function Board.calculateProximityNumbers 4
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label whileL6
+push local 0
+push constant 13
+lt
+not
+if-goto whileL7
+push constant 0
+pop local 1
+label whileL8
+push local 1
+push constant 13
+lt
+not
+if-goto whileL9
+push local 0
+push constant 0
+gt
+not
+if-goto ifL10
+push local 0
+push constant 1
+sub
+push constant 13
+call Math.multiply 2
+push local 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL12
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL13
+label ifL12
+label ifL13
+goto ifL11
+label ifL10
+label ifL11
+push local 0
+push constant 0
+gt
+not
+if-goto ifL14
+push local 1
+push constant 0
+gt
+not
+if-goto ifL16
+push local 0
+push constant 1
+sub
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+sub
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL18
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL19
+label ifL18
+label ifL19
+goto ifL17
+label ifL16
+label ifL17
+goto ifL15
+label ifL14
+label ifL15
+push local 0
+push constant 0
+gt
+not
+if-goto ifL20
+push local 1
+push constant 12
+lt
+not
+if-goto ifL22
+push local 0
+push constant 1
+sub
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL24
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL25
+label ifL24
+label ifL25
+goto ifL23
+label ifL22
+label ifL23
+goto ifL21
+label ifL20
+label ifL21
+push local 0
+push constant 12
+lt
+not
+if-goto ifL26
+push local 0
+push constant 1
+add
+push constant 13
+call Math.multiply 2
+push local 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL28
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL29
+label ifL28
+label ifL29
+goto ifL27
+label ifL26
+label ifL27
+push local 0
+push constant 12
+lt
+not
+if-goto ifL30
+push local 1
+push constant 0
+gt
+not
+if-goto ifL32
+push local 0
+push constant 1
+add
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+sub
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL34
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL35
+label ifL34
+label ifL35
+goto ifL33
+label ifL32
+label ifL33
+goto ifL31
+label ifL30
+label ifL31
+push local 0
+push constant 12
+lt
+not
+if-goto ifL36
+push local 1
+push constant 12
+lt
+not
+if-goto ifL38
+push local 0
+push constant 1
+add
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL40
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL41
+label ifL40
+label ifL41
+goto ifL39
+label ifL38
+label ifL39
+goto ifL37
+label ifL36
+label ifL37
+push local 1
+push constant 0
+gt
+not
+if-goto ifL42
+push local 0
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+sub
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL44
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL45
+label ifL44
+label ifL45
+goto ifL43
+label ifL42
+label ifL43
+push local 1
+push constant 12
+lt
+not
+if-goto ifL46
+push local 0
+push constant 13
+call Math.multiply 2
+push local 1
+add
+push constant 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL48
+push local 2
+push constant 1
+add
+pop local 2
+goto ifL49
+label ifL48
+label ifL49
+goto ifL47
+label ifL46
+label ifL47
+push local 0
+push constant 13
+call Math.multiply 2
+push local 1
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL50
+goto ifL51
+label ifL50
+push this 3
+push local 3
+add
+push local 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label ifL51
+push constant 0
+pop local 2
+push local 1
+push constant 1
+add
+pop local 1
+goto whileL8
+label whileL9
+push local 0
+push constant 1
+add
+pop local 0
+goto whileL6
+label whileL7
+push constant 0
+return
+function Board.revealTile 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 0
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto ifL52
+push pointer 0
+push argument 1
+push argument 2
+call Board.destroyConnectedTiles 3
+pop temp 0
+push constant 2
+push constant 15
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push constant 1
+neg
+pop local 2
+push constant 0
+pop local 1
+goto ifL53
+label ifL52
+label ifL53
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 9
+lt
+not
+if-goto ifL54
+push local 2
+not
+not
+if-goto ifL56
+push this 3
+push local 0
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 20
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+call Display.drawCursorEmptyTile 2
+pop temp 0
+push constant 2
+push constant 15
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push this 2
+push constant 1
+add
+pop this 2
+push constant 1
+neg
+pop local 2
+push constant 0
+pop local 1
+goto ifL57
+label ifL56
+label ifL57
+goto ifL55
+label ifL54
+label ifL55
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL58
+push local 2
+not
+not
+if-goto ifL60
+push this 3
+push local 0
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 20
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push pointer 0
+call Board.revealMines 1
+pop temp 0
+push constant 1
+neg
+return
+goto ifL61
+label ifL60
+label ifL61
+goto ifL59
+label ifL58
+label ifL59
+push constant 9
+push constant 30
+call Output.moveCursor 2
+pop temp 0
+push this 2
+call Output.printInt 1
+pop temp 0
+push this 2
+push constant 169
+push this 0
+sub
+eq
+not
+if-goto ifL62
+push constant 1
+pop local 1
+goto ifL63
+label ifL62
+label ifL63
+push local 1
+return
+function Board.flagTile 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 0
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 9
+gt
+not
+if-goto ifL64
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 20
+lt
+not
+if-goto ifL66
+push this 3
+push local 0
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 10
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push constant 15
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push this 1
+push constant 1
+sub
+pop this 1
+goto ifL67
+label ifL66
+label ifL67
+goto ifL65
+label ifL64
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 10
+lt
+not
+if-goto ifL68
+push this 3
+push local 0
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 10
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push constant 15
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push this 1
+push constant 1
+add
+pop this 1
+goto ifL69
+label ifL68
+label ifL69
+label ifL65
+push constant 7
+push constant 30
+call Output.moveCursor 2
+pop temp 0
+push this 1
+call Output.printInt 1
+pop temp 0
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+push constant 0
+return
+function Board.revealMines 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label whileL70
+push local 0
+push constant 13
+lt
+not
+if-goto whileL71
+push constant 0
+pop local 1
+label whileL72
+push local 1
+push constant 13
+lt
+not
+if-goto whileL73
+push local 0
+push constant 13
+call Math.multiply 2
+push local 1
+add
+pop local 2
+push this 3
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 9
+eq
+not
+if-goto ifL74
+push this 3
+push local 2
+add
+push constant 29
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+push local 1
+push constant 1
+add
+push this 3
+push local 2
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+goto ifL75
+label ifL74
+label ifL75
+push this 3
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 19
+eq
+not
+if-goto ifL76
+push this 3
+push local 2
+add
+push constant 29
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+push local 1
+push constant 1
+add
+push this 3
+push local 2
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+goto ifL77
+label ifL76
+label ifL77
+push local 1
+push constant 1
+add
+pop local 1
+goto whileL72
+label whileL73
+push local 0
+push constant 1
+add
+pop local 0
+goto whileL70
+label whileL71
+push constant 0
+return
+function Board.destroyConnectedTiles 5
+push argument 0
+pop pointer 0
+push constant 338
+call Queue.new 1
+pop local 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 3
+push local 0
+push argument 1
+call Queue.push 2
+pop temp 0
+push local 0
+push argument 2
+call Queue.push 2
+pop temp 0
+label whileL78
+push local 0
+call Queue.isEmpty 1
+not
+not
+if-goto whileL79
+push local 0
+call Queue.pop 1
+pop local 1
+push local 0
+call Queue.pop 1
+pop local 2
+push local 1
+push constant 13
+call Math.multiply 2
+push local 2
+add
+pop local 3
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto ifL80
+push constant 1
+pop local 4
+goto ifL81
+label ifL80
+label ifL81
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 20
+eq
+not
+if-goto ifL82
+push constant 1
+pop local 4
+goto ifL83
+label ifL82
+label ifL83
+push local 4
+push constant 1
+eq
+not
+if-goto ifL84
+push local 1
+push constant 0
+gt
+not
+if-goto ifL86
+push pointer 0
+push local 1
+push constant 1
+sub
+push local 2
+push local 0
+call Board.destroyHelper 4
+pop temp 0
+goto ifL87
+label ifL86
+label ifL87
+push local 1
+push constant 12
+lt
+not
+if-goto ifL88
+push pointer 0
+push local 1
+push constant 1
+add
+push local 2
+push local 0
+call Board.destroyHelper 4
+pop temp 0
+goto ifL89
+label ifL88
+label ifL89
+push local 2
+push constant 0
+gt
+not
+if-goto ifL90
+push pointer 0
+push local 1
+push local 2
+push constant 1
+sub
+push local 0
+call Board.destroyHelper 4
+pop temp 0
+goto ifL91
+label ifL90
+label ifL91
+push local 2
+push constant 12
+lt
+not
+if-goto ifL92
+push pointer 0
+push local 1
+push local 2
+push constant 1
+add
+push local 0
+call Board.destroyHelper 4
+pop temp 0
+goto ifL93
+label ifL92
+label ifL93
+goto ifL85
+label ifL84
+label ifL85
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 9
+lt
+not
+if-goto ifL94
+push this 3
+push local 3
+add
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 20
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 2
+push constant 1
+add
+pop this 2
+goto ifL95
+label ifL94
+label ifL95
+push constant 0
+pop local 4
+push local 1
+push constant 1
+add
+push local 2
+push constant 1
+add
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+goto whileL78
+label whileL79
+push local 0
+call Queue.dispose 1
+pop temp 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 3
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push this 3
+push local 3
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingCursorAt 3
+pop temp 0
+push constant 0
+return
+function Board.destroyHelper 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 13
+call Math.multiply 2
+push argument 2
+add
+pop local 0
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 9
+lt
+not
+if-goto ifL96
+push argument 3
+push argument 1
+call Queue.push 2
+pop temp 0
+push argument 3
+push argument 2
+call Queue.push 2
+pop temp 0
+push this 3
+push local 0
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 20
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 2
+push constant 1
+add
+pop this 2
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push this 3
+push local 0
+add
+pop pointer 1
+push that 0
+call Display.drawCorrespondingTileAt 3
+pop temp 0
+goto ifL97
+label ifL96
+label ifL97
+push constant 0
+return

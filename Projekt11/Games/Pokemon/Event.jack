@@ -1,0 +1,62 @@
+class Event {
+    static int EventCounter;
+    function void interact(int x, int y){
+        var Array a;
+        var String s;
+        if((Main.getMap())=2){
+            if((x=4)&(y=6)){
+                if(EventCounter=0){
+                    let a=Array.new(1);
+                    let s="ROT spielt SUPER NINTENDO!";
+                    let a[0]=s;
+                    do TextBox.showTextBox(a, 1);
+                    do s.dispose();
+                    do a.dispose();
+                    do Main.setinMenu(true);
+                }
+                if(EventCounter=1){
+                    let a=Array.new(1);
+                    let s="...OK! Die Reise kann beginnen";
+                    let a[0]=s;
+                    do TextBox.showTextBox(a,1);
+                    do s.dispose();
+                    do a.dispose();
+                }
+                if(EventCounter=2){
+                    let EventCounter=-1;
+                    do Main.setinMenu(false);
+                }
+                
+                let EventCounter=EventCounter+1;
+            }
+        }
+        return;
+    }
+    function void WalkOn(int x, int y){
+        var int temp;
+        let temp=0;
+        if((Main.getMap())=2){
+            let temp=2;
+            if((x=8)&(y=2)){
+                let temp=3;
+                do Main.setMapChange(true);
+            }
+        }
+        if((Main.getMap())=3){
+            let temp=3;
+            if((x=8)&(y=2)){
+                let temp=2;
+                do Main.setMapChange(true);
+            }
+        }
+        do Main.setMap(temp);
+        return;
+    }
+    function void setEventCounter(int e){
+        let EventCounter=e;
+        return;
+    }
+    function void carryOnEvent(int Event){
+        return;
+    }
+}

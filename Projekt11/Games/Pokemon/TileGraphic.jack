@@ -1,0 +1,186 @@
+class TileGraphic {
+    
+    function void drawGraphic(int x, int y, boolean Transparent, int Graphic){
+        var int g1;
+        var int g2;
+        var int g3;
+        var int g4;
+        //Empty Tile
+        let g1=0;
+        let g2=0;
+        let g3=0;
+        let g4=0;
+        if((Graphic>0)&(Graphic<6)){
+            //Filled Tile
+            if(Graphic=1){
+                let g1=1;
+                let g2=1;
+                let g3=1;
+                let g4=1;
+            }
+            //Trainer.Down Tile
+            if(Graphic=2){
+                let g1=2;
+                let g2=3;
+                let g3=4;
+                let g4=5;
+            }
+            //Trainer HouseFloor
+            if(Graphic=3){
+                let g1=6;
+                let g2=6;
+                let g3=6;
+                let g4=6;
+            }
+            //Zimmerpflanze Top
+            if(Graphic=4){
+                let g1=7;
+                let g2=8;
+                let g3=9;
+                let g4=10;
+            }
+            //Zimmerpflanze Bottom
+            if(Graphic=5){
+                let g1=11;
+                let g2=12;
+                let g3=13;
+                let g4=14;
+            }
+        }
+        if((Graphic>5)&(Graphic<12)){
+            //Wand Trainerraum
+            if(Graphic=6){
+                let g1=15;
+                let g2=15;
+                let g3=15;
+                let g4=15;
+            }
+            //Treppe
+            if(Graphic=7){
+                let g1=16;
+                let g2=17;
+                let g3=18;
+                let g4=19;
+            }
+            //Bett oben
+            if(Graphic=8){
+                let g1=20;
+                let g2=21;
+                let g3=22;
+                let g4=23;
+            }
+            //Bett unten
+            if(Graphic=9){
+                let g1=22;
+                let g2=23;
+                let g3=24;
+                let g4=25;
+            }
+            if(Graphic=10){
+                let g1=26;
+                let g2=27;
+                let g3=28;
+                let g4=29;
+            }
+            if(Graphic=11){
+                let g1=30;
+                let g2=31;
+                let g3=32;
+                let g4=33;
+            }
+        }
+        if((Graphic>11)&(Graphic<20)){
+            if(Graphic=12){
+                let g1=34;
+                let g2=35;
+                let g3=36;
+                let g4=37;
+            }
+            if(Graphic=13){
+                let g1=38;
+                let g2=39;
+                let g3=40;
+                let g4=41;
+            }
+            if(Graphic=14){
+                let g1=42;
+                let g2=43;
+                let g3=36;
+                let g4=37;
+            }
+            if(Graphic=15){
+                let g1=15;
+                let g2=15;
+                let g3=44;
+                let g4=45;
+            }
+            if(Graphic=16){
+                let g1=15;
+                let g2=15;
+                let g3=45;
+                let g4=46;
+            }
+            if(Graphic=17){
+                let g1=47;
+                let g2=0;
+                let g3=48;
+                let g4=49;
+            }
+            if(Graphic=18){
+                let g1=0;
+                let g2=50;
+                let g3=49;
+                let g4=51;
+            }
+            if(Graphic=19){
+                let g1=52;
+                let g2=53;
+                let g3=54;
+                let g4=55;
+            }
+        }
+        if((Graphic>19)&(Graphic<100)){
+            if(Graphic=20){
+                let g1=56;
+                let g2=57;
+                let g3=58;
+                let g4=59;
+            }
+            if(Graphic=21){
+                let g1=58;
+                let g2=59;
+                let g3=58;
+                let g4=59;
+            }
+            if(Graphic=22){
+                let g1=60;
+                let g2=61;
+                let g3=62;
+                let g4=63;
+            }
+        }
+        do CreateGraphic.drawGraphic(x, y, Transparent, g1);
+        do CreateGraphic.drawGraphic(x+16, y, Transparent, g2);
+        do CreateGraphic.drawGraphic(x, y+16, Transparent, g3);
+        do CreateGraphic.drawGraphic(x+16, y+16, Transparent, g4);
+        
+        return;
+    }
+    
+    function void drawAllGraphics(){
+        var int counterx;
+        var int countery;
+        let counterx=0;
+        let countery=0;
+        while(countery<255){
+            while(counterx<511){
+                do TileGraphic.drawGraphic(counterx, countery, false, ((countery/32)*16)+(counterx/32));
+                let counterx=counterx+32;
+            }
+            let counterx=0;
+            let countery=countery+32;
+        }
+        
+        return;
+    }
+}

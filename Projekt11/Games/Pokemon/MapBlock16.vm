@@ -1,0 +1,292 @@
+function MapBlock16.new 1
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 4
+call Array.new 1
+pop this 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 4
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+call MapBlock4.new 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function MapBlock16.get 3
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 2
+call Math.divide 2
+pop local 2
+push constant 2
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 2
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+call MapBlock4.get 3
+return
+function MapBlock16.set 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 2
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 2
+call Math.divide 2
+pop local 2
+push constant 2
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 2
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+push argument 3
+call MapBlock4.set 4
+pop temp 0
+push constant 0
+return
+function MapBlock16.getEvent 3
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 2
+call Math.divide 2
+pop local 2
+push constant 2
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 2
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+call MapBlock4.getEvent 3
+return
+function MapBlock16.setEvent 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 2
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 2
+call Math.divide 2
+pop local 2
+push constant 2
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 2
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 2
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+push argument 3
+call MapBlock4.setEvent 4
+pop temp 0
+push constant 0
+return
+function MapBlock16.draw 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 127
+neg
+lt
+push argument 2
+push constant 127
+neg
+lt
+or
+push argument 1
+push constant 511
+gt
+or
+push argument 2
+push constant 255
+gt
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push argument 2
+call MapBlock4.draw 3
+pop temp 0
+push constant 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push constant 64
+add
+push argument 2
+call MapBlock4.draw 3
+pop temp 0
+push constant 2
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push argument 2
+push constant 64
+add
+call MapBlock4.draw 3
+pop temp 0
+push constant 3
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push argument 1
+push constant 64
+add
+push argument 2
+push constant 64
+add
+call MapBlock4.draw 3
+pop temp 0
+push constant 0
+return
+function MapBlock16.dispose 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push constant 4
+lt
+not
+if-goto WHILE_END0
+push local 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call MapBlock4.dispose 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

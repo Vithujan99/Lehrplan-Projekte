@@ -1,0 +1,1332 @@
+function Renderer.init 1
+push constant 0
+pop local 0
+push constant 100
+call Array.new 1
+pop static 0
+label WHILE_EXP0
+push local 0
+push constant 100
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 0
+add
+push constant 4
+call Array.new 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+pop local 0
+push constant 100
+call Array.new 1
+pop static 1
+label WHILE_EXP1
+push local 0
+push constant 100
+lt
+not
+if-goto WHILE_END1
+push local 0
+push static 1
+add
+push constant 4
+call Array.new 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push constant 512
+call Array.new 1
+pop static 2
+push constant 0
+return
+function Renderer.reset 3
+push static 3
+pop static 4
+push constant 0
+pop static 3
+label WHILE_EXP0
+push local 0
+push static 4
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 0
+push static 1
+add
+pop pointer 1
+push that 0
+pop local 2
+push constant 0
+push local 2
+add
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push local 2
+add
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push local 2
+add
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 2
+add
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push static 3
+push constant 512
+lt
+not
+if-goto WHILE_END1
+push static 3
+push static 2
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 1
+add
+pop static 3
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+pop static 3
+push constant 0
+return
+function Renderer.drawMesh 13
+push constant 0
+not
+pop local 10
+push constant 0
+pop local 11
+push constant 0
+pop local 12
+push constant 120
+push argument 1
+call Math.multiply 2
+push constant 200
+call Math.divide 2
+push constant 10
+add
+pop local 0
+push constant 120
+push argument 1
+push argument 3
+add
+call Math.multiply 2
+push constant 200
+call Math.divide 2
+push constant 10
+add
+pop local 1
+push local 0
+push constant 10
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 10
+pop local 0
+push constant 0
+not
+pop local 11
+label IF_FALSE0
+push local 1
+push constant 10
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 10
+pop local 1
+push constant 0
+not
+pop local 12
+label IF_FALSE1
+push constant 120
+push argument 0
+call Math.multiply 2
+push local 0
+call Math.divide 2
+push constant 256
+add
+pop local 2
+push constant 120
+push argument 0
+push argument 2
+add
+call Math.multiply 2
+push local 1
+call Math.divide 2
+push constant 256
+add
+pop local 3
+push local 2
+pop local 7
+push local 2
+push constant 0
+lt
+push local 3
+push constant 0
+gt
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 120
+push argument 0
+push constant 0
+push local 2
+sub
+push constant 20
+call Math.multiply 2
+push local 3
+push local 2
+sub
+call Math.divide 2
+push argument 2
+call Math.multiply 2
+push constant 20
+call Math.divide 2
+add
+call Math.multiply 2
+push constant 0
+push constant 256
+sub
+call Math.divide 2
+pop local 0
+push constant 0
+pop local 2
+goto IF_END2
+label IF_FALSE2
+push local 2
+push constant 506
+gt
+push local 3
+push constant 506
+lt
+and
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 120
+push argument 0
+push local 2
+push constant 506
+sub
+push constant 20
+call Math.multiply 2
+push local 2
+push local 3
+sub
+call Math.divide 2
+push argument 2
+call Math.multiply 2
+push constant 20
+call Math.divide 2
+add
+call Math.multiply 2
+push constant 506
+push constant 256
+sub
+call Math.divide 2
+pop local 0
+push constant 506
+pop local 2
+label IF_FALSE3
+label IF_END2
+push local 3
+push constant 0
+lt
+push local 7
+push constant 0
+gt
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 120
+push argument 0
+push argument 2
+add
+push constant 0
+push local 3
+sub
+push constant 20
+call Math.multiply 2
+push local 7
+push local 3
+sub
+call Math.divide 2
+push argument 2
+call Math.multiply 2
+push constant 20
+call Math.divide 2
+sub
+call Math.multiply 2
+push constant 0
+push constant 256
+sub
+call Math.divide 2
+pop local 1
+push constant 0
+pop local 3
+goto IF_END4
+label IF_FALSE4
+push local 3
+push constant 506
+gt
+push local 7
+push constant 506
+lt
+and
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 120
+push argument 0
+push argument 2
+add
+push local 3
+push constant 506
+sub
+push constant 20
+call Math.multiply 2
+push local 3
+push local 7
+sub
+call Math.divide 2
+push argument 2
+call Math.multiply 2
+push constant 20
+call Math.divide 2
+sub
+call Math.multiply 2
+push constant 506
+push constant 256
+sub
+call Math.divide 2
+pop local 1
+push constant 506
+pop local 3
+label IF_FALSE5
+label IF_END4
+push local 3
+push constant 506
+gt
+push local 7
+push constant 506
+gt
+and
+push local 7
+push constant 0
+lt
+push local 3
+push constant 0
+lt
+and
+or
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 0
+pop local 10
+label IF_FALSE6
+push local 0
+push constant 10
+lt
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 10
+pop local 0
+push constant 0
+not
+pop local 11
+label IF_FALSE7
+push local 1
+push constant 10
+lt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 10
+pop local 1
+push constant 0
+not
+pop local 12
+label IF_FALSE8
+push local 10
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 0
+pop local 9
+push constant 1
+pop local 6
+push local 3
+push local 2
+lt
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push constant 1
+neg
+pop local 6
+label IF_FALSE10
+push local 11
+push local 2
+push local 3
+lt
+and
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 0
+pop local 4
+label WHILE_EXP0
+push local 4
+push local 2
+lt
+not
+if-goto WHILE_END0
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE12
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP0
+label WHILE_END0
+goto IF_END11
+label IF_FALSE11
+push local 11
+push local 2
+push local 3
+gt
+and
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push local 2
+pop local 4
+label WHILE_EXP1
+push local 4
+push constant 510
+lt
+not
+if-goto WHILE_END1
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE14
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP1
+label WHILE_END1
+label IF_FALSE13
+label IF_END11
+push local 12
+push local 2
+push local 3
+lt
+and
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push local 3
+pop local 4
+label WHILE_EXP2
+push local 4
+push constant 510
+lt
+not
+if-goto WHILE_END2
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE16
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP2
+label WHILE_END2
+goto IF_END15
+label IF_FALSE15
+push local 12
+push local 2
+push local 3
+gt
+and
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push constant 0
+pop local 4
+label WHILE_EXP3
+push local 4
+push local 3
+lt
+not
+if-goto WHILE_END3
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE18
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP3
+label WHILE_END3
+label IF_FALSE17
+label IF_END15
+push local 2
+pop local 4
+label WHILE_EXP4
+push local 3
+push local 2
+gt
+push local 4
+push local 3
+lt
+and
+push local 3
+push local 2
+lt
+push local 4
+push local 3
+gt
+and
+or
+not
+if-goto WHILE_END4
+push local 9
+not
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+and
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push constant 0
+not
+pop local 9
+push local 0
+push local 4
+push local 2
+sub
+push constant 10
+call Math.multiply 2
+push local 3
+push local 2
+sub
+call Math.divide 2
+push local 1
+push local 0
+sub
+call Math.multiply 2
+push constant 10
+call Math.divide 2
+add
+pop local 5
+push local 4
+push local 5
+call Renderer.startMesh 2
+pop temp 0
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+goto IF_END19
+label IF_FALSE19
+push local 9
+push local 4
+push static 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+and
+if-goto IF_TRUE20
+goto IF_FALSE20
+label IF_TRUE20
+push constant 0
+pop local 9
+push local 0
+push local 4
+push local 2
+sub
+push constant 10
+call Math.multiply 2
+push local 3
+push local 2
+sub
+call Math.divide 2
+push local 1
+push local 0
+sub
+call Math.multiply 2
+push constant 10
+call Math.divide 2
+add
+pop local 5
+push local 4
+push local 5
+call Renderer.endMesh 2
+pop temp 0
+goto IF_END20
+label IF_FALSE20
+push local 9
+if-goto IF_TRUE21
+goto IF_FALSE21
+label IF_TRUE21
+push local 4
+push static 2
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE21
+label IF_END20
+label IF_END19
+push local 4
+push local 6
+add
+pop local 4
+goto WHILE_EXP4
+label WHILE_END4
+push local 9
+if-goto IF_TRUE22
+goto IF_FALSE22
+label IF_TRUE22
+push local 3
+push local 1
+call Renderer.endMesh 2
+pop temp 0
+label IF_FALSE22
+label IF_FALSE9
+push constant 0
+return
+function Renderer.startMesh 2
+push static 3
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 0
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push local 0
+add
+push constant 0
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 1
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 0
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 20
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop local 1
+push constant 1
+push local 0
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 2
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 0
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 10
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop local 1
+push constant 1
+push local 0
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 3
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 0
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 15
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop local 1
+push constant 1
+push local 0
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 4
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 0
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 120
+push constant 5
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop local 1
+push constant 1
+push local 0
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Renderer.endMesh 1
+push static 3
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 2
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 0
+add
+push constant 0
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 1
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 2
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 0
+add
+push constant 120
+push constant 20
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 2
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 2
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 0
+add
+push constant 120
+push constant 10
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 3
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 2
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 0
+add
+push constant 120
+push constant 15
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 4
+add
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 2
+push local 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push local 0
+add
+push constant 120
+push constant 5
+call Math.multiply 2
+push constant 1260
+sub
+push argument 1
+call Math.divide 2
+push constant 126
+sub
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push static 3
+push constant 5
+add
+pop static 3
+push constant 0
+return
+function Renderer.clearPaint 2
+push constant 0
+call Screen.setColor 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push static 4
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 1
+add
+pop pointer 1
+push that 0
+pop local 1
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 512
+lt
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 256
+lt
+and
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 512
+lt
+and
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 256
+lt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Renderer.paint 2
+push argument 0
+call Screen.setColor 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push static 3
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+neg
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 512
+lt
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 256
+lt
+and
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 512
+lt
+and
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 256
+lt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 1
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 2
+push local 1
+add
+pop pointer 1
+push that 0
+push constant 3
+push local 1
+add
+pop pointer 1
+push that 0
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

@@ -1,0 +1,103 @@
+class Tile {
+    field int tile;
+    field boolean Solid;
+    field boolean empty;
+    field boolean full;
+
+    constructor Tile new(int t){
+        let Solid=true;
+        //empty
+        if(t=0){
+            let Solid=false;
+            let empty=true;
+        }
+        else{
+            let empty=false;
+        }
+        //filled
+        if(t=1){
+            let Solid=true;
+            let full=true;
+        }
+        else{
+            let full=false;
+        }
+        //Trainer.Down
+        if((t=2)|(t=4)|(t=5)|(t=6)|(t=8)|(t=9)|(t=10)|(t=11)|(t=12)|(t=13)|(t=14)|(t=15)|(t=16)|(t=17)|(t=18)|(t=19)|(t=20)|(t=21)){
+            let Solid=true;
+        }
+        if((t=3)|(t=7)|(t=22)){
+            let Solid=false;
+        }
+        let tile=t;
+        return this;
+    }
+    method boolean getSolid(){
+        return Solid;
+    }
+    method boolean getEmpty(){
+        return empty;
+    }
+    
+    method void drawTile(int x, int y, boolean Transparent){
+        var boolean Rect;
+        if((x<-31)|(y<-31)|(x>511)|(y>255)){
+            return;
+        }
+        if(empty){
+            do Screen.setColor(false);
+            do Tile.Rect(x, y, x+32, y+32);
+            return;
+        }
+        
+        if(full){
+            do Screen.setColor(true);
+            do Tile.Rect(x, y, x+32, y+32);
+        }
+        else{
+            do TileGraphic.drawGraphic(x, y, Transparent, tile);
+        }
+        return;
+    }
+    
+    function void Rect(int x, int y, int x2, int y2){
+        var int sizex;
+        var int sizey;
+
+        let sizex=(x2-x)+1;
+        let sizey=(y2-y)+1;
+        
+        if((~(x<-(sizex-1)))&(~(x>(511)))&(~(y<-(sizey-1)))&(~(y>(255)))){
+            let x=Tile.intInInterval(x, 0, 511);
+            let y=Tile.intInInterval(y, 0, 255);
+            let x2=Tile.intInInterval(x2, 0, 511);
+            let y2=Tile.intInInterval(y2, 0, 255);
+            
+            
+            do Screen.drawRectangle(x, y, x2, y2);
+        }
+        return;
+    }
+
+    function int intInInterval(int x, int a, int b){
+        
+        if(x<a){
+            let x=a;
+        }
+        if(x>b){
+            let x=b;
+        }
+        return x;
+    }
+    
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    
+    method void print(){
+        do graphic.print();
+        return;
+    }
+}

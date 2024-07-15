@@ -1,0 +1,250 @@
+//5x5 MapBlock16. Insgesamt damit 400 Tiles
+class MapBlock256{
+
+    field Array Block;
+    field int Up;
+    field int UpRight;
+    field int UpLeft;
+    field int Left;
+    field int Right;
+    field int DownLeft;
+    field int Down;
+    field int DownRight;
+    
+    constructor MapBlock256 new(){
+        var int counter;
+        let Block=Array.new(16);
+        let counter=0;
+        if(Main.getInside()){
+            let Up=1;
+            let UpLeft=1;
+            let UpRight=1;
+            let Left=1;
+            let Right=1;
+            let DownLeft=1;
+            let Down=1;
+            let DownRight=1;
+        }else{
+            let Up=0;
+            let UpLeft=0;
+            let UpRight=0;
+            let Left=0;
+            let Right=0;
+            let DownLeft=0;
+            let Down=0;
+            let DownRight=0;
+        }
+        while(counter<16){
+            let Block[counter]=MapBlock16.new();
+            let counter=counter+1;
+        }
+        return this;
+    }
+    //x, y TileKoordinaten
+    method int get(int x, int y){
+        var MapBlock16 b;
+        var int currentX;
+        var int currentY;
+        let currentX=x/4;
+        let currentY=y/4;
+        
+        let b=Block[(4*currentY)+currentX];
+        let currentX=LibExt.mod(x, 4);
+        let currentY=LibExt.mod(y, 4);
+        
+        return b.get(currentX, currentY);
+    }
+    //x, y TileKoordinaten Always Positive
+    method void set(int x, int y, int Tile){
+        var MapBlock16 b;
+        var int currentX;
+        var int currentY;
+        let currentX=x/4;
+        let currentY=y/4;
+        
+        let b=Block[(4*currentY)+currentX];
+        
+        let currentX=LibExt.mod(x, 4);
+        let currentY=LibExt.mod(y, 4);
+        do b.set(currentX, currentY, Tile);
+        return;
+    }
+    method int getEvent(int x, int y){
+        var MapBlock16 b;
+        var int currentX;
+        var int currentY;
+        let currentX=x/4;
+        let currentY=y/4;
+        
+        let b=Block[(4*currentY)+currentX];
+        let currentX=LibExt.mod(x, 4);
+        let currentY=LibExt.mod(y, 4);
+        
+        return b.getEvent(currentX, currentY);
+    }
+    method void setEvent(int x, int y, int Event){
+        var MapBlock16 b;
+        var int currentX;
+        var int currentY;
+        let currentX=x/4;
+        let currentY=y/4;
+        
+        let b=Block[(4*currentY)+currentX];
+        
+        let currentX=LibExt.mod(x, 4);
+        let currentY=LibExt.mod(y, 4);
+        do b.setEvent(currentX, currentY, Event);
+        return;
+    }
+    //Tilex/y Top Left Tile Coordinates
+    method void addMapObject(int Tilex, int Tiley, int Object){
+        var int c;
+        if(Object<5){
+            let c=0;
+        }
+        if((Object=5)|(Object=6)|(Object=7)){
+            let c=1;
+        }
+        if((Object=8)|(Object=9)|(Object=10)|(Object=11)){
+            let c=2;
+        }
+        if((Object=12)){
+            let c=3;
+        }
+        if((Object=13)|(Object=14)){
+            let c=6;
+        }
+        if((Object=15)){
+            let c=7;
+        }
+        if((Object<4)|(Object=5)|(Object=6)|(Object=8)|(Object=9)|(Object=10)|(Object=13)|(Object=15)){
+            do set(Tilex, Tiley, Object+c);
+            return;
+        }
+        //Zimmerpflanze
+        if((Object=4)|(Object=7)|(Object=11)|(Object=14)){
+            do set(Tilex, Tiley, Object+c);
+            do set(Tilex, Tiley+1, Object+c+1);
+            return;
+        }
+        if((Object=12)){
+            do set(Tilex, Tiley, Object+c);
+            do set(Tilex+1, Tiley, Object+c+1);
+            do set(Tilex, Tiley+1, Object+c+2);
+            do set(Tilex+1, Tiley+1, Object+c+3);
+        }
+        
+        
+        return;
+    }
+    
+    method int getDirection(int i){
+        if(i=0){
+            return UpLeft;
+        }
+        if(i=1){
+            return Up;
+        }
+        if(i=2){
+            return UpRight;
+        }
+        if(i=3){
+            return Left;
+        }
+        if(i=4){
+            return Right;
+        }
+        if(i=5){
+            return DownLeft;
+        }
+        if(i=6){
+            return Down;
+        }
+        if(i=7){
+            return DownRight;
+        }
+        return 0;
+    }
+    method void setDirection(int i, int Map){
+        if(i=0){
+            let UpLeft=Map;
+        }
+        if(i=1){
+            let Up=Map;
+        }
+        if(i=2){
+            let UpRight=Map;
+        }
+        if(i=3){
+            let Left=Map;
+        }
+        if(i=4){
+            let Right=Map;
+        }
+        if(i=5){
+            let DownLeft=Map;
+        }
+        if(i=6){
+            let Down=Map;
+        }
+        if(i=7){
+            let DownRight=Map;
+        }
+        return;
+    }
+    //Pixel Coordinates
+    method void draw(int x, int y, int viewx, int viewy){
+        var MapBlock16 m;
+        var int counterx;
+        var int countery;
+        if(Main.getInside()){
+            do Screen.setColor(true);
+        }
+        else{
+            do Screen.setColor(false);
+        }
+        let x=x-viewx;
+        let y=y-viewy;
+        if((x<-511)|(y<-511)|(x>511)|(y>255)){
+            return;
+        }
+        do Tile.Rect(0, 0, x, 255);
+        do Tile.Rect(x+544, 0, 511, 255);
+        do Tile.Rect(0, 0, 511, y);
+        do Tile.Rect(0, y+288, 511, 255);
+        let counterx=0;
+        let countery=0;
+        
+        while(countery<4){
+            while(counterx<4){
+                let m=Block[(countery*4)+counterx];
+                do m.draw((counterx*128)+x, (countery*128)+y);
+                let counterx=counterx+1;
+            }
+            
+            let counterx=0;
+            let countery=countery+1;
+        }
+        return;
+    }
+    
+    
+    method void print(){
+        do graphic.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    
+    method void dispose(){
+        /*var MapBlock16 m;
+        var int counter;
+        let counter=0;
+        while(counter<16){
+            let m=Block[counter];
+            do m.dispose();
+        }*/
+        do Memory.deAlloc(this);
+        return;
+    }
+}

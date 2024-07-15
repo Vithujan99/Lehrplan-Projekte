@@ -1,0 +1,42 @@
+class Random{
+    field int xCounter;
+    field int yCounter;
+    field boolean add;
+
+    constructor Random new(){
+        let xCounter = 0;
+        let yCounter = 0;
+        let add = false;
+        return this;
+    }
+
+    method int generateRandomX(){
+        if((xCounter + (4 * 20)) > 509){
+            let add = true;
+        }
+        if((xCounter - (4 * 20))  < 0){
+            let add = false;
+        }
+        if(add){
+            let xCounter = xCounter - (4 * 20);
+        }else{
+            let xCounter = xCounter + (4 * 20);
+        } 
+        return xCounter; 
+    }
+
+    method int generateRandomY(){
+        if((yCounter + (2 * 20))> 200){
+            let add = true;
+        }
+        if((yCounter - (2 * 20)) < 0){
+            let add = false;
+        }
+        if(add){
+            let yCounter = yCounter - (2 * 20);
+        }else{
+            let yCounter = yCounter + (2 * 20);
+        }   
+        return yCounter; 
+    }
+}

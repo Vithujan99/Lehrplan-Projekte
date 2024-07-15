@@ -1,0 +1,16 @@
+class Math2 {
+
+    // x%n, where n is a power of 2
+    function int modN(int x, int n) {
+        return x & (n-1);
+    }
+
+    // x%n
+    function int mod(int x, int n) {
+        while (x > (n - 1)) {
+            let x = x - n;
+        }
+        return x;
+    }
+
+}

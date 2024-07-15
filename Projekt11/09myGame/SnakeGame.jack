@@ -1,0 +1,59 @@
+class SnakeGame {
+   field Snake snake;
+   field Food food;
+
+   constructor SnakeGame new(){
+      let snake = Snake.new(0, 0, 10);
+      let food = Food.new(50,50,8);
+      return this;
+   }
+
+   method void run(){
+      var char key;
+      var boolean exit;
+      var int points;
+      let points = 0;
+      let exit = false;
+
+      do Output.moveCursor(11, 26);
+      do Output.printString("Press S to Start");
+      while(~(key = 83)){
+         let key = Keyboard.keyPressed();
+      }
+      do Screen.setColor(false);
+      do Screen.drawRectangle(20,20,510,250);
+      do food.draw();
+      while(~exit){
+         let key = Keyboard.keyPressed();
+         do snake.move();
+         if(snake.crash() | (key=81) | snake.selfCrash()){
+            let exit = true;  
+         }else{
+            if((key > 129) & (key < 134)) {  
+               do snake.setDirection(key);
+            }
+            if(snake.eat(food)){
+               let points = points + 1;
+               do snake.increaseLength();
+               do food.newLocation();
+            }
+            do food.draw();
+            do snake.draw();
+            do Sys.wait(50);
+         }
+      }
+      do Output.printString("Score:");
+      do Output.printInt(points);
+      do Output.println();
+      do Output.moveCursor(11, 26);
+      do Output.printString("Start again");
+      return;
+   }
+
+   method void dispose(){
+      do snake.dispose();
+      do food.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+}

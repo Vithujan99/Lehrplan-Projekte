@@ -1,0 +1,65 @@
+//2x2 Tiles großer MapChunk.
+
+class MapBlock4 {
+    field Array Block;
+    
+    constructor MapBlock4 new(){
+        var Mapline m;
+        let Block=Array.new(2);
+        let Block[0]=MapLine.new();
+        let Block[1]=MapLine.new();
+        return this;
+    }
+    method int get(int x, int y){
+        var MapLine l;
+        let l=Block[y];
+        return l.getX(x);
+    }
+    method void set(int x, int y, int Tile){
+        var MapLine l;
+        let l=Block[y];
+        do l.set(x, Tile);
+        return;
+    }
+    method int getEvent(int x, int y){
+        var MapLine l;
+        let l=Block[y];
+        return l.getEvent(x);
+    }
+    method void setEvent(int x, int y, int Event){
+        var MapLine l;
+        let l=Block[y];
+        do l.setEvent(x, Event);
+        return;
+    }
+    
+    method void draw(int x, int y){
+        var MapLine m;
+        if((x<-63)|(y<-63)|(x>511)|(y>255)){
+            return;
+        }
+        let m=Block[0];
+        do m.draw(x, y);
+        let m=Block[1];
+        do m.draw(x, y+32);
+        return;
+    }
+    
+    method void dispose(){
+        var MapLine m;
+        let m=Block[0];
+        do m.dispose();
+        let m=Block[1];
+        do m.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    method void print(){
+        var MapLine m;
+        let m=Block[0];
+        do m.print();
+        let m=Block[1];
+        do m.print();
+        return;
+    }
+}

@@ -1,0 +1,12 @@
+class Main {
+   function void main() {
+      var int x;
+      let x = 5;
+      if(x<10){
+        do Output.printString("Kleiner");
+      }else{
+        do Output.printString("Großer");
+      }
+      return;
+   }
+}

@@ -1,0 +1,239 @@
+class Mesh {
+	static Array cos, sin;
+
+    field int x;
+    field int z;
+	field int originalX;
+	field int originalZ;
+    field int width;
+    field int depth;
+	field int originalWidth;
+	field int originalDepth;
+	field int rotation;
+	field int id;
+
+	function void createCos() {
+		let cos = Array.new(61);
+		let cos[0] = 100;
+		let cos[1] = 99;
+		let cos[2] = 97;
+		let cos[3] = 95;
+		let cos[4] = 91;
+		let cos[5] = 86;
+		let cos[6] = 80;
+		let cos[7] = 74;
+		let cos[8] = 66;
+		let cos[9] = 58;
+		let cos[10] = 50;
+		let cos[11] = 40;
+		let cos[12] = 30;
+		let cos[13] = 20;
+		let cos[14] = 10;
+		let cos[15] = 0;
+		let cos[16] = -10;
+		let cos[17] = -20;
+		let cos[18] = -30;
+		let cos[19] = -40;
+		let cos[20] = -49;
+		let cos[21] = -58;
+		let cos[22] = -66;
+		let cos[23] = -74;
+		let cos[24] = -80;
+		let cos[25] = -86;
+		let cos[26] = -91;
+		let cos[27] = -95;
+		let cos[28] = -97;
+		let cos[29] = -99;
+		let cos[30] = -100;
+		let cos[31] = -99;
+		let cos[32] = -97;
+		let cos[33] = -95;
+		let cos[34] = -91;
+		let cos[35] = -86;
+		let cos[36] = -80;
+		let cos[37] = -74;
+		let cos[38] = -66;
+		let cos[39] = -58;
+		let cos[40] = -50;
+		let cos[41] = -40;
+		let cos[42] = -30;
+		let cos[43] = -20;
+		let cos[44] = -10;
+		let cos[45] = 0;
+		let cos[46] = 10;
+		let cos[47] = 20;
+		let cos[48] = 30;
+		let cos[49] = 40;
+		let cos[50] = 50;
+		let cos[51] = 58;
+		let cos[52] = 66;
+		let cos[53] = 74;
+		let cos[54] = 80;
+		let cos[55] = 86;
+		let cos[56] = 91;
+		let cos[57] = 95;
+		let cos[58] = 97;
+		let cos[59] = 99;
+		let cos[60] = 100;
+		return;
+	}
+
+	function void createSin() {
+		let sin = Array.new(61);
+		let sin[0] = 0;
+		let sin[1] = 10;
+		let sin[2] = 20;
+		let sin[3] = 30;
+		let sin[4] = 40;
+		let sin[5] = 49;
+		let sin[6] = 58;
+		let sin[7] = 66;
+		let sin[8] = 74;
+		let sin[9] = 80;
+		let sin[10] = 86;
+		let sin[11] = 91;
+		let sin[12] = 95;
+		let sin[13] = 97;
+		let sin[14] = 99;
+		let sin[15] = 100;
+		let sin[16] = 99;
+		let sin[17] = 97;
+		let sin[18] = 95;
+		let sin[19] = 91;
+		let sin[20] = 86;
+		let sin[21] = 80;
+		let sin[22] = 74;
+		let sin[23] = 66;
+		let sin[24] = 58;
+		let sin[25] = 49;
+		let sin[26] = 40;
+		let sin[27] = 30;
+		let sin[28] = 20;
+		let sin[29] = 10;
+		let sin[30] = 0;
+		let sin[31] = -10;
+		let sin[32] = -20;
+		let sin[33] = -30;
+		let sin[34] = -40;
+		let sin[35] = -50;
+		let sin[36] = -58;
+		let sin[37] = -66;
+		let sin[38] = -74;
+		let sin[39] = -80;
+		let sin[40] = -86;
+		let sin[41] = -91;
+		let sin[42] = -95;
+		let sin[43] = -97;
+		let sin[44] = -99;
+		let sin[45] = -100;
+		let sin[46] = -99;
+		let sin[47] = -97;
+		let sin[48] = -95;
+		let sin[49] = -91;
+		let sin[50] = -86;
+		let sin[51] = -80;
+		let sin[52] = -74;
+		let sin[53] = -66;
+		let sin[54] = -58;
+		let sin[55] = -50;
+		let sin[56] = -40;
+		let sin[57] = -30;
+		let sin[58] = -20;
+		let sin[59] = -10;
+		let sin[60] = 0;
+		return;
+	}
+
+    constructor Mesh new(int pX, int pZ, int pWidth, int pDepth, int pId) {
+        let x = pX;
+        let z = pZ;
+		let originalX = pX;
+		let originalZ = pZ;
+        let width = pWidth;
+        let depth = pDepth;
+		let originalWidth = pWidth;
+		let originalDepth = pDepth;
+		let id = pId;
+
+        return this;
+    }
+
+	method void print() {
+		do Output.printInt(id);
+		do Output.printString(" : ");
+		do Output.printInt(minZ());
+		do Output.println();
+		return;
+	}
+
+	method boolean stuckInWall() {
+		return ((((z - 1) < 0) & ((z + depth + 1) > 0)) | (((z + 1) > 0) & ((z + depth - 1) < 0)))
+				& ((((x - 1) < 0) & ((x + width + 1) > 0)) | (((x + 1) > 0) & ((x + width - 1) < 0)));
+	}
+
+	method int minZ() {
+		var int tmp, tmpX, tmpZ, tmpWidth, tmpDepth;
+		let tmpX = x / 2;
+		let tmpZ = z / 4;
+		let tmpWidth = width / 2;
+		let tmpDepth = depth / 4;
+		let tmp = Math.sqrt((tmpX * tmpX) + (tmpZ * tmpZ));
+		return tmp + Math.sqrt(((tmpX + tmpWidth) * (tmpX + tmpWidth)) + ((tmpZ + tmpDepth) * (tmpZ + tmpDepth)));
+	}
+
+	method void translate(int dx, int dz) {
+		var int cosA, sinA;
+		let cosA = cos[(360 - rotation) / 6];
+		let sinA = sin[(360 - rotation) / 6];
+
+		let originalX = originalX + (((cosA * dx) - (sinA * dz)) / 100);
+		let originalZ = originalZ + (((sinA * dx) + (cosA * dz)) / 100);
+
+		do applyRotation();
+
+		// let x = originalX;
+		// let z = originalZ;
+
+		return;
+	}
+
+	method void rotate(int rot) {
+		let rotation = rotation + rot;
+		if(rotation > 360) {
+			let rotation = rotation - 360;
+		} else {
+			if(rotation < 0) {
+				let rotation = 360 + rotation;
+			}
+		}
+
+		do applyRotation();
+		return;
+	}
+
+	method void applyRotation() {
+		var int cosA, sinA;
+		let cosA = cos[rotation / 6];
+		let sinA = sin[rotation / 6];
+
+		let width = ((cosA * originalWidth) - (sinA * originalDepth)) / 100;
+		let depth = ((sinA * originalWidth) + (cosA * originalDepth)) / 100;
+
+		let x = ((cosA * originalX) - (sinA * originalZ)) / 100;
+		let z = ((sinA * originalX) + (cosA * originalZ)) / 100;
+
+		return;
+	}
+
+	method void draw() {
+		if((z > 0) | (z = 0) | ((z + depth) > 0) | ((z + depth) = 0)) {
+			do Renderer.drawMesh(x, z, width, depth);
+		}
+		return;
+	}
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

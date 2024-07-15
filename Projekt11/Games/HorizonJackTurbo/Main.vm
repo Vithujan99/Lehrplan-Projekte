@@ -1,0 +1,16 @@
+function Main.main 1
+call Game.new 0
+pop local 0
+push pointer 0
+call Main.init 1
+pop temp 0
+push local 0
+call Game.title 1
+pop temp 0
+push constant 0
+return
+function Main.init 0
+call Graphics.init 0
+pop temp 0
+push constant 0
+return

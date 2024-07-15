@@ -1,0 +1,554 @@
+function Main.main 2
+push constant 0
+call String.new 1
+pop local 0
+push local 0
+call String.dispose 1
+pop temp 0
+push constant 6
+call String.new 1
+pop local 0
+push local 0
+push constant 97
+call String.appendChar 2
+pop local 0
+push local 0
+push constant 98
+call String.appendChar 2
+pop local 0
+push local 0
+push constant 99
+call String.appendChar 2
+pop local 0
+push local 0
+push constant 100
+call String.appendChar 2
+pop local 0
+push local 0
+push constant 101
+call String.appendChar 2
+pop local 0
+push constant 18
+call String.new 1
+push constant 110
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 119
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 44
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 100
+call String.appendChar 2
+push constant 67
+call String.appendChar 2
+push constant 104
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push local 0
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 6
+call String.new 1
+pop local 1
+push local 1
+push constant 12345
+call String.setInt 2
+pop temp 0
+push constant 8
+call String.new 1
+push constant 115
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 73
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push local 1
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 1
+push constant 32767
+neg
+call String.setInt 2
+pop temp 0
+push constant 8
+call String.new 1
+push constant 115
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 73
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push local 1
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 8
+call String.new 1
+push constant 108
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 103
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 104
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push local 0
+call String.length 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 15
+call String.new 1
+push constant 99
+call String.appendChar 2
+push constant 104
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 65
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 91
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 50
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 93
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push local 0
+push constant 2
+call String.charAt 2
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 0
+push constant 2
+push constant 45
+call String.setCharAt 3
+pop temp 0
+call Output.printString 1
+pop temp 0
+push pointer 0
+push local 0
+call Main.printString 2
+not
+if-goto ifL2
+push pointer 0
+call Main.println 1
+not
+if-goto ifL4
+push pointer 0
+call Main.eraseLastChar 1
+not
+if-goto ifL6
+push pointer 0
+push constant 15
+call String.new 1
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 76
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 67
+call String.appendChar 2
+push constant 104
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL8
+push pointer 0
+push local 0
+call Main.printString 2
+not
+if-goto ifL10
+push pointer 0
+call Main.println 1
+not
+if-goto ifL12
+push constant 4
+call String.new 1
+push constant 52
+call String.appendChar 2
+push constant 53
+call String.appendChar 2
+push constant 54
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+not
+if-goto ifL14
+push pointer 0
+push constant 10
+call String.new 1
+push constant 105
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 86
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL16
+push pointer 0
+push local 0
+call String.intValue 1
+call Main.printInt 2
+not
+if-goto ifL18
+push pointer 0
+call Main.println 1
+not
+if-goto ifL20
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+sub
+not
+if-goto ifL22
+push pointer 0
+push constant 10
+call String.new 1
+push constant 105
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 86
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL24
+push pointer 0
+push local 0
+call String.intValue 1
+call Main.printInt 2
+not
+if-goto ifL26
+push pointer 0
+call Main.println 1
+not
+if-goto ifL28
+push pointer 0
+push constant 11
+call String.new 1
+push constant 98
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 107
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL30
+push pointer 0
+call String.backSpace 0
+call Main.printInt 2
+not
+if-goto ifL32
+push pointer 0
+call Main.println 1
+not
+if-goto ifL34
+push pointer 0
+push constant 13
+call String.new 1
+push constant 100
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 98
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 81
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL36
+push pointer 0
+call String.doubleQuote 0
+call Main.printInt 2
+not
+if-goto ifL38
+push pointer 0
+call Main.println 1
+not
+if-goto ifL40
+push pointer 0
+push constant 9
+call String.new 1
+push constant 110
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 119
+call String.appendChar 2
+push constant 76
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Main.printString 2
+not
+if-goto ifL42
+push pointer 0
+call String.newLine 0
+call Main.printInt 2
+not
+if-goto ifL44
+push pointer 0
+call Main.println 1
+not
+if-goto ifL46
+push pointer 0
+call Main.dispose 1
+not
+if-goto ifL48
+push pointer 0
+call Main.dispose 1
+not
+if-goto ifL50
+goto ifL51
+label ifL50
+label ifL51
+goto ifL49
+label ifL48
+label ifL49
+goto ifL47
+label ifL46
+label ifL47
+goto ifL45
+label ifL44
+label ifL45
+goto ifL43
+label ifL42
+label ifL43
+goto ifL41
+label ifL40
+label ifL41
+goto ifL39
+label ifL38
+label ifL39
+goto ifL37
+label ifL36
+label ifL37
+goto ifL35
+label ifL34
+label ifL35
+goto ifL33
+label ifL32
+label ifL33
+goto ifL31
+label ifL30
+label ifL31
+goto ifL29
+label ifL28
+label ifL29
+goto ifL27
+label ifL26
+label ifL27
+goto ifL25
+label ifL24
+label ifL25
+goto ifL23
+label ifL22
+label ifL23
+goto ifL21
+label ifL20
+label ifL21
+goto ifL19
+label ifL18
+label ifL19
+goto ifL17
+label ifL16
+label ifL17
+goto ifL15
+label ifL14
+label ifL15
+goto ifL13
+label ifL12
+label ifL13
+goto ifL11
+label ifL10
+label ifL11
+goto ifL9
+label ifL8
+label ifL9
+goto ifL7
+label ifL6
+label ifL7
+goto ifL5
+label ifL4
+label ifL5
+goto ifL3
+label ifL2
+label ifL3

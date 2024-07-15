@@ -1,0 +1,110 @@
+//2x2 MapBlock4 großer MapChunk. Insgesamt damit 16 Tiles
+
+class MapBlock16 {
+    field Array Block;
+    
+    constructor MapBlock16 new(){
+        var int counter;
+        let Block=Array.new(4);
+        let counter=0;
+        while(counter<4){
+            let Block[counter]=MapBlock4.new();
+            
+            let counter=counter+1;
+        }
+        return this;
+    }
+    method int get(int x, int y){
+        var MapBlock4 b;
+        var int currentX;
+        var int currentY;
+        
+        let b=Block[0];
+        
+        let currentX=x/2;
+        let currentY=y/2;
+        let b=Block[(2*currentY)+currentX];
+        
+        let currentX=LibExt.mod(x, 2);
+        let currentY=LibExt.mod(y, 2);
+        
+        
+        return b.get(currentX, currentY);
+    }
+    
+    method void set(int x, int y, int Tile){
+        var MapBlock4 b;
+        var int currentX;
+        var int currentY;
+        
+        let currentX=x/2;
+        let currentY=y/2;
+        let b=Block[((2*currentY)+currentX)];
+        
+        let currentX=LibExt.mod(x, 2);
+        let currentY=LibExt.mod(y, 2);
+        
+        do b.set(currentX, currentY, Tile);
+        return;
+    }
+    method int getEvent(int x, int y){
+        var MapBlock4 b;
+        var int currentX;
+        var int currentY;
+        
+        let b=Block[0];
+        
+        let currentX=x/2;
+        let currentY=y/2;
+        let b=Block[(2*currentY)+currentX];
+        
+        let currentX=LibExt.mod(x, 2);
+        let currentY=LibExt.mod(y, 2);
+        
+        
+        return b.getEvent(currentX, currentY);
+    }
+    
+    method void setEvent(int x, int y, int Event){
+        var MapBlock4 b;
+        var int currentX;
+        var int currentY;
+        
+        let currentX=x/2;
+        let currentY=y/2;
+        let b=Block[((2*currentY)+currentX)];
+        
+        let currentX=LibExt.mod(x, 2);
+        let currentY=LibExt.mod(y, 2);
+        
+        do b.setEvent(currentX, currentY, Event);
+        return;
+    }
+    method void draw(int x, int y){
+        var MapBlock4 m;
+        if((x<-127)|(y<-127)|(x>511)|(y>255)){
+            return;
+        }
+        let m=Block[0];
+        do m.draw(x, y);
+        let m=Block[1];
+        do m.draw(x+64, y);
+        let m=Block[2];
+        do m.draw(x, y+64);
+        let m=Block[3];
+        do m.draw(x+64, y+64);
+        return;
+    }
+
+    method void dispose(){
+        var MapBlock4 m;
+        var int counter;
+        let counter=0;
+        while(counter<4){
+            let m=Block[counter];
+            do m.dispose();
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+}

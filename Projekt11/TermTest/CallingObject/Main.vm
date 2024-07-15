@@ -1,0 +1,29 @@
+function Main.main 2
+call Main.new 0
+pop local 1
+push local 1
+call Main.test 0
+call Main.add 2
+pop local 0
+push local 0
+call Output.printInt 1
+pop temp 0
+push constant 0
+return
+function Main.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 5
+pop this 0
+push pointer 0
+return
+function Main.add 0
+push argument 0
+pop pointer 0
+push constant 5
+return
+function Main.test 0
+push constant 1
+neg
+return

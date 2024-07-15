@@ -1,0 +1,23 @@
+function PseudoRNG.nextRandom 1
+push constant 16645
+push argument 0
+call Math.multiply 2
+push constant 10139
+add
+push constant 7140
+call Main.modulo 2
+pop local 0
+push local 0
+push constant 0
+lt
+not
+if-goto ifL2
+push local 0
+push constant 32767
+add
+pop local 0
+goto ifL3
+label ifL2
+label ifL3
+push local 0
+return

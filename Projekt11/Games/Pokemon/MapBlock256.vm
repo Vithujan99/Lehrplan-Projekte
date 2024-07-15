@@ -1,0 +1,737 @@
+function MapBlock256.new 1
+push constant 9
+call Memory.alloc 1
+pop pointer 0
+push constant 16
+call Array.new 1
+pop this 0
+push constant 0
+pop local 0
+call Main.getInside 0
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+pop this 1
+push constant 1
+pop this 3
+push constant 1
+pop this 2
+push constant 1
+pop this 4
+push constant 1
+pop this 5
+push constant 1
+pop this 6
+push constant 1
+pop this 7
+push constant 1
+pop this 8
+goto IF_END0
+label IF_FALSE0
+push constant 0
+pop this 1
+push constant 0
+pop this 3
+push constant 0
+pop this 2
+push constant 0
+pop this 4
+push constant 0
+pop this 5
+push constant 0
+pop this 6
+push constant 0
+pop this 7
+push constant 0
+pop this 8
+label IF_END0
+label WHILE_EXP0
+push local 0
+push constant 16
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+call MapBlock16.new 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function MapBlock256.get 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 4
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 4
+call Math.divide 2
+pop local 2
+push constant 4
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 4
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 4
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+call MapBlock16.get 3
+return
+function MapBlock256.set 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 4
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 4
+call Math.divide 2
+pop local 2
+push constant 4
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 4
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 4
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+push argument 3
+call MapBlock16.set 4
+pop temp 0
+push constant 0
+return
+function MapBlock256.getEvent 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 4
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 4
+call Math.divide 2
+pop local 2
+push constant 4
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 4
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 4
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+call MapBlock16.getEvent 3
+return
+function MapBlock256.setEvent 3
+push argument 0
+pop pointer 0
+push argument 1
+push constant 4
+call Math.divide 2
+pop local 1
+push argument 2
+push constant 4
+call Math.divide 2
+pop local 2
+push constant 4
+push local 2
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push argument 1
+push constant 4
+call LibExt.mod 2
+pop local 1
+push argument 2
+push constant 4
+call LibExt.mod 2
+pop local 2
+push local 0
+push local 1
+push local 2
+push argument 3
+call MapBlock16.setEvent 4
+pop temp 0
+push constant 0
+return
+function MapBlock256.addMapObject 1
+push argument 0
+pop pointer 0
+push argument 3
+push constant 5
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 0
+label IF_FALSE0
+push argument 3
+push constant 5
+eq
+push argument 3
+push constant 6
+eq
+or
+push argument 3
+push constant 7
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop local 0
+label IF_FALSE1
+push argument 3
+push constant 8
+eq
+push argument 3
+push constant 9
+eq
+or
+push argument 3
+push constant 10
+eq
+or
+push argument 3
+push constant 11
+eq
+or
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 2
+pop local 0
+label IF_FALSE2
+push argument 3
+push constant 12
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 3
+pop local 0
+label IF_FALSE3
+push argument 3
+push constant 13
+eq
+push argument 3
+push constant 14
+eq
+or
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 6
+pop local 0
+label IF_FALSE4
+push argument 3
+push constant 15
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 7
+pop local 0
+label IF_FALSE5
+push argument 3
+push constant 4
+lt
+push argument 3
+push constant 5
+eq
+or
+push argument 3
+push constant 6
+eq
+or
+push argument 3
+push constant 8
+eq
+or
+push argument 3
+push constant 9
+eq
+or
+push argument 3
+push constant 10
+eq
+or
+push argument 3
+push constant 13
+eq
+or
+push argument 3
+push constant 15
+eq
+or
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push pointer 0
+push argument 1
+push argument 2
+push argument 3
+push local 0
+add
+call MapBlock256.set 4
+pop temp 0
+push constant 0
+return
+label IF_FALSE6
+push argument 3
+push constant 4
+eq
+push argument 3
+push constant 7
+eq
+or
+push argument 3
+push constant 11
+eq
+or
+push argument 3
+push constant 14
+eq
+or
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push pointer 0
+push argument 1
+push argument 2
+push argument 3
+push local 0
+add
+call MapBlock256.set 4
+pop temp 0
+push pointer 0
+push argument 1
+push argument 2
+push constant 1
+add
+push argument 3
+push local 0
+add
+push constant 1
+add
+call MapBlock256.set 4
+pop temp 0
+push constant 0
+return
+label IF_FALSE7
+push argument 3
+push constant 12
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push pointer 0
+push argument 1
+push argument 2
+push argument 3
+push local 0
+add
+call MapBlock256.set 4
+pop temp 0
+push pointer 0
+push argument 1
+push constant 1
+add
+push argument 2
+push argument 3
+push local 0
+add
+push constant 1
+add
+call MapBlock256.set 4
+pop temp 0
+push pointer 0
+push argument 1
+push argument 2
+push constant 1
+add
+push argument 3
+push local 0
+add
+push constant 2
+add
+call MapBlock256.set 4
+pop temp 0
+push pointer 0
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push argument 3
+push local 0
+add
+push constant 3
+add
+call MapBlock256.set 4
+pop temp 0
+label IF_FALSE8
+push constant 0
+return
+function MapBlock256.getDirection 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 3
+return
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+return
+label IF_FALSE1
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+return
+label IF_FALSE2
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 4
+return
+label IF_FALSE3
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 5
+return
+label IF_FALSE4
+push argument 1
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 6
+return
+label IF_FALSE5
+push argument 1
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 7
+return
+label IF_FALSE6
+push argument 1
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 8
+return
+label IF_FALSE7
+push constant 0
+return
+function MapBlock256.setDirection 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 2
+pop this 3
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 2
+pop this 1
+label IF_FALSE1
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 2
+pop this 2
+label IF_FALSE2
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 2
+pop this 4
+label IF_FALSE3
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 2
+pop this 5
+label IF_FALSE4
+push argument 1
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push argument 2
+pop this 6
+label IF_FALSE5
+push argument 1
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push argument 2
+pop this 7
+label IF_FALSE6
+push argument 1
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push argument 2
+pop this 8
+label IF_FALSE7
+push constant 0
+return
+function MapBlock256.draw 3
+push argument 0
+pop pointer 0
+call Main.getInside 0
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+label IF_END0
+push argument 1
+push argument 3
+sub
+pop argument 1
+push argument 2
+push argument 4
+sub
+pop argument 2
+push argument 1
+push constant 511
+neg
+lt
+push argument 2
+push constant 511
+neg
+lt
+or
+push argument 1
+push constant 511
+gt
+or
+push argument 2
+push constant 255
+gt
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push constant 0
+push constant 0
+push argument 1
+push constant 255
+call Tile.Rect 4
+pop temp 0
+push argument 1
+push constant 544
+add
+push constant 0
+push constant 511
+push constant 255
+call Tile.Rect 4
+pop temp 0
+push constant 0
+push constant 0
+push constant 511
+push argument 2
+call Tile.Rect 4
+pop temp 0
+push constant 0
+push argument 2
+push constant 288
+add
+push constant 511
+push constant 255
+call Tile.Rect 4
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push constant 4
+lt
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 1
+push constant 4
+lt
+not
+if-goto WHILE_END1
+push local 2
+push constant 4
+call Math.multiply 2
+push local 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push local 1
+push constant 128
+call Math.multiply 2
+push argument 1
+add
+push local 2
+push constant 128
+call Math.multiply 2
+push argument 2
+add
+call MapBlock16.draw 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+pop local 1
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function MapBlock256.print 0
+push argument 0
+pop pointer 0
+call graphic.dispose 0
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function MapBlock256.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,114 @@
+function TileSet.new 1
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 23
+pop static 0
+push static 0
+call Array.new 1
+pop this 0
+label WHILE_EXP0
+push local 0
+push static 0
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+push local 0
+call Tile.new 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function TileSet.getTile 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+lt
+push argument 1
+push static 0
+push constant 1
+sub
+gt
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+return
+label IF_FALSE0
+push argument 1
+push this 0
+add
+pop pointer 1
+push that 0
+return
+function TileSet.getTileLength 0
+push static 0
+return
+function TileSet.dispose 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 50
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Tile.dispose 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function TileSet.print 1
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Tile.print 1
+pop temp 0
+push constant 1
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Tile.print 1
+pop temp 0
+push constant 0
+return

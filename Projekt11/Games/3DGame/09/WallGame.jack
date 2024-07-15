@@ -1,0 +1,402 @@
+
+class WallGame {
+    static int POV, HALF_POV;
+    static int PROJECTIONPLANEHEIGHT;
+
+    static int MAX_INT;
+    static int distProjectionPlane;
+
+    static int TILE_SIZE;
+
+    static Trig trig;
+    static Array xStepTable, yStepTable;
+
+    field Map map;
+    field int px, py, pArc;
+    field Array lastCast;
+
+    constructor WallGame new(){
+        let POV = 60;
+        let HALF_POV = 30;
+        let PROJECTIONPLANEHEIGHT = 240;
+        let distProjectionPlane = 8000; 
+
+        let MAX_INT = 32767;
+
+        let TILE_SIZE = 32;
+
+        let trig = Trig.new();
+        do initStepTable();
+
+        let lastCast = Array.new(POV);
+
+        let map = Level.level1();
+
+        let px = 72;
+        let py = 72;
+        let pArc = 110;
+        return this;
+    }
+
+    method void dispose(){
+        do map.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void drawPlayer(){
+        var int x, a;
+        let x = px + 256;
+        do Screen.setColor(true);
+        do Screen.drawCircle(x, py, 2);
+        let a=pArc-HALF_POV;
+        if (a < 0){
+            let a = a + 360;
+        }
+        do Screen.drawLine(x, py, x+(trig.cos(a)/5), py+(trig.sin(a)/5));
+        let a=pArc+HALF_POV;
+        if (~(a < 360)){
+            let a = a - 360;
+        }
+        do Screen.drawLine(x, py, x+(trig.cos(a)/5), py+(trig.sin(a)/5));
+        return;
+    }
+
+    method boolean moveForwards(int n){
+        var int x, y;
+        let x = px + (trig.cos(pArc)*n/100);
+        let y = py + (trig.sin(pArc)*n/100);
+        if (~map.isWall(x/TILE_SIZE, y/TILE_SIZE)) {
+            let px = x;
+            let py = y;
+            return true;
+        }
+        return false;
+    }
+
+    method boolean moveLeft(int n){
+        var int x, y;
+        let x = px + (trig.sin(pArc)*n/100);
+        let y = py - (trig.cos(pArc)*n/100);
+        if (~map.isWall(x/TILE_SIZE, y/TILE_SIZE)) {
+            let px = x;
+            let py = y;
+            return true;
+        }
+        return false;
+    }
+
+    method boolean moveBackwards(int n){
+        var int x, y;
+        let x = px - (trig.cos(pArc)*n/100);
+        let y = py - (trig.sin(pArc)*n/100);
+        if (~map.isWall(x/TILE_SIZE, y/TILE_SIZE)) {
+            let px = x;
+            let py = y;
+            return true;
+        }
+        return false;
+    }
+
+    method boolean moveRight(int n){
+        var int x, y;
+        let x = px - (trig.sin(pArc)*n/100);
+        let y = py + (trig.cos(pArc)*n/100);
+        if (~map.isWall(x/TILE_SIZE, y/TILE_SIZE)) {
+            let px = x;
+            let py = y;
+            return true;
+        }
+        return false;
+    }
+
+    method void rotateLeft(int n){
+        let pArc = pArc - n;
+        if (pArc < 0){
+            let pArc = pArc + 360;
+        }
+        return;
+    }
+
+    method void rotateRight(int n){
+        let pArc = pArc + n;
+        if (~(pArc < 360)){
+            let pArc = pArc - 360;
+        }
+        return;
+    }
+
+    method void drawGrid(){
+        var int i;
+        let i = TILE_SIZE;
+        while (i < 256){
+            do Screen.drawLine(256, i, 511, i);
+            let i = i + TILE_SIZE;
+        }
+        let i = 256;
+        while (i < 511){
+            do Screen.drawLine(i, 0, i, 255);
+            let i = i + TILE_SIZE;
+        }
+        return;
+    }
+
+    method void drawRay(int x, int y){
+        if((x > -1) & (x < 256) & (y > -1) & (y < 256)){
+            do Screen.setColor(true);
+            do Screen.drawLine(255+px, py, 255+x, y);
+        }
+        return;
+    }
+
+    method int castToVerticalWall(int castArc){
+        var int verticalGrid, distNextVerticalGrid;
+        var int yIntersection, distVerticalHit;
+        var int xGridIndex, yGridIndex;
+        var boolean hitWall;
+
+        // ray is facing right?
+        if ((castArc < 90) | (castArc > 270)) {
+            let verticalGrid = ((px/TILE_SIZE)*TILE_SIZE) + TILE_SIZE;
+            let distNextVerticalGrid = TILE_SIZE;
+        } 
+        // ray is facing left?
+        else {
+            let verticalGrid = ((px/TILE_SIZE)*TILE_SIZE)-1;
+            let distNextVerticalGrid = -TILE_SIZE;
+        }
+        let yIntersection = ((trig.tan(castArc)*(verticalGrid-px))/trig.FIX_POINT()) + py;
+        //ray is vertical!
+        if ((castArc=90) | (castArc=270)){
+            let distVerticalHit = MAX_INT;
+        }
+        else {
+            let hitWall = false;
+            while (~hitWall){
+                let xGridIndex = verticalGrid/TILE_SIZE;
+                let yGridIndex = yIntersection/TILE_SIZE;
+                if ((~(xGridIndex < map.width())) | (~(yGridIndex < map.height())) |
+                        (verticalGrid<0) | (yIntersection<0)){
+                    let hitWall = true;
+                    let distVerticalHit = MAX_INT;
+                }
+                else {
+                    if (map.isWall(xGridIndex, yGridIndex)){
+                        let hitWall = true;
+                        //let distVerticalHit = ((yIntersection-py)*trig.FIX_POINT())/trig.sin(castArc);
+                        let distVerticalHit = ((verticalGrid-px)*trig.FIX_POINT())/trig.cos(castArc);
+                    }
+                    else {
+                        let yIntersection = yIntersection + yStepTable[castArc];
+                        let verticalGrid = verticalGrid + distNextVerticalGrid;
+                    }
+                }
+            }
+        }
+        //do drawRay(verticalGrid, yIntersection);
+        return distVerticalHit;
+    }
+
+    method int castToHorizontalWall(int castArc){
+        var int horizontalGrid, distNextHorizontalGrid;
+        var int xIntersection, distHorizontalHit;
+        var int xGridIndex, yGridIndex;
+        var boolean hitWall;
+
+        // ray is facing down?
+        if ((castArc > 0) & (castArc < 180)) {
+            let horizontalGrid = ((py/TILE_SIZE)*TILE_SIZE) + TILE_SIZE;
+            let distNextHorizontalGrid = TILE_SIZE;
+        } 
+        // ray is facing up?
+        else {
+            let horizontalGrid = ((py/TILE_SIZE)*TILE_SIZE) - 1;
+            let distNextHorizontalGrid = -TILE_SIZE;
+        }
+        let xIntersection = ((trig.itan(castArc)*(horizontalGrid-py))/trig.FIX_POINT()) + px;
+
+        // ray is horizontal!
+        if ((castArc=0) | (castArc=180)){
+            let distHorizontalHit = MAX_INT;
+        }
+        else {
+            let hitWall = false;
+            while (~hitWall){
+                let xGridIndex = xIntersection/TILE_SIZE;
+                let yGridIndex = horizontalGrid/TILE_SIZE;
+                if ((~(xGridIndex < map.width())) | (~(yGridIndex < map.height())) |
+                        (xIntersection<0) | (horizontalGrid<0)){
+                    let hitWall = true;
+                    let distHorizontalHit = MAX_INT;
+                }
+                else {
+                    if (map.isWall(xGridIndex, yGridIndex)){
+                        let hitWall = true;
+                        //let distHorizontalHit = ((xIntersection-px)*trig.FIX_POINT())/trig.cos(castArc);
+                        let distHorizontalHit = ((horizontalGrid-py)*trig.FIX_POINT())/trig.sin(castArc);
+                    }
+                    else {
+                        let xIntersection = xIntersection + xStepTable[castArc];
+                        let horizontalGrid = horizontalGrid + distNextHorizontalGrid;
+                    }
+                }
+            }
+        }
+        //do drawRay(xIntersection, horizontalGrid);
+        return distHorizontalHit;
+    }
+
+    method void drawWallSlice(int column, int dist){
+        var int projectedWallHeight, topOfWall;
+        if (dist = 0) {
+            let projectedWallHeight = PROJECTIONPLANEHEIGHT;
+        } else {
+            let projectedWallHeight = Math.min(distProjectionPlane/dist,PROJECTIONPLANEHEIGHT);
+        }
+        let topOfWall = (PROJECTIONPLANEHEIGHT-projectedWallHeight)/2;
+        let column = column * 4; //scale width;
+        if ( projectedWallHeight > 0){
+            //do Screen.drawRectangle(castColumn, topOfWall, castColumn+5, topOfWall+projectedWallHeight);
+            do Screen.drawLine(column, topOfWall, column, topOfWall+projectedWallHeight);
+        }
+        return;
+    }
+
+    method void render(){
+        var int castColumn, castArc;
+        var int distHorizontalHit, distVerticalHit, dist;
+        var boolean hitWall;
+
+        let castArc = pArc - 30;
+        if(castArc < 0) { let castArc = 360 + castArc; }
+
+        while (castColumn < POV){
+            let distHorizontalHit = castToHorizontalWall(castArc);
+            let distVerticalHit = castToVerticalWall(castArc);
+
+            //correct fish eye effect
+            if (castColumn < 30) {
+                let dist = (trig.cos(castColumn - 30 + 360)*Math.min(distHorizontalHit, distVerticalHit))/100;
+            } else {
+                let dist = (trig.cos(castColumn - 30)*Math.min(distHorizontalHit, distVerticalHit))/100;
+            }
+            let lastCast[castColumn] = dist;
+            do Screen.setColor(true);
+            do drawWallSlice(castColumn, dist);
+
+            let castColumn = castColumn + 1;
+            let castArc = castArc + 1;
+            if(~(castArc < 360)) {
+                let castArc = castArc - 360;
+            }
+        }
+        return;
+    }
+
+    method void blankWalls(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(0,0,POV*4,PROJECTIONPLANEHEIGHT);
+        /*
+        var int i;
+        while (i < POV){
+            do Screen.setColor(false);
+            do drawWallSlice(i, lastCast[i]);
+            let i = i + 1;
+        }
+        */
+        return;
+    }
+
+    method void draw(){
+        do map.draw(false, 256,0,TILE_SIZE);
+        do drawPlayer();
+        do blankWalls();
+        do render();
+        return;
+    }
+
+    method void run() {
+        var int key;
+        var boolean exit;
+
+        do map.draw(true, 256,0,TILE_SIZE);
+        do draw();
+        do Output.moveCursor(22,0);
+        do Output.printString("Move: Arrow keys   Rotate: v,b");
+        let exit = false;
+        while (~exit) {
+            while (key = 0){
+                let key = Keyboard.keyPressed();
+            }
+                if (key = 81) { let exit = true; }
+                if (key = 130) {
+                    if (moveLeft(5)){
+                        do draw();
+                    }
+                }
+                if (key = 131) { 
+                    if (moveForwards(5)){
+                        do draw();
+                    }
+                }
+                if (key = 132) { 
+                    if (moveRight(5)) {
+                        do draw();
+                    }
+                }
+                if (key = 133) { 
+                    if (moveBackwards(5)) {
+                        do draw();
+                    }
+                }
+                if (key = 86) {
+                    do rotateLeft(5);
+                    do draw();
+                }
+                if (key = 66) {
+                    do rotateRight(5);
+                    do draw();
+                }
+
+            while (~(key = 0)){
+                let key = Keyboard.keyPressed();
+            }
+        }
+        return;
+    }
+
+    method void initStepTable(){
+        var int arc;
+        let xStepTable = Array.new(360);
+        let yStepTable = Array.new(360);
+        while (arc < 360){
+            let xStepTable[arc] = (TILE_SIZE*trig.itan(arc))/trig.FIX_POINT();
+            if (~(arc < 90) & (arc < 270)){
+                if (xStepTable[arc] > 0){
+                    let xStepTable[arc] = -xStepTable[arc];
+                }
+            }
+            else {
+                if (xStepTable[arc] < 0){
+                    let xStepTable[arc] = -xStepTable[arc];
+                }
+            }
+
+            let yStepTable[arc] = (TILE_SIZE*trig.tan(arc))/trig.FIX_POINT();
+            if (~(arc < 0) & (arc < 180)){
+                if (yStepTable[arc] < 0){
+                    let yStepTable[arc] = -yStepTable[arc];
+                }
+            }
+            else {
+                if (yStepTable[arc] > 0){
+                    let yStepTable[arc] = -yStepTable[arc];
+                }
+            }
+
+            let arc = arc + 1;
+        }
+        return;
+    }
+
+}

@@ -1,0 +1,9 @@
+class Main {
+   
+   function void main() {
+      var int num1;
+      let num1 = 5;
+      do Output.printInt(num1);
+      return;
+   }
+}

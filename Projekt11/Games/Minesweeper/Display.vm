@@ -1,0 +1,195 @@
+function Display.drawBackground 2
+push constant 0
+pop local 0
+label whileL2
+push local 0
+push constant 16
+lt
+not
+if-goto whileL3
+push constant 0
+pop local 1
+label whileL4
+push local 1
+push constant 32
+lt
+not
+if-goto whileL5
+push local 0
+push local 1
+call Display.drawDitherTile 2
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto whileL4
+label whileL5
+push local 0
+push constant 1
+add
+pop local 0
+goto whileL2
+label whileL3
+push constant 0
+return
+function Display.drawInitialTilemap 2
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push constant 12
+push constant 12
+push constant 227
+push constant 227
+call Screen.drawRectangle 4
+pop temp 0
+push constant 1
+pop local 0
+label whileL6
+push local 0
+push constant 14
+lt
+not
+if-goto whileL7
+push constant 1
+pop local 1
+label whileL8
+push local 1
+push constant 14
+lt
+not
+if-goto whileL9
+push local 0
+push local 1
+call Display.drawBasicTile 2
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto whileL8
+label whileL9
+push local 0
+push constant 1
+add
+pop local 0
+goto whileL6
+label whileL7
+push constant 0
+return
+function Display.drawControls 0
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push constant 12
+push constant 230
+push constant 499
+push constant 255
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 13
+push constant 231
+push constant 498
+push constant 254
+call Screen.drawRectangle 4
+pop temp 0
+push constant 21
+push constant 2
+call Output.moveCursor 2
+pop temp 0
+neg
+call Output.printString 1
+pop temp 0
+push constant 22
+push constant 2
+call Output.moveCursor 2
+pop temp 0
+neg
+call Output.printString 1
+pop temp 0
+push constant 0
+return
+function Display.drawSideMenu 0
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push constant 230
+push constant 12
+push constant 499
+push constant 227
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 235
+push constant 17
+push constant 494
+push constant 222
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Display.clearSideMenu 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 235
+push constant 17
+push constant 494
+push constant 222
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Display.showStartingScreen 2
+push constant 0
+pop local 1
+call Display.clearSideMenu 0
+pop temp 0
+push constant 8
+push constant 32
+call Output.moveCursor 2
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+eq
+eq
+eq
+eq
+eq
+eq
+eq
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+eq
+call Output.printString 1
+pop temp 0
+push constant 10
+push constant 33
+call Output.moveCursor 2
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+neg
+neg
+sub
+call Output.printString 1
+pop temp 0
+not
+if-goto ifL10
+goto ifL11
+label ifL10
+label ifL11

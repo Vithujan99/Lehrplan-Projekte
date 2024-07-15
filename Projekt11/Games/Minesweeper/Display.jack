@@ -1,0 +1,622 @@
+class Display {
+    function void drawBackground() {
+        var int v;
+        var int h;
+        let v = 0;
+        while (v<16) {
+            let h = 0;
+            while (h<32) {
+                do Display.drawDitherTile(v, h);
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+    function void drawInitialTilemap() {
+        var int v;
+        var int h;
+        do Screen.setColor(true);
+        do Screen.drawRectangle(12, 12, 227, 227);
+        let v = 1;
+        while (v<14) {
+            let h = 1;
+            while (h<14) {
+                do Display.drawBasicTile(v, h);
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+    function void drawControls() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(12, 230, 499, 255);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(13, 231, 498, 254);
+        
+        do Output.moveCursor(21, 2);
+        do Output.printString("q - quit | r - restart");
+        do Output.moveCursor(22, 2);
+        do Output.printString("wasd, arrows - move | enter, space - reveal | f - flag");
+        return;
+    }
+    function void drawSideMenu() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(230, 12, 499, 227);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(235, 17, 494, 222);
+        return;
+    }
+    function void clearSideMenu() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(235, 17, 494, 222);
+        return;
+    }
+
+    function int showStartingScreen() {
+        var char key;
+        var int counter;
+        let counter = 0;
+
+        do Display.clearSideMenu();
+        do Output.moveCursor(8, 32); 
+        do Output.printString("====    Minesweeper    ====");
+        do Output.moveCursor(10, 33); 
+        do Output.printString( "--- [ Press any Key ] ---"  );
+        do Output.moveCursor(11, 33); 
+        do Output.printString( "--- [   to Start    ] ---"  );
+
+        while (key = 0) {
+            let counter = counter + 1;
+            let key = Keyboard.keyPressed();
+        }
+        while (~(key = 0)) { let key = Keyboard.keyPressed(); }
+        return counter;
+    }
+    function int showLoosingScreen() {
+        var char key;
+        var int counter;
+        let counter = 0;
+        let key = 0;
+
+        do Display.clearSideMenu();
+        do Output.moveCursor(8, 32); 
+        do Output.printString("====    WOMP WOMP !    ====");
+        do Output.moveCursor(10, 33); 
+        do Output.printString( "--- [ Press any Key ] ---"  );
+        do Output.moveCursor(11, 33); 
+        do Output.printString( "--- [ to try again  ] ---"  );
+
+        while (key = 0) {
+            let counter = counter + 1;
+            let key = Keyboard.keyPressed();
+        }
+        while (~(key = 0)) { let key = Keyboard.keyPressed(); }
+        return counter;
+    }
+    function int showWinningScreen() {
+        var char key;
+        var int counter;
+        let counter = 0;
+        let key = 0;
+
+        do Display.clearSideMenu();
+        do Output.moveCursor(8, 32); 
+        do Output.printString("====    Yaaayyyy :D    ====");
+        do Output.moveCursor(10, 33); 
+        do Output.printString( "--- [ Press any Key ] ---"  );
+        do Output.moveCursor(11, 33); 
+        do Output.printString( "--- [ to play again ] ---"  );
+
+
+        while (key = 0) {
+            let counter = counter + 1;
+            let key = Keyboard.keyPressed();
+        }
+        while (~(key = 0)) { let key = Keyboard.keyPressed(); }
+        return counter;
+    }
+
+    function void drawGameScreen(int mines) {
+        do Display.clearSideMenu();
+        do Screen.setColor(true);
+        do Screen.drawRectangle(240, 32, 256, 48);
+        
+        do Output.moveCursor(3, 35); 
+        do Output.printString("Tile beneath Cursor");
+        do Output.moveCursor(5, 35);
+        do Output.printString("Mines");
+        do Output.moveCursor(7, 35);
+        do Output.printString("Flags set");
+        do Output.moveCursor(9, 35);
+        do Output.printString("Tiles revealed");
+
+        do Output.moveCursor(5, 30);
+        do Output.printInt(mines);
+        do Output.moveCursor(7, 30);
+        do Output.printInt(0);
+        do Output.moveCursor(9, 30);
+        do Output.printInt(0);
+        return;
+    }
+
+    function void drawCorrespondingTileAt(int v, int h, int tile) {
+        if (tile < 10) {
+            do Display.drawBasicTile(v, h);
+        } else { if (tile < 20) {
+            do Display.drawFlagTile(v, h);
+        } else { if (tile = 20) {
+            do Display.drawEmptyTile(v, h);
+        } else { if (tile = 21) {
+            do Display.draw1Tile(v, h);
+        } else { if (tile = 22) {
+            do Display.draw2Tile(v, h);
+        } else { if (tile = 23) {
+            do Display.draw3Tile(v, h);
+        } else { if (tile = 24) {
+            do Display.draw4Tile(v, h);
+        } else { if (tile = 25) {
+            do Display.draw5Tile(v, h);
+        } else { if (tile = 26) {
+            do Display.draw6Tile(v, h);
+        } else { if (tile = 27) {
+            do Display.draw7Tile(v, h);
+        } else { if (tile = 28) {
+            do Display.draw8Tile(v, h);
+        } else { if (tile = 29) {
+            do Display.drawMineTile(v, h);
+        }}}}}}}}}}}}
+        return;
+    }
+    function void drawCorrespondingCursorAt(int v, int h, int tile) {
+        if (tile < 20) { do Display.drawCursorBasicTile(v, h); } 
+        else { do Display.drawCursorEmptyTile(v, h); }
+        return;
+    }
+
+    // MARK: - 16x tiles
+    function void drawArrowDownTile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, 0);
+        do Memory.poke(memAddress + 32, 960);
+        do Memory.poke(memAddress + 64, 832);
+        do Memory.poke(memAddress + 96, 15196);
+        do Memory.poke(memAddress + 128, 14196);
+        do Memory.poke(memAddress + 160, 13156);
+        do Memory.poke(memAddress + 192, 6152);
+        do Memory.poke(memAddress + 224, 3088);
+        do Memory.poke(memAddress + 256, 1568);
+        do Memory.poke(memAddress + 288, 832);
+        do Memory.poke(memAddress + 320, 384);
+        do Memory.poke(memAddress + 352, 0);
+        do Memory.poke(memAddress + 384, -1);
+        do Memory.poke(memAddress + 416, -1);
+        do Memory.poke(memAddress + 448, -1);
+        do Memory.poke(memAddress + 480, -1);
+		return;
+	}
+    function void drawArrowRightTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -4096);
+        do Memory.poke(memAddress + 32, -4096);
+        do Memory.poke(memAddress + 64, -4040);
+        do Memory.poke(memAddress + 96, -4024);
+        do Memory.poke(memAddress + 128, -3944);
+        do Memory.poke(memAddress + 160, -3792);
+        do Memory.poke(memAddress + 192, -3522);
+        do Memory.poke(memAddress + 224, -3070);
+        do Memory.poke(memAddress + 256, -2498);
+        do Memory.poke(memAddress + 288, -3266);
+        do Memory.poke(memAddress + 320, -3696);
+        do Memory.poke(memAddress + 352, -3896);
+        do Memory.poke(memAddress + 384, -3976);
+        do Memory.poke(memAddress + 416, -4040);
+        do Memory.poke(memAddress + 448, -4096);
+        do Memory.poke(memAddress + 480, -4096);
+		return;
+	}
+    function void drawLeftEdgeTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1366);
+        do Memory.poke(memAddress + 32, -2731);
+        do Memory.poke(memAddress + 64, -1366);
+        do Memory.poke(memAddress + 96, -2731);
+        do Memory.poke(memAddress + 128, -1366);
+        do Memory.poke(memAddress + 160, -2731);
+        do Memory.poke(memAddress + 192, -1366);
+        do Memory.poke(memAddress + 224, -2731);
+        do Memory.poke(memAddress + 256, -1366);
+        do Memory.poke(memAddress + 288, -2731);
+        do Memory.poke(memAddress + 320, -1366);
+        do Memory.poke(memAddress + 352, -2731);
+        do Memory.poke(memAddress + 384, -1366);
+        do Memory.poke(memAddress + 416, -2731);
+        do Memory.poke(memAddress + 448, -1366);
+        do Memory.poke(memAddress + 480, -2731);
+		return;
+	}
+    function void drawTopEdgeTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -21846);
+        do Memory.poke(memAddress + 32, 21845);
+        do Memory.poke(memAddress + 64, -21846);
+        do Memory.poke(memAddress + 96, 21845);
+        do Memory.poke(memAddress + 128, -21846);
+        do Memory.poke(memAddress + 160, 21845);
+        do Memory.poke(memAddress + 192, -21846);
+        do Memory.poke(memAddress + 224, 21845);
+        do Memory.poke(memAddress + 256, -21846);
+        do Memory.poke(memAddress + 288, 21845);
+        do Memory.poke(memAddress + 320, -21846);
+        do Memory.poke(memAddress + 352, 21845);
+        do Memory.poke(memAddress + 384, -1);
+        do Memory.poke(memAddress + 416, -1);
+        do Memory.poke(memAddress + 448, -1);
+        do Memory.poke(memAddress + 480, -1);
+		return;
+	}
+    function void drawDitherTile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0,   -21846);
+        do Memory.poke(memAddress + 32,   21845);
+        do Memory.poke(memAddress + 64,  -21846);
+        do Memory.poke(memAddress + 96,   21845);
+        do Memory.poke(memAddress + 128, -21846);
+        do Memory.poke(memAddress + 160,  21845);
+        do Memory.poke(memAddress + 192, -21846);
+        do Memory.poke(memAddress + 224,  21845);
+        do Memory.poke(memAddress + 256, -21846);
+        do Memory.poke(memAddress + 288,  21845);
+        do Memory.poke(memAddress + 320, -21846);
+        do Memory.poke(memAddress + 352,  21845);
+        do Memory.poke(memAddress + 384, -21846);
+        do Memory.poke(memAddress + 416,  21845);
+        do Memory.poke(memAddress + 448, -21846);
+        do Memory.poke(memAddress + 480,  21845);
+        return;
+    }
+    function void drawBasicTile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, -32767);
+        do Memory.poke(memAddress + 64, -32767);
+        do Memory.poke(memAddress + 96, -12295);
+        do Memory.poke(memAddress + 128, -16375);
+        do Memory.poke(memAddress + 160, -16375);
+        do Memory.poke(memAddress + 192, -16375);
+        do Memory.poke(memAddress + 224, -16375);
+        do Memory.poke(memAddress + 256, -16375);
+        do Memory.poke(memAddress + 288, -16375);
+        do Memory.poke(memAddress + 320, -16375);
+        do Memory.poke(memAddress + 352, -16375);
+        do Memory.poke(memAddress + 384, -16383);
+        do Memory.poke(memAddress + 416, -16383);
+        do Memory.poke(memAddress + 448, -7);
+        do Memory.poke(memAddress + 480, -1);
+		return;
+	}
+    function void drawFlagTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+		do Memory.poke(memAddress + 0, -1);
+		do Memory.poke(memAddress + 32, -32767);
+		do Memory.poke(memAddress + 64, -32767);
+		do Memory.poke(memAddress + 96, -12295);
+		do Memory.poke(memAddress + 128, -16375);
+		do Memory.poke(memAddress + 160, -14839);
+		do Memory.poke(memAddress + 192, -14967);
+		do Memory.poke(memAddress + 224, -15255);
+		do Memory.poke(memAddress + 256, -15159);
+		do Memory.poke(memAddress + 288, -14583);
+		do Memory.poke(memAddress + 320, -15351);
+		do Memory.poke(memAddress + 352, -15351);
+		do Memory.poke(memAddress + 384, -8447);
+		do Memory.poke(memAddress + 416, -16383);
+		do Memory.poke(memAddress + 448, -7);
+		do Memory.poke(memAddress + 480, -1);
+		return;
+	}
+    function void drawEmptyTile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 1);
+        do Memory.poke(memAddress + 128, 1);
+        do Memory.poke(memAddress + 160, 1);
+        do Memory.poke(memAddress + 192, 1);
+        do Memory.poke(memAddress + 224, 1);
+        do Memory.poke(memAddress + 256, 1);
+        do Memory.poke(memAddress + 288, 1);
+        do Memory.poke(memAddress + 320, 1);
+        do Memory.poke(memAddress + 352, 1);
+        do Memory.poke(memAddress + 384, 1);
+        do Memory.poke(memAddress + 416, 1);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+        return;
+    }
+    function void drawMineTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+		do Memory.poke(memAddress + 0, -1);
+		do Memory.poke(memAddress + 32, 1);
+		do Memory.poke(memAddress + 64, 257);
+		do Memory.poke(memAddress + 96, 9545);
+		do Memory.poke(memAddress + 128, 5009);
+		do Memory.poke(memAddress + 160, 3809);
+		do Memory.poke(memAddress + 192, 12073);
+		do Memory.poke(memAddress + 224, 8113);
+		do Memory.poke(memAddress + 256, 30685);
+		do Memory.poke(memAddress + 288, 8177);
+		do Memory.poke(memAddress + 320, 11241);
+		do Memory.poke(memAddress + 352, 3809);
+		do Memory.poke(memAddress + 384, 5009);
+		do Memory.poke(memAddress + 416, 9545);
+		do Memory.poke(memAddress + 448, 257);
+		do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw1Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 1921);
+        do Memory.poke(memAddress + 128, 1089);
+        do Memory.poke(memAddress + 160, 1137);
+        do Memory.poke(memAddress + 192, 1033);
+        do Memory.poke(memAddress + 224, 1145);
+        do Memory.poke(memAddress + 256, 1089);
+        do Memory.poke(memAddress + 288, 1089);
+        do Memory.poke(memAddress + 320, 1089);
+        do Memory.poke(memAddress + 352, 7281);
+        do Memory.poke(memAddress + 384, 8201);
+        do Memory.poke(memAddress + 416, 16377);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw2Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 1985);
+        do Memory.poke(memAddress + 128, 6193);
+        do Memory.poke(memAddress + 160, 8201);
+        do Memory.poke(memAddress + 192, 8649);
+        do Memory.poke(memAddress + 224, 8777);
+        do Memory.poke(memAddress + 256, 4401);
+        do Memory.poke(memAddress + 288, 2177);
+        do Memory.poke(memAddress + 320, 1121);
+        do Memory.poke(memAddress + 352, 6161);
+        do Memory.poke(memAddress + 384, 8201);
+        do Memory.poke(memAddress + 416, 16377);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+        return;
+    }
+    function void draw3Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 4065);
+        do Memory.poke(memAddress + 128, 4113);
+        do Memory.poke(memAddress + 160, 9097);
+        do Memory.poke(memAddress + 192, 9289);
+        do Memory.poke(memAddress + 224, 10033);
+        do Memory.poke(memAddress + 256, 4353);
+        do Memory.poke(memAddress + 288, 10033);
+        do Memory.poke(memAddress + 320, 9289);
+        do Memory.poke(memAddress + 352, 9097);
+        do Memory.poke(memAddress + 384, 4113);
+        do Memory.poke(memAddress + 416, 4065);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+        return;
+	}
+    function void draw4Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 3585);
+        do Memory.poke(memAddress + 128, 2433);
+        do Memory.poke(memAddress + 160, 2113);
+        do Memory.poke(memAddress + 192, 2849);
+        do Memory.poke(memAddress + 224, 2705);
+        do Memory.poke(memAddress + 256, 7049);
+        do Memory.poke(memAddress + 288, 8201);
+        do Memory.poke(memAddress + 320, 14585);
+        do Memory.poke(memAddress + 352, 2177);
+        do Memory.poke(memAddress + 384, 2177);
+        do Memory.poke(memAddress + 416, 3969);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw5Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 8177);
+        do Memory.poke(memAddress + 128, 8201);
+        do Memory.poke(memAddress + 160, 16265);
+        do Memory.poke(memAddress + 192, 137);
+        do Memory.poke(memAddress + 224, 3849);
+        do Memory.poke(memAddress + 256, 4209);
+        do Memory.poke(memAddress + 288, 9089);
+        do Memory.poke(memAddress + 320, 8761);
+        do Memory.poke(memAddress + 352, 9161);
+        do Memory.poke(memAddress + 384, 8201);
+        do Memory.poke(memAddress + 416, 8177);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw6Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 8161);
+        do Memory.poke(memAddress + 128, 8209);
+        do Memory.poke(memAddress + 160, 12169);
+        do Memory.poke(memAddress + 192, 12361);
+        do Memory.poke(memAddress + 224, 1993);
+        do Memory.poke(memAddress + 256, 6153);
+        do Memory.poke(memAddress + 288, 9097);
+        do Memory.poke(memAddress + 320, 9289);
+        do Memory.poke(memAddress + 352, 10121);
+        do Memory.poke(memAddress + 384, 8209);
+        do Memory.poke(memAddress + 416, 8161);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw7Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 8177);
+        do Memory.poke(memAddress + 128, 8201);
+        do Memory.poke(memAddress + 160, 9209);
+        do Memory.poke(memAddress + 192, 8705);
+        do Memory.poke(memAddress + 224, 4609);
+        do Memory.poke(memAddress + 256, 4353);
+        do Memory.poke(memAddress + 288, 2305);
+        do Memory.poke(memAddress + 320, 2177);
+        do Memory.poke(memAddress + 352, 1153);
+        do Memory.poke(memAddress + 384, 1153);
+        do Memory.poke(memAddress + 416, 1921);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void draw8Tile(int v, int h) {
+        var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 4065);
+        do Memory.poke(memAddress + 128, 4113);
+        do Memory.poke(memAddress + 160, 9097);
+        do Memory.poke(memAddress + 192, 9289);
+        do Memory.poke(memAddress + 224, 9097);
+        do Memory.poke(memAddress + 256, 4113);
+        do Memory.poke(memAddress + 288, 9097);
+        do Memory.poke(memAddress + 320, 9289);
+        do Memory.poke(memAddress + 352, 9289);
+        do Memory.poke(memAddress + 384, 10185);
+        do Memory.poke(memAddress + 416, 4113);
+        do Memory.poke(memAddress + 448, 8177);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+    function void drawCursorBasicTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+		do Memory.poke(memAddress + 0, -1);
+		do Memory.poke(memAddress + 32, -32767);
+		do Memory.poke(memAddress + 64, -32767);
+		do Memory.poke(memAddress + 96, -12295);
+		do Memory.poke(memAddress + 128, -16375);
+		do Memory.poke(memAddress + 160, -15287);
+		do Memory.poke(memAddress + 192, -15287);
+		do Memory.poke(memAddress + 224, -14039);
+		do Memory.poke(memAddress + 256, -13655);
+		do Memory.poke(memAddress + 288, -14039);
+		do Memory.poke(memAddress + 320, -15287);
+		do Memory.poke(memAddress + 352, -15287);
+		do Memory.poke(memAddress + 384, -16383);
+		do Memory.poke(memAddress + 416, -16383);
+		do Memory.poke(memAddress + 448, -7);
+		do Memory.poke(memAddress + 480, -1);
+		return;
+	}
+    function void drawCursorEmptyTile(int v, int h) {
+		var int memAddress;
+		let memAddress = 16384 + (v*512) + h;
+        do Memory.poke(memAddress + 0, -1);
+        do Memory.poke(memAddress + 32, 1);
+        do Memory.poke(memAddress + 64, 1);
+        do Memory.poke(memAddress + 96, 1);
+        do Memory.poke(memAddress + 128, 1);
+        do Memory.poke(memAddress + 160, 1089);
+        do Memory.poke(memAddress + 192, 1089);
+        do Memory.poke(memAddress + 224, 2337);
+        do Memory.poke(memAddress + 256, 2721);
+        do Memory.poke(memAddress + 288, 2337);
+        do Memory.poke(memAddress + 320, 1089);
+        do Memory.poke(memAddress + 352, 1089);
+        do Memory.poke(memAddress + 384, 1);
+        do Memory.poke(memAddress + 416, 1);
+        do Memory.poke(memAddress + 448, 1);
+        do Memory.poke(memAddress + 480, 1);
+		return;
+	}
+
+    // MARK: - Debug
+    function void drawDebugTilemap(Board b) {
+        var int v;
+        var int h;
+        do Screen.setColor(true);
+        do Screen.drawRectangle(12, 12, 227, 227);
+        let v = 1;
+        while (v<14) {
+            let h = 1;
+            while (h<14) {
+                do Display.drawDebugTileAt(v, h, b.tileAt(v-1, h-1));
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+    function void drawDebugTileAt(int v, int h, int tile) {
+        if (tile = 0) {
+            do Display.drawBasicTile(v, h);
+        } else { if (tile = 1) {
+            do Display.draw1Tile(v, h);
+        } else { if (tile = 2) {
+            do Display.draw2Tile(v, h);
+        } else { if (tile = 3) {
+            do Display.draw3Tile(v, h);
+        } else { if (tile = 4) {
+            do Display.draw4Tile(v, h);
+        } else { if (tile = 5) {
+            do Display.draw5Tile(v, h);
+        } else { if (tile = 6) {
+            do Display.draw6Tile(v, h);
+        } else { if (tile = 7) {
+            do Display.draw7Tile(v, h);
+        } else { if (tile = 8) {
+            do Display.draw8Tile(v, h);
+        } else { if (tile = 9) {
+            do Display.drawMineTile(v, h);
+        } else { if (tile > 19) {
+            do Display.drawEmptyTile(v, h);
+        }}}}}}}}}}}
+        return;
+    }
+}

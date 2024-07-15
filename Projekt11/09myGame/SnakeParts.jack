@@ -1,0 +1,54 @@
+class SnakeParts {
+    field List head;
+    field List tail;
+    field int size;
+
+    constructor SnakeParts new(int Ax, int Ay){
+        let head = List.new(Ax,Ay);
+        let size = 1;
+        let tail = head;
+        return this;
+    }
+
+    method int getSize(){
+        return size;
+    }
+
+    method void push(int Ax, int Ay){
+        var List newHead;
+        let newHead = List.new(Ax,Ay);
+        do head.setNext(newHead);
+        let head = newHead;
+        let size = size + 1;
+        return;
+    }
+
+    method List pop(){
+        var List newTail;
+        var List oldTail;
+        let newTail = tail.getNext();
+        let oldTail = List.new(tail.getX(), tail.getY());
+        do Memory.deAlloc(tail);
+        let tail = newTail;
+        let size = size - 1;
+        return oldTail;
+    }
+
+    method boolean crash(){
+        var List current;
+        let current = tail;
+        while(~(current = head)){
+            if(current.getX() = head.getX() & current.getY() = head.getY()){
+                return true;
+            }
+            let current = current.getNext();
+        }
+        return false; 
+    }
+
+    method void dispose(){
+        do head.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

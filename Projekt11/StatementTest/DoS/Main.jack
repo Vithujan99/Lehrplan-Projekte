@@ -1,0 +1,30 @@
+class Main {
+    field int x;
+    constructor Main new() {
+            let x = 5;
+            return this;
+       }
+   function void main() {
+      var Main m;
+      let m = Main.new();
+      do m.add(true);
+      do Main.test();
+      do Main.printLine();
+      return;
+   }
+
+   method int add (boolean z){
+        do Output.printString("Method add");
+        return 5;
+   }
+
+   function boolean test(){
+      do Output.printString("Method test");
+      return true;
+   }
+   function void printLine(){
+         do Output.printString("Hello World!");
+         return;
+      }
+
+}

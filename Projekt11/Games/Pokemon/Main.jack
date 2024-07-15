@@ -1,0 +1,278 @@
+class Main {
+    static TileSet currentTileset;
+    static boolean Updating;
+    static int viewX;
+    static int viewY;
+    static boolean inside;
+    static int GlobalEvent;
+    static int currentMap;
+    static boolean mapchange;
+    static boolean inMenu;
+    //0=left, 1=Up, 2=Right, 3=Down
+    static int direction;
+    
+    function void main() {
+        do Main.startGame();
+        return;
+    }
+
+    
+    function void startGame(){
+        var int key;
+        var MapBlock256 m;
+        do Main.setPlayerTileX(5);
+        do Main.setPlayerTileY(5);
+        do Event.setEventCounter(0);
+        let currentTileset=TileSet.new();
+        let m=CreateMap256.createMap(2);
+        let GlobalEvent=0;
+        let currentMap=2;
+        let mapchange=false;
+        let inMenu=false;
+        let Updating=true;
+        let direction=3;
+        while(true){
+            if(mapchange){
+                do Main.drawCurrent(m);
+                do m.dispose();
+                let m=CreateMap256.createMap(currentMap);
+                let mapchange=false;
+                let Updating=true;
+            }
+            if(inMenu){
+                
+            }
+            if(Updating){
+                let Updating=false;
+                do Main.drawCurrent(m);
+            }
+            let key=Keyboard.keyPressed();
+            if(~(key=0)){
+                let Updating=true;
+            }
+            do Main.update(key, m);
+            do Sys.wait(30);
+        }
+    
+        return;
+    }
+    function void update(int key, MapBlock256 m){
+        if(~inMenu){
+            if(key=130){
+                do Main.goLeft(m);
+            }
+            if(key=131){
+                do Main.goUp(m);
+            }
+            if(key=132){
+                do Main.goRight(m);
+            }
+            if(key=133){
+                do Main.goDown(m);
+            }
+        }
+        //key=a
+        if((key=65)|(key=97)){
+            if(direction=0){
+                do Event.interact((Main.getPlayerTileX())-1, (Main.getPlayerTileY()));
+            }
+            if(direction=1){
+                do Event.interact((Main.getPlayerTileX()), (Main.getPlayerTileY())-1);
+            }
+            if(direction=2){
+                do Event.interact((Main.getPlayerTileX())+1, (Main.getPlayerTileY()));
+            }
+            if(direction=3){
+                do Event.interact((Main.getPlayerTileX()), (Main.getPlayerTileY())+1);
+            }
+        }
+        return;
+    }
+    
+    function void drawCurrent(MapBlock256 m){
+        if(~inMenu){
+            do m.draw(0, 0, viewX, viewY);
+            do TileGraphic.drawGraphic(240, 112, false, 2);
+        }
+        return;
+    }
+    
+    function void drawAtTile(int x, int y, int Tile){
+        do TileGraphic.drawGraphic((x*32)-viewX, (y*32)-viewY, false, Tile);
+        return;
+    }
+    
+    function void goUp(MapBlock256 map){
+        var int x;
+        var int y;
+        var int t;
+        var Tile tile;
+        var boolean b;
+        
+        let direction=1;
+        let x=Main.getPlayerTileX();
+        let y=Main.getPlayerTileY();
+        let y=y-1;
+        let t=map.get(x,y);
+        let tile=currentTileset.getTile(t);
+        let b=tile.getSolid();
+        
+        if(~b){
+            do Main.setPlayerTileX(x);
+            do Main.setPlayerTileY(y);
+            do Event.WalkOn(x,y);
+        }
+        return;
+    }
+    function void goDown(MapBlock256 map){
+        var int x;
+        var int y;
+        var int t;
+        var Tile tile;
+        var boolean b;
+        let direction=3;
+        let x=Main.getPlayerTileX();
+        let y=Main.getPlayerTileY();
+        let y=y+1;
+        let t=map.get(x,y);
+        let tile=currentTileset.getTile(t);
+        
+        let b=tile.getSolid();
+        if(~b){
+            do Main.setPlayerTileX(x);
+            do Main.setPlayerTileY(y);
+            do Event.WalkOn(x,y);
+        }
+        return;
+    }
+    function void goLeft(MapBlock256 map){
+        var int x;
+        var int y;
+        var int t;
+        var Tile tile;
+        var boolean b;
+        let direction=0;
+        let x=Main.getPlayerTileX();
+        let y=Main.getPlayerTileY();
+        let x=x-1;
+        let t=map.get(x,y);
+        let tile=currentTileset.getTile(t);
+        
+        let b=tile.getSolid();
+        if(~b){
+            do Main.setPlayerTileX(x);
+            do Main.setPlayerTileY(y);
+            do Event.WalkOn(x,y);
+        }
+        return;
+    }
+    function void goRight(MapBlock256 map){
+        var int x;
+        var int y;
+        var int t;
+        var Tile tile;
+        var boolean b;
+        let direction=2;
+        let x=Main.getPlayerTileX();
+        let y=Main.getPlayerTileY();
+        let x=x+1;
+        let t=map.get(x,y);
+        let tile=currentTileset.getTile(t);
+        let b=tile.getSolid();
+        if(~b){
+            do Main.setPlayerTileX(x);
+            do Main.setPlayerTileY(y);
+            do Event.WalkOn(x,y);
+        }
+        return;
+    }
+    
+    function int getPlayerDirection(){
+        return direction;
+    }
+    
+    function int getPlayerX(){
+        return viewX+239;
+    }
+    
+    function int getPlayerY(){
+        return viewY+112;
+    }
+    function void setPlayerX(int x){
+        let viewX=x-239;
+        return;
+    }
+    function void setPlayerY(int Y){
+        let viewY=Y-112;
+        return;
+    }
+    function void setPlayerTileX(int x){
+        do Main.setPlayerX(x*32);
+        return;
+    }
+    
+    function void setPlayerTileY(int y){
+        do Main.setPlayerY(y*32);
+        return;
+    }
+    function int getPlayerTileX(){
+        var int c;
+        let c=Main.getPlayerX();
+        return c/32;
+    }
+    function int getPlayerTileY(){
+        var int c;
+        let c=Main.getPlayerY();
+        return c/32;
+    }
+    function boolean getInside(){
+        return inside;
+    }
+    function void setInside(boolean b){
+        let inside=b;
+        return;
+    }
+    function boolean getEvent(){
+        return GlobalEvent;
+    }
+    function void setEvent(int e){
+        let GlobalEvent=e;
+        return;
+    }
+    function int getMap(){
+        return currentMap;
+    }
+    function void setMap(int e){
+        let currentMap=e;
+        return;
+    }
+
+    function TileSet getviewX(){
+        return viewX;
+    }
+    function TileSet getviewXY(){
+        return viewY;
+    }
+    function TileSet getUpdating(){
+        return Updating;
+    }
+    
+    function TileSet getCurrentTileSet(){
+        return currentTileset;
+    }
+    
+    function boolean getinMenu(){
+        return inMenu;
+    }
+    function void setinMenu(boolean b){
+        let inMenu=b;
+        return;
+    }
+    function boolean getMapChange(){
+        return mapchange;
+    }
+    function void setMapChange(boolean b){
+        let mapchange=b;
+        return;
+    }
+}

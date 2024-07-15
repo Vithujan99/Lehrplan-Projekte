@@ -1,0 +1,27 @@
+class Main {
+
+    /** Draws a sample pictue on the screen using lines and circles. */
+    function void main() {
+         
+        do Screen.drawPixel(500,20);
+        do Screen.drawPixel(501,20);
+        do Screen.drawPixel(502,20);
+        do Screen.drawPixel(503,20);
+        do Screen.drawPixel(500,21);
+        do Screen.drawPixel(501,21);
+        do Screen.drawPixel(502,21);
+        do Screen.drawPixel(503,21);
+        do Screen.drawPixel(500,22);
+        do Screen.drawPixel(501,22);
+        do Screen.drawPixel(502,22);
+        do Screen.drawPixel(503,22);
+        do Memory.poke(16384,32767);
+        do Memory.poke(16385,32767);
+        do Memory.poke(16386,32767);
+        do Memory.poke(16387,32767);
+        do Memory.poke(16388,32767);
+
+        
+        return;
+    }
+}

@@ -1,0 +1,388 @@
+function CreateMap256.createMap 3
+push argument 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Main.setInside 1
+pop temp 0
+call MapBlock256.new 0
+pop local 0
+label IF_FALSE0
+push argument 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+call Main.setInside 1
+pop temp 0
+call MapBlock256.new 0
+pop local 0
+label IF_FALSE1
+push argument 0
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+call Main.setInside 1
+pop temp 0
+call MapBlock256.new 0
+pop local 0
+push local 0
+push constant 4
+push constant 2
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 5
+push constant 2
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 6
+push constant 2
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 7
+push constant 2
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push constant 1
+pop local 1
+label WHILE_EXP0
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END0
+push local 0
+push local 1
+push constant 3
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 1
+pop local 1
+label WHILE_EXP1
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END1
+push local 0
+push local 1
+push constant 4
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push constant 1
+pop local 1
+label WHILE_EXP2
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END2
+push local 0
+push local 1
+push constant 5
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP2
+label WHILE_END2
+push constant 1
+pop local 1
+label WHILE_EXP3
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END3
+push local 0
+push local 1
+push constant 6
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP3
+label WHILE_END3
+push constant 2
+pop local 1
+label WHILE_EXP4
+push local 1
+push constant 7
+lt
+not
+if-goto WHILE_END4
+push local 0
+push local 1
+push constant 7
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP4
+label WHILE_END4
+push constant 2
+pop local 1
+label WHILE_EXP5
+push local 1
+push constant 7
+lt
+not
+if-goto WHILE_END5
+push local 0
+push local 1
+push constant 8
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP5
+label WHILE_END5
+push local 0
+push constant 8
+push constant 8
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 8
+push constant 7
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push constant 1
+pop local 1
+label WHILE_EXP6
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END6
+push local 0
+push local 1
+push constant 1
+push constant 5
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP6
+label WHILE_END6
+push local 0
+push constant 8
+push constant 1
+push constant 13
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 6
+push constant 1
+push constant 13
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 8
+push constant 2
+push constant 6
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 1
+push constant 7
+push constant 7
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 7
+push constant 7
+push constant 4
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 4
+push constant 5
+push constant 8
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 4
+push constant 6
+push constant 9
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 1
+push constant 2
+push constant 10
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 1
+push constant 1
+push constant 11
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 2
+push constant 1
+push constant 12
+call MapBlock256.addMapObject 4
+pop temp 0
+label IF_FALSE2
+push argument 0
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+not
+call Main.setInside 1
+pop temp 0
+call MapBlock256.new 0
+pop local 0
+push constant 3
+pop local 1
+label WHILE_EXP7
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END7
+push local 0
+push local 1
+push constant 1
+push constant 5
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP7
+label WHILE_END7
+push constant 1
+pop local 1
+push constant 2
+pop local 2
+label WHILE_EXP8
+push local 2
+push constant 9
+lt
+not
+if-goto WHILE_END8
+label WHILE_EXP9
+push local 1
+push constant 9
+lt
+not
+if-goto WHILE_END9
+push local 0
+push local 1
+push local 2
+push constant 3
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP9
+label WHILE_END9
+push constant 1
+pop local 1
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP8
+label WHILE_END8
+push local 0
+push constant 4
+push constant 2
+push constant 8
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 8
+push constant 1
+push constant 13
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 6
+push constant 1
+push constant 13
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 4
+push constant 1
+push constant 13
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 1
+push constant 1
+push constant 14
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 2
+push constant 1
+push constant 14
+call MapBlock256.addMapObject 4
+pop temp 0
+push local 0
+push constant 8
+push constant 2
+push constant 15
+call MapBlock256.addMapObject 4
+pop temp 0
+label IF_FALSE3
+push local 0
+return

@@ -1,0 +1,520 @@
+function Main.main 0
+call Main.startGame 0
+pop temp 0
+push constant 0
+return
+function Main.startGame 2
+push constant 5
+call Main.setPlayerTileX 1
+pop temp 0
+push constant 5
+call Main.setPlayerTileY 1
+pop temp 0
+push constant 0
+call Event.setEventCounter 1
+pop temp 0
+call TileSet.new 0
+pop static 0
+push constant 2
+call CreateMap256.createMap 1
+pop local 1
+push constant 0
+pop static 5
+push constant 2
+pop static 6
+push constant 0
+pop static 7
+push constant 0
+pop static 8
+push constant 0
+not
+pop static 1
+push constant 3
+pop static 9
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+push static 7
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Main.drawCurrent 1
+pop temp 0
+push local 1
+call MapBlock256.dispose 1
+pop temp 0
+push static 6
+call CreateMap256.createMap 1
+pop local 1
+push constant 0
+pop static 7
+push constant 0
+not
+pop static 1
+label IF_FALSE0
+push static 8
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+label IF_FALSE1
+push static 1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+pop static 1
+push local 1
+call Main.drawCurrent 1
+pop temp 0
+label IF_FALSE2
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 0
+eq
+not
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+not
+pop static 1
+label IF_FALSE3
+push local 0
+push local 1
+call Main.update 2
+pop temp 0
+push constant 30
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Main.update 0
+push static 8
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push constant 130
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+call Main.goLeft 1
+pop temp 0
+label IF_FALSE1
+push argument 0
+push constant 131
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 1
+call Main.goUp 1
+pop temp 0
+label IF_FALSE2
+push argument 0
+push constant 132
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+call Main.goRight 1
+pop temp 0
+label IF_FALSE3
+push argument 0
+push constant 133
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 1
+call Main.goDown 1
+pop temp 0
+label IF_FALSE4
+label IF_FALSE0
+push argument 0
+push constant 65
+eq
+push argument 0
+push constant 97
+eq
+or
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push static 9
+push constant 0
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+call Main.getPlayerTileX 0
+push constant 1
+sub
+call Main.getPlayerTileY 0
+call Event.interact 2
+pop temp 0
+label IF_FALSE6
+push static 9
+push constant 1
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+call Main.getPlayerTileX 0
+call Main.getPlayerTileY 0
+push constant 1
+sub
+call Event.interact 2
+pop temp 0
+label IF_FALSE7
+push static 9
+push constant 2
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+call Main.getPlayerTileX 0
+push constant 1
+add
+call Main.getPlayerTileY 0
+call Event.interact 2
+pop temp 0
+label IF_FALSE8
+push static 9
+push constant 3
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+call Main.getPlayerTileX 0
+call Main.getPlayerTileY 0
+push constant 1
+add
+call Event.interact 2
+pop temp 0
+label IF_FALSE9
+label IF_FALSE5
+push constant 0
+return
+function Main.drawCurrent 0
+push static 8
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push constant 0
+push constant 0
+push static 2
+push static 3
+call MapBlock256.draw 5
+pop temp 0
+push constant 240
+push constant 112
+push constant 0
+push constant 2
+call TileGraphic.drawGraphic 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Main.drawAtTile 0
+push argument 0
+push constant 32
+call Math.multiply 2
+push static 2
+sub
+push argument 1
+push constant 32
+call Math.multiply 2
+push static 3
+sub
+push constant 0
+push argument 2
+call TileGraphic.drawGraphic 4
+pop temp 0
+push constant 0
+return
+function Main.goUp 5
+push constant 1
+pop static 9
+call Main.getPlayerTileX 0
+pop local 0
+call Main.getPlayerTileY 0
+pop local 1
+push local 1
+push constant 1
+sub
+pop local 1
+push argument 0
+push local 0
+push local 1
+call MapBlock256.get 3
+pop local 2
+push static 0
+push local 2
+call TileSet.getTile 2
+pop local 3
+push local 3
+call Tile.getSolid 1
+pop local 4
+push local 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Main.setPlayerTileX 1
+pop temp 0
+push local 1
+call Main.setPlayerTileY 1
+pop temp 0
+push local 0
+push local 1
+call Event.WalkOn 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Main.goDown 5
+push constant 3
+pop static 9
+call Main.getPlayerTileX 0
+pop local 0
+call Main.getPlayerTileY 0
+pop local 1
+push local 1
+push constant 1
+add
+pop local 1
+push argument 0
+push local 0
+push local 1
+call MapBlock256.get 3
+pop local 2
+push static 0
+push local 2
+call TileSet.getTile 2
+pop local 3
+push local 3
+call Tile.getSolid 1
+pop local 4
+push local 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Main.setPlayerTileX 1
+pop temp 0
+push local 1
+call Main.setPlayerTileY 1
+pop temp 0
+push local 0
+push local 1
+call Event.WalkOn 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Main.goLeft 5
+push constant 0
+pop static 9
+call Main.getPlayerTileX 0
+pop local 0
+call Main.getPlayerTileY 0
+pop local 1
+push local 0
+push constant 1
+sub
+pop local 0
+push argument 0
+push local 0
+push local 1
+call MapBlock256.get 3
+pop local 2
+push static 0
+push local 2
+call TileSet.getTile 2
+pop local 3
+push local 3
+call Tile.getSolid 1
+pop local 4
+push local 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Main.setPlayerTileX 1
+pop temp 0
+push local 1
+call Main.setPlayerTileY 1
+pop temp 0
+push local 0
+push local 1
+call Event.WalkOn 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Main.goRight 5
+push constant 2
+pop static 9
+call Main.getPlayerTileX 0
+pop local 0
+call Main.getPlayerTileY 0
+pop local 1
+push local 0
+push constant 1
+add
+pop local 0
+push argument 0
+push local 0
+push local 1
+call MapBlock256.get 3
+pop local 2
+push static 0
+push local 2
+call TileSet.getTile 2
+pop local 3
+push local 3
+call Tile.getSolid 1
+pop local 4
+push local 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Main.setPlayerTileX 1
+pop temp 0
+push local 1
+call Main.setPlayerTileY 1
+pop temp 0
+push local 0
+push local 1
+call Event.WalkOn 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Main.getPlayerDirection 0
+push static 9
+return
+function Main.getPlayerX 0
+push static 2
+push constant 239
+add
+return
+function Main.getPlayerY 0
+push static 3
+push constant 112
+add
+return
+function Main.setPlayerX 0
+push argument 0
+push constant 239
+sub
+pop static 2
+push constant 0
+return
+function Main.setPlayerY 0
+push argument 0
+push constant 112
+sub
+pop static 3
+push constant 0
+return
+function Main.setPlayerTileX 0
+push argument 0
+push constant 32
+call Math.multiply 2
+call Main.setPlayerX 1
+pop temp 0
+push constant 0
+return
+function Main.setPlayerTileY 0
+push argument 0
+push constant 32
+call Math.multiply 2
+call Main.setPlayerY 1
+pop temp 0
+push constant 0
+return
+function Main.getPlayerTileX 1
+call Main.getPlayerX 0
+pop local 0
+push local 0
+push constant 32
+call Math.divide 2
+return
+function Main.getPlayerTileY 1
+call Main.getPlayerY 0
+pop local 0
+push local 0
+push constant 32
+call Math.divide 2
+return
+function Main.getInside 0
+push static 4
+return
+function Main.setInside 0
+push argument 0
+pop static 4
+push constant 0
+return
+function Main.getEvent 0
+push static 5
+return
+function Main.setEvent 0
+push argument 0
+pop static 5
+push constant 0
+return
+function Main.getMap 0
+push static 6
+return
+function Main.setMap 0
+push argument 0
+pop static 6
+push constant 0
+return
+function Main.getviewX 0
+push static 2
+return
+function Main.getviewXY 0
+push static 3
+return
+function Main.getUpdating 0
+push static 1
+return
+function Main.getCurrentTileSet 0
+push static 0
+return
+function Main.getinMenu 0
+push static 8
+return
+function Main.setinMenu 0
+push argument 0
+pop static 8
+push constant 0
+return
+function Main.getMapChange 0
+push static 7
+return
+function Main.setMapChange 0
+push argument 0
+pop static 7
+push constant 0
+return

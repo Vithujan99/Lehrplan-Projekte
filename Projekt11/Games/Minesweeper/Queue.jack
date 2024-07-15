@@ -1,0 +1,36 @@
+class Queue {
+    field Array storage;
+    field int   head;
+    field int   tail;
+
+    constructor Queue new(int n) {
+        let storage = Array.new(n);
+        let head = 0;
+        let tail = 0;
+        return this;
+    }
+
+	method void dispose() {
+        do storage.dispose();
+        return;
+    }
+
+    method int pop() {
+        let head = head + 1;
+        return storage[head - 1];
+    }
+
+    method int peek() {
+        return storage[head];
+    }
+
+    method boolean isEmpty() {
+        return (head = tail);
+    }
+
+    method void push(int e) {
+        let storage[tail] = e;
+        let tail = tail + 1;
+        return;
+    }
+}

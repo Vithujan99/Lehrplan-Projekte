@@ -1,0 +1,513 @@
+class Main {
+	static Array meshes;
+	static int meshCount;
+	static int playerX, playerZ, ammo;
+	static int demonCount;
+	static boolean playing;
+
+	function void main() {
+		do MainMenu.displayMainMenuAndAwaitGameStart();
+		let playing = true;
+		let ammo = 5;
+		do Main.play();
+
+		return;
+	}
+
+	function void play() {
+		var Array tmp;
+		let meshCount = 12;
+		let meshes = Array.new(12);
+
+		// let meshes[0] = Mesh.new(200, 0, -40, 0, 254, 60); // rechte Wand
+		// let meshes[1] = Mesh.new(-200, 0, -40, 0, 254, 60); // linke Wand
+		// let meshes[2] = Mesh.new(200, 0, 20, 160, 254, 0); // rechts weiter
+
+		/*let meshes[0] = Mesh.new(5, 0, 0, 0, 5, 15); // rechte Wand
+		let meshes[1] = Mesh.new(-5, 0, 0, 0, 5, 15); // linke Wand
+		let meshes[2] = Mesh.new(5, 0, 15, 15, 5, 0); // rechts weiter
+		let meshes[3] = Mesh.new(-5, 0, 15, -15, 5, 0); // links weiter
+		let meshes[4] = Mesh.new(-20, 0, 25, 40, 5, 0); // hinten*/
+
+		let meshes[0] = Mesh.new(20, 0, 0, 60, 0); // rechte Wand
+		let meshes[1] = Mesh.new(-20, 0, 0, 60, 1); // linke Wand
+		let meshes[2] = Mesh.new(20, 60, 60, 0, 2); // rechts weiter
+		let meshes[3] = Mesh.new(-80, 60, 60, 0, 3); // links weiter
+		let meshes[4] = Mesh.new(-120, 100, 240, 0, 4); // hintere Wand
+
+		let meshes[5] = Mesh.new(-80, 0, 0, 60, 5);
+		let meshes[6] = Mesh.new(-80, 0, 60, 0, 6);
+		let meshes[7] = Mesh.new(80, 0, 0, 60, 7);
+		let meshes[8] = Mesh.new(20, 0, 60, 0, 8);
+
+		let meshes[9] = Mesh.new(-120, -40, 0, 140, 9);
+		let meshes[10] = Mesh.new(120, -40, 0, 140, 10);
+
+		let meshes[11] = Mesh.new(-120, -40, 240, 0, 11);
+
+		do Mesh.createCos();
+		do Mesh.createSin();
+
+		do Renderer.init();
+		do Main.sortMeshesByZ(0, meshCount - 1);
+		do Main.updateDisplay(true);
+		do Main.printAmmo();
+
+		while(playing) {
+			do Main.tick();
+		}
+
+		return;
+	}
+
+	function void tick() {
+		var int shouldUpdate;
+		let shouldUpdate = Main.updateMovement();
+		
+		if(shouldUpdate) {
+			do Main.updateDisplay(true);
+			do Main.printAmmo();
+		}
+
+		if((playerX > -20) & (playerX < 20) & (playerZ < -30) & (playerZ > -34) & (demonCount = 0)) {
+			do Main.fightDemon();
+		}
+		if((playerX > -14) & (playerX < 8) & (playerZ < -220) & (playerZ > -224) & (demonCount = 1)) {
+			do Main.fightDemon();
+		}
+
+		if((playerX > -42) & (playerX < -20) & (playerZ < -418) & (playerZ > -422) & (demonCount = 2)) {
+			do Main.fightDemon();
+		}
+		
+		do Sys.wait(10);
+		return;
+	}
+
+	function void fightDemon() {
+		var int hit, j;
+		do Demon.draw1();
+		do Main.drawGun();
+
+		while(hit = 0) {
+			let hit = Keyboard.keyPressed();
+			if(~(hit = 32)) {
+				let hit = 0;
+			}
+			let j = j + 1;
+			if(j > 200) {
+				let hit = 1;
+			}
+			do Sys.wait(1);
+		}
+
+		if((hit = 1) | (ammo = 0)) {
+			let playing = false;
+			do Screen.setColor(false);
+			do Screen.drawRectangle(0, 0, 511, 255);
+			do Output.moveCursor(11, 7);
+			do Output.printString("The demons have slayed you and brought you to hell!");
+		} else {
+			if(hit = 32) {
+				do Demon.draw6();
+				do Demon.drawFlash();
+				do Main.drawGun();
+				do Sys.wait(300);
+				do Demon.draw6();
+				do Main.drawGun();
+				do Sys.wait(700);
+				do Screen.setColor(false);
+				do Screen.drawRectangle(0, 0, 511, 255);
+				do Main.updateDisplay(true);
+				let demonCount = demonCount + 1;
+				let ammo = ammo - 1;
+				do Main.printAmmo();
+			}
+		}
+
+		return;
+	}
+
+	function void printAmmo() {
+		do Output.moveCursor(22, 0);
+		do Output.printString("Ammo: ");
+		do Output.printInt(ammo);
+		do Output.printString("/05");
+		return;
+	}
+
+	function int updateMovement() {
+		var int key, dx, dz, rot, i, j;
+		var Mesh tmp;
+		var boolean stuck;
+		let stuck = false;
+		let key = Keyboard.keyPressed();
+
+		if(key = 87) {
+			let dz = -2;
+			let playerZ = playerZ - 2;
+		}
+
+		if(key = 83) {
+			let dz = 2;
+			let playerZ = playerZ + 2;
+		}
+
+		if(key = 65) {
+			let dx = 2;
+			let playerX = playerX + 2;
+		}
+
+		if(key = 68) {
+			let dx = -2;
+			let playerX = playerX - 2;
+		}
+
+		if(key = 130) {
+			let rot = -6;
+		}
+
+		if(key = 132) {
+			let rot = 6;
+		}
+	
+		if((key = 32) & (ammo > 0)) {
+			do Demon.drawFlash();
+			do Sys.wait(200);
+			do Screen.setColor(false);
+			do Screen.drawRectangle(0, 0, 511, 255);
+			do Main.updateDisplay(true);
+			let ammo = ammo - 1;
+			do Main.printAmmo();
+		}
+
+		if(key = 80) {
+			let i = 0;
+			while(i < meshCount) {
+				let tmp = meshes[i];
+				do tmp.print();
+				let i = i + 1;
+			}
+		}
+
+		if(key = 84) {
+			do Output.printInt(playerX);
+			do Output.printString(" ");
+			do Output.printInt(playerZ);
+			do Output.println();
+		} 
+
+		let i = 0;
+
+		if((~(dx = 0)) | (~(dz = 0))) {
+			while((i < meshCount) & (~stuck)) {
+				let tmp = meshes[i];
+				do tmp.translate(dx, dz);
+				if(tmp.stuckInWall()) {
+					let stuck = true;
+				}
+				let i = i + 1;
+			}
+			if(stuck) {
+				while(j < i) {
+					let tmp = meshes[j];
+					do tmp.translate(-dx, -dz);
+					let j = j + 1;
+				}
+			}
+			do Main.sortMeshesByZ(0, meshCount - 1);
+		}
+
+		if((key = 130) | (key = 132)) {
+			let j = 0;
+			while(j < 15) {
+				let i = 0;
+				while(i < meshCount) {
+					let tmp = meshes[i];
+					do tmp.rotate(rot);
+					let i = i + 1;
+				}
+				do Main.sortMeshesByZ(0, meshCount - 1);
+				do Main.updateDisplay(true);
+				do Sys.wait(40);
+				let j = j + 1;
+			}
+		}
+
+		return (key = 87) | (key = 83) | (key = 65) | (key = 68) | (key = 130) | (key = 132);
+	}
+
+	function void updateDisplay(int pass) {
+		var int i;
+		var Mesh tmp;
+
+		do Renderer.reset();
+		
+		while (i < meshCount) {
+			let tmp = meshes[i];
+			do tmp.draw();
+			let i = i + 1;
+		}
+
+		// do Screen.setColor(false);
+		// do Screen.drawRectangle(206, 214, 306, 255);
+		do Renderer.clearPaint();
+		do Renderer.paint(pass);
+		do Main.drawGun();
+
+		return;
+	}
+
+	function void drawGun() {
+		do Memory.poke(23311, 4);
+		do Memory.poke(23343, 11);
+		do Memory.poke(23375, 1);
+		do Memory.poke(23407, 2938);
+		do Memory.poke(23439, 4832);
+		do Memory.poke(23470, 16384 + 16384);
+		do Memory.poke(23471, -30209);
+		do Memory.poke(23503, -6702);
+		do Memory.poke(23534, 24576);
+		do Memory.poke(23535, 3855);
+		do Memory.poke(23536, 7);
+		do Memory.poke(23567, 16142);
+		do Memory.poke(23598, 2048);
+		do Memory.poke(23599, 15879);
+		do Memory.poke(23631, 15366);
+		do Memory.poke(23632, 192);
+		do Memory.poke(23662, 2304);
+		do Memory.poke(23663, 24614);
+		do Memory.poke(23664, -1054);
+		do Memory.poke(23665, 3);
+		do Memory.poke(23694, -9216);
+		do Memory.poke(23695, 16767);
+		do Memory.poke(23696, 24304);
+		do Memory.poke(23726, -17024);
+		do Memory.poke(23727, 25214);
+		do Memory.poke(23728, 16368);
+		do Memory.poke(23729, 2);
+		do Memory.poke(23758, 32256);
+		do Memory.poke(23759, -7007);
+		do Memory.poke(23760, -16);
+		do Memory.poke(23761, 8);
+		do Memory.poke(23790, -16512);
+		do Memory.poke(23791, -22489);
+		do Memory.poke(23792, -1168);
+		do Memory.poke(23793, 99);
+		do Memory.poke(23822, -64);
+		do Memory.poke(23823, 95);
+		do Memory.poke(23824, -528);
+		do Memory.poke(23825, 7455);
+		do Memory.poke(23826, 4);
+		do Memory.poke(23854, -512);
+		do Memory.poke(23855, 223);
+		do Memory.poke(23856, 29680);
+		do Memory.poke(23857, -8673);
+		do Memory.poke(23858, 4);
+		do Memory.poke(23886, -4096);
+		do Memory.poke(23887, 16863);
+		do Memory.poke(23888, -4108);
+		do Memory.poke(23889, -577);
+		do Memory.poke(23890, 15);
+		do Memory.poke(23918, -6144);
+		do Memory.poke(23919, 16415);
+		do Memory.poke(23920, -24584);
+		do Memory.poke(23921, -97);
+		do Memory.poke(23922, 63);
+		do Memory.poke(23950, 31232);
+		do Memory.poke(23951, 20831);
+		do Memory.poke(23952, 32736);
+		do Memory.poke(23953, -65);
+		do Memory.poke(23954, 63);
+		do Memory.poke(23982, -968);
+		do Memory.poke(23983, 21727);
+		do Memory.poke(23984, -64);
+		do Memory.poke(23985, -68);
+		do Memory.poke(23986, 125);
+		do Memory.poke(24014, -96);
+		do Memory.poke(24015, 20927);
+		do Memory.poke(24016, -766);
+		do Memory.poke(24017, -615);
+		do Memory.poke(24018, 127);
+		do Memory.poke(24045, 16384 + 16384);
+		do Memory.poke(24046, -97);
+		do Memory.poke(24047, -31297);
+		do Memory.poke(24048, -1536);
+		do Memory.poke(24049, -25);
+		do Memory.poke(24050, 127);
+		do Memory.poke(24077, 16384 + 16384);
+		do Memory.poke(24078, -825);
+		do Memory.poke(24079, 4031);
+		do Memory.poke(24080, -4095);
+		do Memory.poke(24081, -49);
+		do Memory.poke(24082, 255);
+		do Memory.poke(24109, -16384);
+		do Memory.poke(24110, -253);
+		do Memory.poke(24111, 3071);
+		do Memory.poke(24112, -10240);
+		do Memory.poke(24113, -193);
+		do Memory.poke(24114, 255);
+		do Memory.poke(24141, -8192);
+		do Memory.poke(24142, -1023);
+		do Memory.poke(24143, 8191);
+		do Memory.poke(24144, -8190);
+		do Memory.poke(24145, -385);
+		do Memory.poke(24146, 511);
+		do Memory.poke(24173, -4096);
+		do Memory.poke(24174, -4096);
+		do Memory.poke(24175, 27599);
+		do Memory.poke(24176, -8188);
+		do Memory.poke(24177, -1537);
+		do Memory.poke(24178, 511);
+		do Memory.poke(24205, 30720);
+		do Memory.poke(24206, -8192);
+		do Memory.poke(24207, -825);
+		do Memory.poke(24208, -16328);
+		do Memory.poke(24209, -3073);
+		do Memory.poke(24210, 511);
+		do Memory.poke(24237, 10240);
+		do Memory.poke(24238, -16370);
+		do Memory.poke(24239, -5177);
+		do Memory.poke(24240, -16352);
+		do Memory.poke(24241, -12291);
+		do Memory.poke(24242, 1023);
+		do Memory.poke(24269, 24576);
+		do Memory.poke(24270, -32752);
+		do Memory.poke(24271, -25);
+		do Memory.poke(24272, -32704);
+		do Memory.poke(24273, -3);
+		do Memory.poke(24274, 1967);
+		do Memory.poke(24301, -15360);
+		do Memory.poke(24303, 32739);
+		do Memory.poke(24304, 33);
+		do Memory.poke(24305, -5);
+		do Memory.poke(24306, 4095);
+		do Memory.poke(24334, 448);
+		do Memory.poke(24335, 32737);
+		do Memory.poke(24336, 1217);
+		do Memory.poke(24337, -16);
+		do Memory.poke(24338, 4095);
+		do Memory.poke(24366, 896);
+		do Memory.poke(24367, -31);
+		do Memory.poke(24368, 522);
+		do Memory.poke(24369, -16);
+		do Memory.poke(24370, 8191);
+		do Memory.poke(24397, -512);
+		do Memory.poke(24398, 194);
+		do Memory.poke(24399, -64);
+		do Memory.poke(24400, 1028);
+		do Memory.poke(24401, -160);
+		do Memory.poke(24402, 8191);
+		do Memory.poke(24429, -128);
+		do Memory.poke(24430, 2047);
+		do Memory.poke(24431, -3200);
+		do Memory.poke(24432, 1029);
+		do Memory.poke(24433, -320);
+		do Memory.poke(24434, 16383);
+		do Memory.poke(24461, -4);
+		do Memory.poke(24462, 1023);
+		do Memory.poke(24463, -320);
+		do Memory.poke(24464, 555);
+		do Memory.poke(24465, -640);
+		do Memory.poke(24466, 16383);
+		do Memory.poke(24493, -2);
+		do Memory.poke(24494, 511);
+		do Memory.poke(24495, -704);
+		do Memory.poke(24496, 1043);
+		do Memory.poke(24497, -256);
+		do Memory.poke(24498, 32767);
+		do Memory.poke(24525, -1025);
+		do Memory.poke(24526, 511);
+		do Memory.poke(24527, 8464);
+		do Memory.poke(24528, 17);
+		do Memory.poke(24529, -512);
+		do Memory.poke(24530, 32767);
+		do Memory.poke(24556, 16384 + 16384);
+		do Memory.poke(24557, -1);
+		do Memory.poke(24558, 511);
+		do Memory.poke(24559, 1464);
+		do Memory.poke(24560, 176);
+		do Memory.poke(24561, -11776);
+		do Memory.poke(24562, -1);
+		return;
+	}
+
+	function void sortMeshesByZ(int l, int r) {
+		var int curr_size, l, m, r, i, j, k, n1, n2, minZ1, minZ2;
+		var Array L, R;
+		var Mesh tmp1, tmp2;
+
+		let curr_size = 1;
+		let L = Array.new(meshCount);
+		let R = Array.new(meshCount);
+
+		while (curr_size < meshCount) {
+			let l = 0;
+			while (l < (meshCount - 1)) {
+				if ((meshCount - 1) < (l + curr_size - 1)) {
+					let m = meshCount - 1;
+				} else {
+					let m = l + curr_size - 1;
+				}
+
+				if ((meshCount - 1) < (l + curr_size + curr_size - 1)) {
+					let r = meshCount - 1;
+				} else {
+					let r = l + curr_size + curr_size - 1;
+				}
+
+				let n1 = m - l + 1;
+				let n2 = r - m;
+
+				let i = 0;
+				while (i < n1) {
+					let L[i] = meshes[l + i];
+					let i = i + 1;
+				}
+				let j = 0;
+				while (j < n2) {
+					let R[j] = meshes[m + 1 + j];
+					let j = j + 1;
+				}
+
+				let i = 0;
+				let j = 0;
+				let k = l;
+				while ((i < n1) & (j < n2)) {
+					let tmp1 = L[i];
+					let tmp2 = R[j];
+					let minZ1 = tmp1.minZ();
+					let minZ2 = tmp2.minZ();
+					if ((minZ1 < minZ2) | (minZ1 = minZ2)) {
+						let meshes[k] = L[i];
+						let i = i + 1;
+					} else {
+						let meshes[k] = R[j];
+						let j = j + 1;
+					}
+					let k = k + 1;
+				}
+				
+				while (i < n1) {
+					let meshes[k] = L[i];
+					let i = i + 1;
+					let k = k + 1;
+				}
+				
+				while (j < n2) {
+					let meshes[k] = R[j];
+					let j = j + 1;
+					let k = k + 1;
+				}
+
+				let l = l + curr_size + curr_size;
+			}
+			let curr_size = curr_size + curr_size;
+		}
+
+		do L.dispose();
+		do R.dispose();
+
+		return;
+	}
+}

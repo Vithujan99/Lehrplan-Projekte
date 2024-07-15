@@ -1,0 +1,14 @@
+class Main {
+   function void main() {
+      var boolean x;
+      let x = test();
+      do Output.printInt(x);
+      return;
+   }
+
+   function boolean test(){
+      do Output.printInt(5);
+      return true;
+   }
+   
+}

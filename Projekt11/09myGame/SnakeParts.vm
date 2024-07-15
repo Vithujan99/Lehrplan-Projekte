@@ -1,0 +1,110 @@
+function SnakeParts.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+call List.new 2
+pop this 0
+push constant 1
+pop this 2
+push this 0
+pop this 1
+push pointer 0
+return
+function SnakeParts.getSize 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function SnakeParts.push 1
+push argument 0
+pop pointer 0
+push argument 1
+push argument 2
+call List.new 2
+pop local 0
+push this 0
+push local 0
+call List.setNext 2
+pop temp 0
+push local 0
+pop this 0
+push this 2
+push constant 1
+add
+pop this 2
+push constant 0
+return
+function SnakeParts.pop 2
+push argument 0
+pop pointer 0
+push this 1
+call List.getNext 1
+pop local 0
+push this 1
+call List.getX 1
+push this 1
+call List.getY 1
+call List.new 2
+pop local 1
+push this 1
+call Memory.deAlloc 1
+pop temp 0
+push local 0
+pop this 1
+push this 2
+push constant 1
+sub
+pop this 2
+push local 1
+return
+function SnakeParts.crash 1
+push argument 0
+pop pointer 0
+push this 1
+pop local 0
+label whileL2
+push local 0
+push this 0
+eq
+not
+not
+if-goto whileL3
+push local 0
+call List.getX 1
+push this 0
+call List.getX 1
+eq
+push local 0
+call List.getY 1
+and
+push this 0
+call List.getY 1
+eq
+not
+if-goto ifL4
+push constant 1
+neg
+return
+goto ifL5
+label ifL4
+label ifL5
+push local 0
+call List.getNext 1
+pop local 0
+goto whileL2
+label whileL3
+push constant 0
+return
+function SnakeParts.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call List.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

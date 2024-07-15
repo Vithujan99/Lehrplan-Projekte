@@ -1,0 +1,196 @@
+class Board {
+
+    field int   minesTotal;
+    field int   flagsTotal;
+    field int   tilesUncovered;
+    field Array m;
+
+    constructor Board new(int seed) {
+        let minesTotal = 0;
+        let flagsTotal = 0;
+        let tilesUncovered = 0;
+        let m = Array.new(169);
+        do placeMines(seed);
+        do calculateProximityNumbers();
+        // do Display.drawDebugTilemap(this);
+
+        do Display.drawGameScreen(minesTotal);
+        
+        return this;
+    }
+
+	method void dispose() {
+        do m.dispose();
+        return;
+    }
+
+    method int tileAt(int v, int h) {
+        var int index;
+        let index = v*13 + h;
+        return m[index];
+    }
+
+    method void placeMines(int seed) {
+        var int v, h, index, newSeed, count;
+        var PseudoRNG r;
+        let newSeed = seed;
+        let count = 0;
+        while (count < 20) {
+            let newSeed = PseudoRNG.nextRandom(newSeed);
+            let v = Main.modulo(newSeed, 13);
+            let newSeed = PseudoRNG.nextRandom(newSeed);
+            let h = Main.modulo(newSeed, 13);
+            let index = v*13 + h;
+            if (m[index] = 9) { } else {
+                let minesTotal = minesTotal + 1;
+            }
+            let m[index] = 9;
+            let count = count + 1;
+        }
+        return;
+    }
+    method void calculateProximityNumbers() {
+        var int v, h;
+        var int count, temp;
+        let v = 0;
+        while (v<13) {
+            let h = 0;
+            while (h<13) {
+
+                if (v>0)  {             let temp = (v-1)*13 + h;   if (m[temp] = 9) { let count = count + 1; }   }
+                if (v>0)  { if (h>0)  { let temp = (v-1)*13 + h-1; if (m[temp] = 9) { let count = count + 1; } } }
+                if (v>0)  { if (h<12) { let temp = (v-1)*13 + h+1; if (m[temp] = 9) { let count = count + 1; } } }
+                if (v<12) {             let temp = (v+1)*13 + h;   if (m[temp] = 9) { let count = count + 1; }   }
+                if (v<12) { if (h>0)  { let temp = (v+1)*13 + h-1; if (m[temp] = 9) { let count = count + 1; } } }
+                if (v<12) { if (h<12) { let temp = (v+1)*13 + h+1; if (m[temp] = 9) { let count = count + 1; } } }
+                            if (h>0)  { let temp =     v*13 + h-1; if (m[temp] = 9) { let count = count + 1; } } 
+                            if (h<12) { let temp =     v*13 + h+1; if (m[temp] = 9) { let count = count + 1; } } 
+
+                let temp = v*13 + h;
+                if (m[temp] = 9) { } else {
+                    let m[temp] = count;
+                }
+                let count = 0;
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+
+    method int revealTile(int v, int h) {
+        var int index, code;
+        var boolean skip;
+        let index = v*13 + h;
+        if (m[index] = 0) { 
+            do destroyConnectedTiles(v, h);
+            do Display.drawCorrespondingTileAt(2, 15, m[index]); 
+            let skip = true;
+            let code = 0;
+        }
+        if (m[index] < 9) { if (~skip) {
+            let m[index] = m[index] + 20; 
+            do Display.drawCursorEmptyTile(v+1, h+1); 
+            do Display.drawCorrespondingTileAt(2, 15, m[index]); 
+            let tilesUncovered = tilesUncovered + 1;
+            let skip = true;
+            let code = 0;
+        }}
+        if (m[index] = 9) { if (~skip) {
+            let m[index] = m[index] + 20; 
+            do Display.drawCorrespondingTileAt(v+1, h+1, m[index]); 
+            do revealMines();
+            return -1;
+        }}
+        do Output.moveCursor(9, 30);
+        do Output.printInt(tilesUncovered);
+        if (tilesUncovered = (169 - minesTotal)) { let code = 1; }
+        return code;
+    }
+
+    method void flagTile(int v, int h) {
+        var int index;
+        let index = v*13 + h;
+        if (m[index] > 9 ) { if (m[index] < 20) { 
+            let m[index] = m[index] - 10; 
+            do Display.drawCorrespondingTileAt(2, 15, m[index]);
+            let flagsTotal = flagsTotal - 1;
+        }} else { if (m[index] < 10) { 
+            let m[index] = m[index] + 10;
+            do Display.drawCorrespondingTileAt(2, 15, m[index]);
+            let flagsTotal = flagsTotal + 1;
+        }}
+        do Output.moveCursor(7, 30);
+        do Output.printInt(flagsTotal);
+        do Display.drawCorrespondingTileAt(v+1, h+1, m[index]);
+        return;
+    }
+
+    method void revealMines() {
+        var int v, h, index;
+        let v = 0;
+        while (v<13) {
+            let h = 0;
+            while (h<13) {
+                let index = v*13 + h;
+                if (m[index] = 9) { 
+                    let m[index] = 29; 
+                    do Display.drawCorrespondingTileAt(v+1, h+1, m[index]); 
+                }
+                if (m[index] = 19) { 
+                    let m[index] = 29; 
+                    do Display.drawCorrespondingTileAt(v+1, h+1, m[index]); 
+                }
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+
+    method void destroyConnectedTiles(int vIn, int hIn) {
+        var Queue q;
+        var int v, h, index, temp;
+        let q = Queue.new(338);
+        let index = vIn*13 + hIn;
+        do q.push(vIn);
+        do q.push(hIn);
+        
+        while (~(q.isEmpty())) {
+            let v = q.pop();
+            let h = q.pop();
+            let index = v*13 + h;
+            if (m[index] = 0 ) { let temp = 1;}
+            if (m[index] = 20) { let temp = 1;}
+            if (temp = 1) {
+                if (v>0)  { do destroyHelper(v-1, h, q); }
+                if (v<12) { do destroyHelper(v+1, h, q); }
+                if (h>0)  { do destroyHelper(v, h-1, q); }
+                if (h<12) { do destroyHelper(v, h+1, q); }
+            }
+            if (m[index]<9) { 
+                let m[index] = m[index] + 20; 
+                let tilesUncovered = tilesUncovered + 1;
+            }
+            let temp = 0;
+            do Display.drawCorrespondingTileAt(v+1, h+1, m[index]);
+        }
+        do q.dispose();
+        let index = vIn*13 + hIn;
+        do Display.drawCorrespondingCursorAt(vIn+1, hIn+1, m[index]);
+        return;
+    }
+    method void destroyHelper(int v, int h, Queue q) {
+        var int index;
+        let index = v*13 + h;
+        if (m[index] < 9) { 
+            do q.push(v); 
+            do q.push(h);
+            let m[index] = m[index] + 20;
+            let tilesUncovered = tilesUncovered + 1;
+            do Display.drawCorrespondingTileAt(v+1, h+1, m[index]); 
+        }
+        return;
+    }
+
+}

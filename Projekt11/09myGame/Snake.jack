@@ -1,0 +1,98 @@
+class Snake {
+
+   field int x,y;
+   field int size;
+   field int length;
+   field int direction;
+   field SnakeParts fullSnake;
+   
+
+   constructor Snake new(int Ax, int Ay, int Asize){
+      let x = Ax;
+      let y = Ay;
+      let size = Asize;
+      let direction = 132;
+      let length = 1;
+      let fullSnake = SnakeParts.new(Ax, Ay);
+      do drawFinal(Ax, Ay, true);
+      return this;
+   }
+
+   method void drawFinal(int Ax, int Ay, boolean t){
+      do Screen.setColor(t);
+      do Screen.drawRectangle(Ax,Ay, Ax+size, Ay+size);
+      return;
+   }
+
+   method void draw(){
+      var List end;
+      do fullSnake.push(x,y);
+      if(length < fullSnake.getSize()){
+         let end = fullSnake.pop();
+         do drawFinal(end.getX(), end.getY(), false);
+      }
+      do drawFinal(x, y, true);
+      return;
+   }
+
+   method void move(){
+      if (direction = 130){
+         let x = x - size;
+      }
+      if (direction = 131){
+         let y = y - size;
+      }
+      if (direction = 132){
+         let x = x + size;
+      }
+      if (direction = 133){
+         let y = y + size;
+      }
+      return;
+   }
+
+   method void increaseLength(){
+      let length = length + 1;
+      return;
+   }
+
+   method boolean eat(Food food){
+      if((x = food.getX()) & (y = food.getY())){
+         return true;
+      }else{
+         return false;
+      }
+   }
+
+   method boolean crash(){
+      if((x<0) | (x>509) | (y<0) | (y>249)){
+         return true;
+      }else{
+         return false;
+      }
+   }
+
+   method boolean selfCrash(){
+      return fullSnake.crash();
+   }
+
+   method void setDirection(int dir){
+      var int temp;
+      var int temp2;
+      let temp = dir + 2;
+      let temp2 = dir - 2;
+      if(~(direction = temp2)){
+         if(~(direction = temp)){
+            let direction = dir;
+         }
+      }
+      return;
+   }
+
+   method void dispose(){
+      do Memory.deAlloc(this);
+      return;
+   }
+
+
+}

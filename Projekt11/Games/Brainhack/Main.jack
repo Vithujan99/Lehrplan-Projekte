@@ -1,0 +1,22 @@
+/** Interactive Brainf*ck Interpreter for Hack-Platform */
+class Main {
+    function void main() {
+        var String code, input;
+        var Brainhack brainhack;
+
+        do Output.moveCursor(1, 8);
+        do Output.printString("Welcome to Brainhack!");
+
+        do Output.moveCursor(5, 8);
+        let code = Keyboard.readLine("Enter your code:");
+
+        do Output.moveCursor(6, 8);
+        let input = Keyboard.readLine("Enter your input:");
+
+        let brainhack = Brainhack.new(code, input);
+        do brainhack.run();
+        do brainhack.dispose();
+        return;
+    }
+
+}

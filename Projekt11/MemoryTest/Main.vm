@@ -1,0 +1,248 @@
+function Main.main 5
+push constant 8000
+push constant 333
+call Memory.poke 2
+pop temp 0
+push constant 8000
+call Memory.peek 1
+pop local 0
+push local 0
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 8001
+push local 0
+push constant 1
+add
+call Memory.poke 2
+pop temp 0
+push constant 8001
+call Memory.peek 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 3
+call Array.new 1
+pop local 2
+push local 2
+push constant 2
+add
+push constant 222
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 2
+push constant 2
+add
+pop pointer 1
+push that 0
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 8002
+push local 2
+push constant 2
+add
+pop pointer 1
+push that 0
+call Memory.poke 2
+pop temp 0
+push constant 8002
+call Memory.peek 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 0
+pop local 1
+push constant 3
+call Array.new 1
+pop local 3
+push local 3
+push constant 1
+add
+push local 2
+push constant 2
+add
+pop pointer 1
+push that 0
+push constant 100
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 3
+push local 2
+eq
+not
+if-goto ifL2
+push local 1
+push constant 1
+eq
+not
+if-goto ifL4
+push constant 8003
+push local 3
+push constant 1
+add
+pop pointer 1
+push that 0
+push local 1
+add
+call Memory.poke 2
+pop temp 0
+push constant 8003
+call Memory.peek 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 0
+pop local 1
+push constant 500
+call Array.new 1
+pop local 4
+push local 4
+push constant 499
+add
+push local 2
+push constant 2
+add
+pop pointer 1
+push that 0
+push local 3
+push constant 1
+add
+pop pointer 1
+push that 0
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 4
+push local 2
+eq
+not
+if-goto ifL6
+push local 1
+push constant 1
+eq
+not
+if-goto ifL8
+push local 4
+push local 3
+eq
+not
+if-goto ifL10
+push local 1
+push local 1
+eq
+push constant 10
+add
+not
+if-goto ifL12
+push constant 8004
+push local 4
+push constant 499
+add
+pop pointer 1
+push that 0
+push local 1
+add
+call Memory.poke 2
+pop temp 0
+push constant 8004
+call Memory.peek 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 2
+call Array.dispose 1
+pop temp 0
+push local 3
+call Array.dispose 1
+pop temp 0
+push constant 0
+pop local 1
+push constant 3
+call Array.new 1
+pop local 3
+push local 3
+push constant 0
+add
+push local 4
+push constant 499
+add
+pop pointer 1
+push that 0
+push constant 90
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 3
+push local 4
+eq
+not
+if-goto ifL14
+push local 1
+push constant 1
+eq
+not
+if-goto ifL16
+push constant 8005
+push local 3
+push constant 0
+add
+pop pointer 1
+push that 0
+push local 1
+add
+call Memory.poke 2
+pop temp 0
+push constant 8005
+call Memory.peek 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 4
+call Array.dispose 1
+pop temp 0
+push local 3
+call Array.dispose 1
+pop temp 0
+push constant 0
+return
+goto ifL17
+label ifL16
+label ifL17
+goto ifL15
+label ifL14
+label ifL15
+goto ifL13
+label ifL12
+label ifL13
+goto ifL11
+label ifL10
+label ifL11
+goto ifL9
+label ifL8
+label ifL9
+goto ifL7
+label ifL6
+label ifL7
+goto ifL5
+label ifL4
+label ifL5
+goto ifL3
+label ifL2
+label ifL3

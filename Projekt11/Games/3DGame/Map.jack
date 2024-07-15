@@ -1,0 +1,63 @@
+
+class Map{
+    field int width, height;
+    field Array map;
+
+    constructor Map new(int w, int h){
+        var int i;
+
+        let width = w;
+        let height = h;
+        let map = Array.new(width*height);
+        let i = 0;
+        return this;
+    }
+
+    method void setWall(int x, int y){
+        let map[(y*width)+x] = true;
+        return;
+    }
+
+    method void setEmpty(int x, int y){
+        let map[(y*width)+x] = false;
+        return;
+    }
+
+    method boolean isWall(int x, int y){
+        return map[(y*width)+x];
+    }
+
+    method int height(){
+        return height;
+    }
+
+    method int width(){
+        return width;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw(boolean wall, int posx, int posy, int scale) {
+        var int x, y, i;
+        var int shiftedWidth, shiftedHeight;
+        let shiftedWidth = (width*scale)+posx;
+        let shiftedHeight = (height*scale)+posy;
+        do Screen.setColor(wall);
+        let y = posy;
+        while (y<shiftedHeight) {
+                let x = posx;
+            while (x<shiftedWidth) {
+                if(map[i] = wall){
+                do Screen.drawRectangle(x, y, x+scale-1, y+scale-1);
+                }
+                let x = x+scale;
+                let i = i+1;
+            }
+            let y = y+scale;
+        }
+        return;
+    }
+}

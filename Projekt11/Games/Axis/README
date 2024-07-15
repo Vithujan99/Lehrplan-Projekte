@@ -1,0 +1,36 @@
+Ziel: Schieße den Gegenspieler mit einer Funktion ab.
+
+
+Ablauf einer Runde:
+
+Der Spieler, der an der Reihe ist, gibt eine Funktionsvorschrift (s.u.) ein und drückt ENTER. Danach wird die Funktion beginnend bei der Spielerposition von links nach rechts gezeichnet. Sobal sie mit einem Hinderniss kollidiert, wird dieses zerstört. Wird der gegnerische Spieler getroffen, ist das Spiel gewonnen. Wenn nicht gewonnen wurde, wird das Spielfeld gespiegelt und der andere Spieler ist an der Reihe.
+
+
+Beispiele für gültige Funktionsvorschriften:
+
+Eingabe         Funktion
+2X1             2*x
+1/2X2           1/2*x^2
+1X1+-1/3X3      1*x-1/3*x^3
+2S1             2*sin(x)
+-1/3S1/2        -1/3*sin(1/2*x)
+1X2+-3S1        1*x^2-3*sin(x)
+
+Also die Summe von cXn und cSc, wobei c ein Bruch aus einer ganzen und einer natürlichen Zahl ist und n = 1,2,3.
+
+        Zum Testen: Spieler 1 gewinnt mit f(x) = 1S1/2+-1/20X1.
+                    Spieler 2 gewinnt mit f(x) = -1S1.
+
+
+Beispiele für _un_gültige Funktionsvorschriften:
+
+ungültige Eing. korrekte Eingabe
+2X              2X1
+2X1-3X2         2X1+-3X2
+.5X2            1/2X2
+1/-2X2          -1/2X2
+1X1+2X1         3X1
+2sin(x)         2S1
+S(1/2X)         1S1/2
+1X4             N/A
+1/0X1           How dare you!

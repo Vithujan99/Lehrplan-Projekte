@@ -1,0 +1,56 @@
+//2 Tiles in einer Linie nebeneinander
+class MapLine {
+    field Array Line;
+   // field Array Event;
+    
+    constructor MapLine new(){
+        let Line=Array.new(2);
+        //let Event=Array.new(2);
+        let Line[0]=0;
+        let Line[1]=0;
+     //   let Event[0]=Event.new();
+      //  let Event[1]=Event.new();
+        if(Main.getInside()){
+            let Line[0]=1;
+            let Line[1]=1;
+        }
+        return this;
+    }
+    method int getX(int x){
+        return Line[x];
+    }
+    method void set(int x, int Tile){
+        let Line[x]=Tile;
+        return;
+    }
+    method int getEvent(int x){
+      //  return Event[x];
+        return null;
+    }
+    method void setEvent(int x, int e){
+        /*let Event[x]=e;*/
+        return;
+    }
+    
+    method void draw(int x, int y){
+        var TileSet set;
+        var Tile tile;
+        let set=Main.getCurrentTileSet();
+        let tile=set.getTile(Line[0]);
+        do tile.drawTile(x, y, false);
+        let tile=set.getTile(Line[1]);
+        do tile.drawTile(x+32, y, false);
+        return;
+    }
+    
+    method void dispose(){
+        do Line.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    method void print(){
+        do Output.printInt(Line[0]);
+        do Output.printInt(Line[1]);
+        return;
+    }
+}

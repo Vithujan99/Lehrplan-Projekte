@@ -1,0 +1,11 @@
+class Main {
+   function void main() {
+      var int sum;
+      var int i;
+      for(let i = 0; i < 100; let i = i + 1;){
+        let sum = sum + i;
+      }
+      do Output.printInt(sum);
+      return;
+   }
+}

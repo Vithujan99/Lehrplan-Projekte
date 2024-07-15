@@ -1,0 +1,352 @@
+class AxisGame {
+
+	/** false = Player 1's turn */
+	field bool currentPlayer;
+	
+	/** -1: no winner yet, 1/2: player 1/2 won */
+	field int winner;
+	
+	/** 
+	 * Represents the map (contains the  players and obstacles to be drawn, but no function graphs),
+	 * consisting of 4 px x 4 px "blocks"
+	 * first "index" is column, second one row, access by col+(row*127) */
+	field Array map;
+	
+	/**
+	 * Objects holding the player information.
+	 */
+	field Player player1, player2;
+
+	/**
+	 * Constructs a new Axis Game.
+	 */
+	constructor AxisGame new() {
+		var int i;
+		
+		let map = Array.new(63*127); // hehe, our small heap // TODO why 63, not 64? > Might have been b/c of missing parantheses
+		let i = 0;
+		while (i < (63*127)) {
+			let map[i] = false; // reset for new game
+			let i = i + 1;
+		}
+		do generateObstacle(30, 15, 8, 20);
+		do generateObstacle(91, 42, 13, 8);
+		
+		let player1 = Player.new(5, 18, map); // can be hit by f(x) = -1S1
+		let player2 = Player.new(120, 29, map);
+		
+		let currentPlayer = false;
+		let winner = -1;
+		
+		do drawmap();
+
+		return this;
+	}
+
+	/**
+	 * Deallocates the object's memory.
+	 */
+	method void dispose() {
+		do player1.dispose();
+		do player2.dispose();
+		do map.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	/**
+	 * Redraws the complete screen, hence also removing any visible user input.
+	 * Of course it's slow, it's called animation.
+	 */
+	method void drawmap() {
+		var int row, col;
+		
+		let col = 0;
+		while (col < 127) {
+			let row = 0;
+			while (row < 63) {
+				do Screen.setColor(map[col + (row * 127)]);
+				do Screen.drawRectangle(4*(col), 4*(row), 4*(col+1), 4*(row+1));
+				let row = row + 1;
+			}
+			let col = col + 1;
+		}
+		
+		return;
+	}
+	
+	/**
+	 * Draws the given function, with origin at the current player's position, until it collides with something.
+	 * If it collides with a player, the winner is set accordingly.
+	 * @param f the function to be plotted
+	 * @returns false if f could not be parsed
+	 */
+	method bool drawFunction(String f) {
+		var int x3, x2, x1;
+		var int x3Denominator, x2Denominator, x1Denominator;
+		var int outerCoefSin, outerDenominatorSin, innerCoefSin, innerDenominatorSin;
+		var int currentCoefficient;
+		var int currentDenominator;
+		var int currentPower;
+		var int i;
+		var int originX, originY;
+		var int x, y;
+		
+		let x3Denominator = 1;
+		let x2Denominator = 1;
+		let x1Denominator = 1;
+		let outerDenominatorSin = 1;
+		let innerDenominatorSin = 1;
+		let currentDenominator = 1;
+		
+		let i = 0;
+		while (i < f.length()) { // hm, became quite ugly ...
+			let currentCoefficient = MathTools.strToInt(f, i);
+			let i = i + MathTools.lengthOf(currentCoefficient);
+			if(~(i < f.length())) {
+				do Output.printString("Unsupported expression, sry :((( ");
+				do Output.printInt(i);
+				return false;
+			}
+			if(f.charAt(i) = 47) { // 47 = /
+				let i = i + 1;
+				let currentDenominator = MathTools.strToInt(f, i);
+				let i = i + MathTools.lengthOf(currentDenominator);
+				if(currentDenominator = 0) {
+					do MathTools.breakMath();
+					do drawmap();
+					return false;
+				}
+			}
+			if(~(i < f.length())) {
+				do Output.printString("Unsupported expression, sry :(( ");
+				do Output.printInt(i);
+				return false;
+			}
+			if(f.charAt(i) = 88) { // 88 = X
+				let i = i + 1;
+				let currentPower = MathTools.strToInt(f, i);
+				if (currentPower = 3) {
+					let x3 = currentCoefficient;
+					let x3Denominator = currentDenominator;
+				} else{ if (currentPower = 2) {
+					let x2 = currentCoefficient;
+					let x2Denominator = currentDenominator;
+				} else{ if (currentPower = 1) {
+					let x1 = currentCoefficient;
+					let x1Denominator = currentDenominator;
+				} else {
+					do Output.printString("Unsupported power, sry :( ");
+					do Output.printInt(currentPower);
+					return false;
+				}}}
+				let currentDenominator = 1; // reset in case it won't be set again by user
+				let i = i + MathTools.lengthOf(currentPower);
+			} else{ if(f.charAt(i) = 83) { // 83 = S
+				let i = i + 1;
+				let innerCoefSin = MathTools.strToInt(f, i);
+				let i = i + MathTools.lengthOf(innerCoefSin);
+				let innerDenominatorSin = 1;
+				if(i < f.length()) {
+					if(f.charAt(i) = 47) { // 47 = /
+						let i = i + 1;
+						let innerDenominatorSin = MathTools.strToInt(f, i);
+						let i = i + MathTools.lengthOf(innerDenominatorSin);
+						if(innerDenominatorSin = 0) {
+							do MathTools.breakMath();
+							do drawmap();
+							return false;
+						}
+					}
+				}
+				let outerCoefSin = currentCoefficient;
+				let outerDenominatorSin = currentDenominator;
+				let currentDenominator = 1;
+			} else {
+				do Output.printString("Unsupported expression, sry :( ");
+				do Output.printInt(i);
+				do Output.printChar(f.charAt(i));
+				return false;
+			}}
+			let i = i + 1; // assume a + // TODO maybe support -
+		}
+		
+		if(~currentPlayer) {
+			let originX = player1.getX();
+			let originY = player1.getY();
+		} else {
+			let originX = player2.getX();
+			let originY = player2.getY();
+		}
+		
+		do Output.println();
+		do Output.printInt(x3);
+		do Output.printString("/");
+		do Output.printInt(x3Denominator);
+		do Output.printString("x^3+");
+		do Output.printInt(x2); 
+		do Output.printString("/");
+		do Output.printInt(x2Denominator);
+		do Output.printString("x^2+");
+		do Output.printInt(x1); 
+		do Output.printString("/");
+		do Output.printInt(x1Denominator);
+		do Output.printString("x+");
+		do Output.printInt(outerCoefSin); 
+		do Output.printString("/");
+		do Output.printInt(outerDenominatorSin);
+		do Output.printString("sin(");
+		do Output.printInt(innerCoefSin); 
+		do Output.printString("/");
+		do Output.printInt(innerDenominatorSin);
+		do Output.printString("x)");
+		
+		let i = 0;
+		while (i < 127) { // the x value is i/10, so for every vector, multiply it's coefficient with 10 and devide x^n by 10^n
+			let x = i + originX + Player.getLength(); // to not kill the player
+			let y = originY - ( (10*x3*i/x3Denominator/10*i/10*i/10) + (10*x2*i/x2Denominator/10*i/10) + (10*x1*i/x1Denominator/10) + (outerCoefSin*MathTools.sin10(innerCoefSin*i, innerDenominatorSin)/outerDenominatorSin) );  // remember that coordinate systems are different
+			if(~(drawPointIfFree(x, y))) {
+				do destroy(x, y);
+				if(~currentPlayer) {
+					if(player2.collides(x,y)) {
+						let winner = 1;
+					}
+				} else {
+					if(player1.collides(x,y)) {
+						let winner = 2;
+					}
+				}
+				return true;
+			}
+			let i = i + 1;
+			do Sys.wait(50);
+		}
+		
+		do Sys.wait(500);
+		
+		return true;
+	}
+	
+	/**
+	 * Draws a 4 px x 4 px point on the screen (but does not save it in the map) if the postion is empty on the map
+	 * and not too much out of screen.
+	 * @param col 
+	 */
+	method bool drawPointIfFree(int col, int row) {
+		if ( (row < 63) & (row > 0) ) {
+			if ( (col < 127) & (col > 0) ) {
+				if(~map[col + (127 * row)]) { // only continue if pixel is set
+					do Screen.setColor(true);
+					do Screen.drawRectangle(4*(col), 4*(row), 4*(col+1), 4*(row+1));
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		return ( (row < (63+50)) & (row > (0-50)) ); // also return true if function is out of screen a bit (in y direction)
+	}
+	
+	/**
+	 * Destroys the block at the given position (ie. removes it from screen and map).
+	 * @param row row of the block (left to right, starting at 0)
+	 * @param col column of the block (top to bottom, startin at 0)
+	 */
+	method void destroy(int col, int row) {
+		if ( (row < 63) & (row > 0) &  (col < 127) & (col > 0) ) {
+			do Screen.setColor(false);
+			let map[col + (127 * row)] = false;
+		}
+		return;
+	}
+	
+	/**
+	 * Completes a turn, eg. changes player, mirrors the map (but does not redraw it) and the player positions.
+	 */
+	method void turn() {
+		var int col, row, tmp;
+		
+		let currentPlayer = ~currentPlayer;
+		
+		let col=0;
+		while (col < (127/2)) {
+			let row = 0;
+			while (row < 63) {
+				let tmp = map[col + (127 * row)];
+				let map[col + (127 * row)] = map[(127-col-1) + (127 * row)];
+				let map[(127-col-1) + (127 * row)] = tmp;
+				let row = row + 1;
+			}
+			let col = col + 1;
+		}
+		
+		do player1.turn(127);
+		do player2.turn(127);
+		
+		return;
+	}
+
+	/**
+	 * Starts the game and contains the game loop.
+	 * Asks for a function, draws it, shows winner message (if there is a winner), and handles redraws and turns.
+	 * @returns true if the user wants to play again
+	 */
+	method bool run() {
+		var boolean valid;
+		var String f;
+		var char key;
+		
+		while (true) {
+			let valid = false;
+			while(~valid) {
+				do Output.moveCursor(0,0);
+				let f = Keyboard.readLine("f(x) = ");
+				let valid = drawFunction(f);
+			}
+			if (~(winner = -1)) {
+				do Output.println();
+				do Output.println();
+				do Output.printString("   The winner is player ");
+				do Output.printInt(winner);
+				do Output.printString(".");
+				do Output.println();
+				do Output.println();
+				do Output.printString("Press any key to play again, ESC to exit.");
+				let key = Keyboard.readChar();
+				return ~(key = 140); // = ESC ??
+			}
+			do drawmap();
+			do turn();
+			do drawmap();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Generates an obstacle at the given position on the map (but does not draw them to the screen).
+	 * @param x the column
+	 * @param y the row
+	 * @param w width
+	 * @param h height
+	 */
+	method void generateObstacle(int x, int y, int w, int h) {
+		var int row, col;
+		var int x, y, w, h;
+		
+		let col = x;
+		while (col < (x+w)) { // Kingers, dat mit den Kalmmern geht iwie auf die Nerven ...
+			let row = y;
+			while (row < (y+h)) {
+				let map[col + (row * 127)] = true;
+				let row = row + 1;
+			}
+			let col = col + 1;
+		}
+		
+		return;
+	}
+	
+}

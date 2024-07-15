@@ -1,0 +1,20 @@
+class TestM {
+    field int x,y;
+    static int d;
+    constructor TestM new(int a, int b) {
+      var int g;
+      let g = 5;
+      let x = a;
+      let y = b;
+      let d = 10 + g;
+      return this;
+   }
+   
+   method int add (int z){
+        return x + y + z; 
+   }
+
+   function int sadd(int z){
+      return z + d;
+   }
+}

@@ -1,0 +1,169 @@
+class Game {
+    field boolean gameOver;
+    field int score;
+    field int tick;
+    field int time;
+    field char key;
+    
+    constructor Game new() {
+        let gameOver = false;
+        let score = 0;
+        let tick = 0;
+        let time = 0;
+
+        return this;
+    }
+
+    method void title() {
+        do Graphics.drawTitle(0);
+        do Graphics.present(0);
+
+        while (~key) {
+            let tick = tick + 1;
+            let key = Keyboard.keyPressed();
+        }
+        do Random.setSeed(tick);
+        do start();
+
+        return;
+    }
+
+    method void start() {
+        var boolean continue0;
+        var boolean continue1;
+        var int obstaclePos;
+
+        let tick = 0;
+        let obstaclePos = Random.randRange(2);
+        let continue1 = false;
+
+        do Output.moveCursor(1, 1);
+        do Output.printString("Score ");
+        
+        while (~gameOver) {
+            let continue0 = false;
+            let key = Keyboard.keyPressed();
+
+            // Base Render
+            do Graphics.drawBase(0);
+            if (Math2.modN(tick, 8) < 4) {
+                do Graphics.drawRoad1(0);
+                do Graphics.drawField1(0);
+            }
+            else {
+                do Graphics.drawRoad2(0);
+                do Graphics.drawField2(0);
+
+            }
+            if (Math2.modN(tick, 4) < 2) {
+                do Graphics.drawKerbs1(0);
+            } else {
+                do Graphics.drawKerbs2(0);
+            }
+
+            // Obstacle Render
+            if (Math2.modN(time, 8) = 0) {
+                if (obstaclePos = 0) {
+                    do Graphics.drawRoadblockLeftTiny(0);
+                }
+                if (obstaclePos = 1) {
+                    do Graphics.drawRoadblockMiddleTiny(0);
+                }
+                if (obstaclePos = 2) {
+                    do Graphics.drawRoadblockRightTiny(0);
+                }
+            }
+            if (Math2.modN(time, 8) = 1) {
+                if (obstaclePos = 0) {
+                    do Graphics.drawRoadblockLeftSmall(0);
+                }
+                if (obstaclePos = 1) {
+                    do Graphics.drawRoadblockMiddleSmall(0);
+                }
+                if (obstaclePos = 2) {
+                    do Graphics.drawRoadblockRightSmall(0);
+                }
+            }
+            if (Math2.modN(time, 8) = 2) {
+                if (obstaclePos = 0) {
+                    do Graphics.drawRoadblockLeftMedium(0);
+                }
+                if (obstaclePos = 1) {
+                    do Graphics.drawRoadblockMiddleMedium(0);
+                }
+                if (obstaclePos = 2) {
+                    do Graphics.drawRoadblockRightMedium(0);
+                }
+            }
+            if (Math2.modN(time, 8) = 3) {
+                if (obstaclePos = 0 & ~continue1) {
+                    do Graphics.drawRoadblockLeftLarge(0);
+                    let continue1 = true;
+                    if (key = 130) {
+                        let continue0 = true;
+                        let gameOver = true;
+                    }
+                }
+                if (obstaclePos = 1 & ~continue1) {
+                    do Graphics.drawRoadblockMiddleLarge(0);
+                    let continue1 = true;
+                    if (~(key = 130) & ~(key = 132)) {
+                        let continue0 = true;
+                        let gameOver = true;
+                    }
+                }
+                if (obstaclePos = 2 & ~continue1) {
+                    do Graphics.drawRoadblockRightLarge(0);
+                    let continue1 = true;
+                    if (key = 132) {
+                        let continue0 = true;
+                        let gameOver = true;
+                    }
+                }
+                let obstaclePos = Random.randRange(2);
+                
+            }
+            
+            // Input & Car Render
+            if (key = 130 & ~continue0) { // left arrow
+                do Graphics.drawCarLeft(0);
+                let continue0 = true;
+            }
+            if (key = 132 & ~continue0) { // right arrow
+                do Graphics.drawCarRight(0);
+                let continue0 = true;
+            }
+            if (~(key = 130) & ~(key = 132) & ~continue0) {
+                do Graphics.drawCarMiddle(0);
+                let continue0 = true;
+            }
+            if (key = 140) { // esc
+                let gameOver = true;
+                let continue0 = true;
+            }
+
+            // Timer
+            do Output.moveCursor(1, 7);
+            do Output.printInt(time);
+            if (Math2.modN(tick, 32) = 0) {
+                let time = time + 1;
+                let continue1 = false;
+            }
+            let tick = tick + 1;
+            if (tick = 32767) {
+                let tick = 7;
+            }
+
+            do Graphics.present(2048);
+        }
+        
+        // Game Over
+        let score = time; // for now
+        do Screen.clearScreen();
+        do Output.moveCursor(10, 25);
+        do Output.printString("Score: ");
+        do Output.printInt(score);
+
+        return;
+    }
+}
